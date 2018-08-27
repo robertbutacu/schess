@@ -9,5 +9,5 @@ object Board {
 
   // somehow, figure out whether its a straight move, or a diagonal one
   // also, figure out when it's not a legal move
-  def arePieceInWay(board: Board, from: PiecePosition, to: PiecePosition): Boolean = ???
+  def isObstructedPath(board: Board, from: PiecePosition, to: PiecePosition): Boolean = ???
 }
