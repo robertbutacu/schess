@@ -9,8 +9,9 @@ object Board {
   //stall is when
   def isStall(board: Board, playerToPlay: Player): Boolean = ???
 
-
   def isEndGame(board: Board, playerToPlay: Player): Boolean = ???
+
+  def isCheckState(board: Board, playerToPlay: Player): Boolean = ???
 
   // somehow, figure out whether its a straight move, or a diagonal one
   // also, figure out when it's not a legal move
