@@ -10,5 +10,7 @@ trait BoardState {
   def player1KingPosition: PiecePosition
   def player2KingPosition: PiecePosition
 
+  def isPlayerKingUncovered: Boolean
+
   def next: BoardState
 }
