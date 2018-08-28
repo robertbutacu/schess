@@ -7,11 +7,7 @@ import players.Player
 
 case class Board(table: List[List[Piece]], player1: Player, player2: Player)
 
-
-//TODO maybe make the board to be an ADT for all possible table position? check/piece taken out/stallmate/checkmate
-//TODO and make that act independently
 object Board {
-  //stall is when
   def isStall(board: Board, playerToPlay: Player): Boolean = ???
 
   def isEndGame(board: Board, playerToPlay: Player): Boolean = ???

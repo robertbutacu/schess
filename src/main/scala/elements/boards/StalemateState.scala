@@ -1,5 +1,6 @@
 package elements.boards
 import actions.PiecePosition
+import elements.pieces.Piece
 import players.Player
 
 case class StalemateState() extends BoardState {
@@ -8,6 +9,8 @@ case class StalemateState() extends BoardState {
   override def player2: Player = ???
 
   override def playerTurn: Int = ???
+
+  override def pieces: List[List[Piece]] = ???
 
   override def player1KingPosition: PiecePosition = ???
 
