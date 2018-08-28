@@ -1,11 +1,15 @@
-package pieces
+package elements.boards
 
 import actions.PiecePosition
+import elements.pieces.{Empty, Piece}
 import errors.{ChessError, IllegalMove}
 import players.Player
 
 case class Board(table: List[List[Piece]], player1: Player, player2: Player)
 
+
+//TODO maybe make the board to be an ADT for all possible table position? check/piece taken out/stallmate/checkmate
+//TODO and make that act independently
 object Board {
   //stall is when
   def isStall(board: Board, playerToPlay: Player): Boolean = ???
@@ -14,8 +18,6 @@ object Board {
 
   def isCheckState(board: Board, playerToPlay: Player): Boolean = ???
 
-  // somehow, figure out whether its a straight move, or a diagonal one
-  // also, figure out when it's not a legal move
   def isObstructedPath(board: Board, from: PiecePosition, to: PiecePosition): Either[Boolean, ChessError] = {
     require(movedPiece)
 

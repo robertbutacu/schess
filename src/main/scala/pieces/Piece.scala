@@ -1,3 +1,0 @@
-package pieces
-
-trait Piece

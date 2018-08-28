@@ -1,6 +1,6 @@
 package players
 import actions.Move
-import pieces.Board
+import elements.boards.Board
 
 case class HumanPlayer(name: String) extends Player {
   override def askForMove(board: Board): Move = ???
