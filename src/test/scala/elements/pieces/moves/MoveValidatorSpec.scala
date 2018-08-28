@@ -4,6 +4,7 @@ import actions.PiecePosition
 import elements.pieces._
 import org.scalatest.FlatSpec
 import players.AIPlayer
+import elements.pieces.moves.MoveValidator._
 
 class MoveValidatorSpec extends FlatSpec {
   val genericPlayer = AIPlayer("XXX", 1)
@@ -54,14 +55,20 @@ class MoveValidatorSpec extends FlatSpec {
     assertThrows[IllegalArgumentException](invalidPiece6)
   }
 
-
-
-
   "A rook " should " make valid moves " in {
+    assert(rook.isValidMove(PiecePosition(4, 7)) === true)// moving along Y axis up
+    assert(rook.isValidMove(PiecePosition(4, 0)) === true)// moving along Y axis down
+    assert(rook.isValidMove(PiecePosition(7, 4)) === true)// moving along X axis up
+    assert(rook.isValidMove(PiecePosition(0, 4)) === true)// moving along X axis down
   }
 
   "A rook" should "not make valid moves " in {
-
+    //TODO fix
+    // assert(rook.isValidMove(PiecePosition(4, 4)) === false )// standing still
+    assert(rook.isValidMove(PiecePosition(2, 3)) === false )
+    assert(rook.isValidMove(PiecePosition(3, 5)) === false )
+    assert(rook.isValidMove(PiecePosition(7, 7)) === false )
+    assert(rook.isValidMove(PiecePosition(0, 0)) === false )
   }
 
   "A queen " should " make valid moves " in {
@@ -97,10 +104,16 @@ class MoveValidatorSpec extends FlatSpec {
   }
 
   "A knight " should " make valid moves " in {
-
+    assert(knight.isValidMove(PiecePosition(5, 6)) === true)
+    assert(knight.isValidMove(PiecePosition(5, 2)) === true)
+    assert(knight.isValidMove(PiecePosition(3, 2)) === true)
+    assert(knight.isValidMove(PiecePosition(3, 6)) === true)
   }
 
   "A knight" should "not make valid moves " in {
-
+    assert(knight.isValidMove(PiecePosition(5, 7)) === false)
+    assert(knight.isValidMove(PiecePosition(4, 5)) === false)
+    assert(knight.isValidMove(PiecePosition(3, 4)) === false)
+    assert(knight.isValidMove(PiecePosition(3, 7)) === false)
   }
 }
