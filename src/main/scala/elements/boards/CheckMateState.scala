@@ -10,7 +10,9 @@ case class CheckMateState() extends BoardState {
 
   override def next: BoardState = ???
 
-  override def isPlayerKingUncovered: Boolean = ???
+  override def isPlayerKingUncovered: Boolean = {
+    ???
+  }
 
   override def pieces: List[List[Piece]] = ???
 }

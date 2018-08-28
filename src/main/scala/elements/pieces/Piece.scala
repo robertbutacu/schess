@@ -1,3 +1,7 @@
 package elements.pieces
 
-trait Piece
+import players.Player
+
+trait Piece {
+  def owner: Option[Player]
+}

@@ -6,4 +6,6 @@ case class King(player: Player) extends Piece {
   override def toString: String =
     if(player.index == 1) "Ki1"
     else "Ki2"
+
+  override def owner: Option[Player] = Some(player)
 }
