@@ -1,0 +1,3 @@
+package errors
+
+trait ChessError
