@@ -8,6 +8,8 @@ import players.Player
 case class Board(table: List[List[Piece]], player1: Player, player2: Player)
 
 object Board {
+  def isValidMove(piece: Piece, to: PiecePosition): Boolean = ???
+
   def isStall(board: Board, playerToPlay: Player): Boolean = ???
 
   def isEndGame(board: Board, playerToPlay: Player): Boolean = ???
@@ -66,5 +68,8 @@ object Board {
     */
   def play: Player = ???
 
-  private def isEmptyPosition(board: Board, X: Int, Y: Int) = board.table(X)(Y) == Empty
+  private def isEmptyPosition(board: Board, X: Int, Y: Int) = board.table(X)(Y) match {
+    case Empty(_) => true
+    case _ => false
+  }
 }
