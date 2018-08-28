@@ -8,6 +8,11 @@ import players.Player
 case class Board(table: List[List[Piece]], player1: Player, player2: Player)
 
 object Board {
+
+  def isStraightMove(from: PiecePosition, to: PiecePosition): Boolean = from.X == to.X || from.Y == to.Y
+
+  def isDiagonalMove(from: PiecePosition, to: PiecePosition): Boolean = Math.abs(from.X - to.X) == Math.abs(from.Y - to.Y)
+
   def isValidMove(piece: Piece, to: PiecePosition): Boolean = ???
 
   def isStall(board: Board, playerToPlay: Player): Boolean = ???
@@ -18,14 +23,9 @@ object Board {
 
   def isClearPath(board: Board, from: PiecePosition, to: PiecePosition): Either[Boolean, ChessError] = {
     require(movedPiece)
-
-    def isStraightMove: Boolean = from.X == to.X || from.Y == to.Y
-
-    def isDiagonalMove: Boolean = Math.abs(from.X - to.X) == Math.abs(from.Y - to.Y)
-
     def movedPiece: Boolean = from.X != to.X || from.Y != to.Y
 
-    (isDiagonalMove, isStraightMove) match {
+    (isDiagonalMove(from, to), isStraightMove(from, to)) match {
       case (true, _) =>
         def getDirection(from: Int, to: Int): Int = {
           from - to match {
