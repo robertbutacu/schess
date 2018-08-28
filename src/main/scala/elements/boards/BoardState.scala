@@ -15,5 +15,7 @@ trait BoardState {
 
   def isPlayerKingUncovered: Boolean
 
+  def revertBoard: List[List[Piece]] = this.pieces.reverse
+
   def next: BoardState
 }
