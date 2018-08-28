@@ -16,7 +16,7 @@ object Board {
 
   def isCheckState(board: Board, playerToPlay: Player): Boolean = ???
 
-  def isObstructedPath(board: Board, from: PiecePosition, to: PiecePosition): Either[Boolean, ChessError] = {
+  def isClearPath(board: Board, from: PiecePosition, to: PiecePosition): Either[Boolean, ChessError] = {
     require(movedPiece)
 
     def isStraightMove: Boolean = from.X == to.X || from.Y == to.Y
