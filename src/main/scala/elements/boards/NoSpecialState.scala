@@ -10,7 +10,7 @@ case class NoSpecialState() extends BoardState {
 
   override def pieces: List[List[Piece]] = ???
 
-  override def next: BoardState = ???
+  override def next: Option[BoardState] = ???
 
   override def isPlayerKingUncovered: Boolean = ???
 }

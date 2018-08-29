@@ -13,5 +13,5 @@ trait BoardState {
 
   def revertBoard: List[List[Piece]] = this.pieces.reverse
 
-  def next: BoardState
+  def next: Option[BoardState]
 }

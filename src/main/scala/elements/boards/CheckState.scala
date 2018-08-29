@@ -8,7 +8,7 @@ case class CheckState() extends BoardState {
 
   override def kingsPositions: KingsPositions = ???
 
-  override def next: BoardState = ???
+  override def next: Option[BoardState] = ???
 
   override def pieces: List[List[Piece]] = ???
 
