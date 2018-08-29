@@ -22,11 +22,10 @@ object MoveValidator {
 
   implicit class KingValidator(king: King) extends MoveValidator {
     override def isValidMove(to: PiecePosition): Boolean = {
+      val horizontalDif = to.X - king.piecePosition.X
+      val verticalDif = to.Y - king.piecePosition.Y
 
-      val horizontalMove = List(-1, 0, 1)
-      val verticalMove = List(-1, 0, 1)
-
-      isAmongAllMoves(king, verticalMove, horizontalMove, to)
+      isAmongAllMoves(verticalDif, horizontalDif, -1, 1, -1, 1)
     }
   }
 
@@ -37,28 +36,25 @@ object MoveValidator {
 
   implicit class KnightValidator(knight: Knight) extends MoveValidator {
     override def isValidMove(to: PiecePosition): Boolean = {
-      val horizontalMove = List(-1, +1)
-      val verticalMove = List(+2, -2)
+      val verticalDif = to.X - knight.piecePosition.X
+      val horizontalDif = to.Y - knight.piecePosition.Y
 
-      isAmongAllMoves(knight, verticalMove, horizontalMove, to)
+      isAmongAllMoves(verticalDif, horizontalDif, -2, +2, -1, +1)
     }
   }
 
   implicit class PawnValidator(pawn: Pawn) extends MoveValidator {
     override def isValidMove(to: PiecePosition): Boolean = {
-      val verticalMove = List(-1, 0, +1)
-      val horizontalMove = List(0, +1)
+      val verticalMove = to.X - pawn.piecePosition.X
+      val horizontalMove = to.Y - pawn.piecePosition.Y
 
-      isAmongAllMoves(pawn, verticalMove, horizontalMove, to)
-
+      verticalMove == 1 && (horizontalMove >= -1 && horizontalMove <= 1)
     }
   }
 
-  private def isAmongAllMoves(piece: Piece, verticalMove: List[Int], horizontalMove: List[Int], to: PiecePosition): Boolean = {
-    horizontalMove.exists { x =>
-      verticalMove.exists { y =>
-        piece.piecePosition.X + x == to.X && piece.piecePosition.Y + y == to.Y
-      }
-    }
-  }
+  private def isAmongAllMoves(verticalDif: Int, horizontalDif: Int,
+                              verticalLow: Int, verticalHigh: Int,
+                              horizontalLow: Int, horizontalHigh: Int): Boolean =
+    verticalDif <= verticalHigh && verticalDif >= verticalLow && horizontalDif >= horizontalLow && horizontalDif <= horizontalHigh
+
 }
