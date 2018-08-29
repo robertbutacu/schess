@@ -3,12 +3,15 @@ package elements.boards
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.Piece
 
-case class CheckMateState() extends BoardState {
+case class CheckmateState() extends BoardState {
   override def players: Players = ???
 
   override def kingsPositions: KingsPositions = ???
 
-  override def next: Option[BoardState] = ???
+  override def next: Option[BoardState] = {
+    println(s"""${players.getPlayerTurn} has won! Sorry, ${players.getOtherPlayerTurn}.""")
+    None
+  }
 
   override def isPlayerKingUncovered: Boolean = {
     ???

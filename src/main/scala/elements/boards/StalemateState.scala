@@ -10,7 +10,11 @@ case class StalemateState() extends BoardState {
 
   override def kingsPositions: KingsPositions = ???
 
-  override def next: Option[BoardState] = ???
+  override def next: Option[BoardState] = {
+    println(s"""It's a stalemate! Nobody won.""")
+    None
+  }
+
 
   override def isPlayerKingUncovered: Boolean = ???
 }
