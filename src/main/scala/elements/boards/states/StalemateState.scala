@@ -4,10 +4,8 @@ import elements.boards.BoardState
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.Piece
 
-case class StalemateState() extends BoardState {
+case class StalemateState(pieces: List[List[Piece]]) extends BoardState {
   override def players: Players = ???
-
-  override def pieces: List[List[Piece]] = ???
 
   override def kingsPositions: KingsPositions = ???
 

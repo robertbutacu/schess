@@ -4,7 +4,7 @@ import elements.boards.BoardState
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.Piece
 
-case class CheckmateState() extends BoardState {
+case class CheckmateState(pieces: List[List[Piece]]) extends BoardState {
   override def players: Players = ???
 
   override def kingsPositions: KingsPositions = ???
@@ -17,6 +17,4 @@ case class CheckmateState() extends BoardState {
   override def isPlayerKingUncovered: Boolean = {
     ???
   }
-
-  override def pieces: List[List[Piece]] = ???
 }
