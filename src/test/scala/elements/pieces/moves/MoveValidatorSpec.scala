@@ -1,6 +1,7 @@
 package elements.pieces.moves
 
 import actions.PiecePosition
+import elements.boards.states.NoSpecialState
 import elements.pieces._
 import org.scalatest.FlatSpec
 import players.AIPlayer
@@ -16,6 +17,8 @@ class MoveValidatorSpec extends FlatSpec {
   lazy val bishop = Bishop(genericPlayer, genericPosition)
   lazy val pawn = Pawn(genericPlayer, genericPosition)
   lazy val knight = Knight(genericPlayer, genericPosition)
+
+  lazy val board = NoSpecialState(List.empty)
 
 
   /**
@@ -35,17 +38,22 @@ class MoveValidatorSpec extends FlatSpec {
     *
     * 0   0.0    1.0   2.0   3.0   4.0   5.0   6.0   7.0
     *
-    *      0      1     2     3     4     5     6     7
+    * 0      1     2     3     4     5     6     7
     */
 
 
   "Initialization with bad position" should "fail " in {
-    lazy val invalidPiece1 = Pawn(genericPlayer, PiecePosition(-1,0))//X low
-    lazy val invalidPiece2 = Pawn(genericPlayer, PiecePosition(1,-1))//Y low
-    lazy val invalidPiece3 = Pawn(genericPlayer, PiecePosition(1,8))//Y high
-    lazy val invalidPiece4 = Pawn(genericPlayer, PiecePosition(-1,-2))//both low
-    lazy val invalidPiece5 = Pawn(genericPlayer, PiecePosition(11,0))//X high
-    lazy val invalidPiece6 = Pawn(genericPlayer, PiecePosition(11,11))//both high
+    lazy val invalidPiece1 = Pawn(genericPlayer, PiecePosition(-1, 0))
+    //X low
+    lazy val invalidPiece2 = Pawn(genericPlayer, PiecePosition(1, -1))
+    //Y low
+    lazy val invalidPiece3 = Pawn(genericPlayer, PiecePosition(1, 8))
+    //Y high
+    lazy val invalidPiece4 = Pawn(genericPlayer, PiecePosition(-1, -2))
+    //both low
+    lazy val invalidPiece5 = Pawn(genericPlayer, PiecePosition(11, 0))
+    //X high
+    lazy val invalidPiece6 = Pawn(genericPlayer, PiecePosition(11, 11)) //both high
 
     assertThrows[IllegalArgumentException](invalidPiece1)
     assertThrows[IllegalArgumentException](invalidPiece2)
@@ -56,19 +64,19 @@ class MoveValidatorSpec extends FlatSpec {
   }
 
   "A rook " should " make valid moves " in {
-    assert(rook.isValidMove(PiecePosition(4, 7)) === true)// moving along Y axis up
-    assert(rook.isValidMove(PiecePosition(4, 0)) === true)// moving along Y axis down
-    assert(rook.isValidMove(PiecePosition(7, 4)) === true)// moving along X axis up
-    assert(rook.isValidMove(PiecePosition(0, 4)) === true)// moving along X axis down
+    assert(board.isValidMove(rook, PiecePosition(4, 7)) === true) // moving along Y axis up
+    assert(board.isValidMove(rook, PiecePosition(4, 0)) === true) // moving along Y axis down
+    assert(board.isValidMove(rook, PiecePosition(7, 4)) === true) // moving along X axis up
+    assert(board.isValidMove(rook, PiecePosition(0, 4)) === true) // moving along X axis down
   }
 
   "A rook" should "not make valid moves " in {
     //TODO fix
     // assert(rook.isValidMove(PiecePosition(4, 4)) === false )// standing still
-    assert(rook.isValidMove(PiecePosition(2, 3)) === false )
-    assert(rook.isValidMove(PiecePosition(3, 5)) === false )
-    assert(rook.isValidMove(PiecePosition(7, 7)) === false )
-    assert(rook.isValidMove(PiecePosition(0, 0)) === false )
+    assert(board.isValidMove(rook, PiecePosition(2, 3)) === false)
+    assert(board.isValidMove(rook, PiecePosition(3, 5)) === false)
+    assert(board.isValidMove(rook, PiecePosition(7, 7)) === false)
+    assert(board.isValidMove(rook, PiecePosition(0, 0)) === false)
   }
 
   "A queen " should " make valid moves " in {
@@ -104,16 +112,16 @@ class MoveValidatorSpec extends FlatSpec {
   }
 
   "A knight " should " make valid moves " in {
-    assert(knight.isValidMove(PiecePosition(5, 6)) === true)
-    assert(knight.isValidMove(PiecePosition(5, 2)) === true)
-    assert(knight.isValidMove(PiecePosition(3, 2)) === true)
-    assert(knight.isValidMove(PiecePosition(3, 6)) === true)
+    assert(board.isValidMove(knight, PiecePosition(5, 6)) === true)
+    assert(board.isValidMove(knight, PiecePosition(5, 2)) === true)
+    assert(board.isValidMove(knight, PiecePosition(3, 2)) === true)
+    assert(board.isValidMove(knight, PiecePosition(3, 6)) === true)
   }
 
   "A knight" should "not make valid moves " in {
-    assert(knight.isValidMove(PiecePosition(5, 7)) === false)
-    assert(knight.isValidMove(PiecePosition(4, 5)) === false)
-    assert(knight.isValidMove(PiecePosition(3, 4)) === false)
-    assert(knight.isValidMove(PiecePosition(3, 7)) === false)
+    assert(board.isValidMove(knight, PiecePosition(5, 7)) === false)
+    assert(board.isValidMove(knight, PiecePosition(4, 5)) === false)
+    assert(board.isValidMove(knight, PiecePosition(3, 4)) === false)
+    assert(board.isValidMove(knight, PiecePosition(3, 7)) === false)
   }
 }

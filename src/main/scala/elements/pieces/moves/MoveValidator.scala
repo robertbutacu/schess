@@ -1,52 +1,52 @@
 package elements.pieces.moves
 
 import actions.PiecePosition
-import elements.boards.Board
+import elements.boards.{Board, BoardState}
 import elements.pieces._
 
-trait MoveValidator {
-  def isValidMove(to: PiecePosition): Boolean
+trait MoveValidator[P] {
+  def isValidMove(piece: P, to: PiecePosition): Boolean
 }
 
 object MoveValidator {
 
-  implicit class BishopValidator(bishop: Bishop) extends MoveValidator {
-    override def isValidMove(to: PiecePosition): Boolean =
-      Board.isDiagonalMove(bishop.piecePosition, to)
+  implicit class BishopValidator(board: BoardState) extends MoveValidator[Bishop] {
+    override def isValidMove(piece: Bishop, to: PiecePosition): Boolean =
+      Board.isDiagonalMove(piece.piecePosition, to)
   }
 
-  implicit class RookValidator(rook: Rook) extends MoveValidator {
-    override def isValidMove(to: PiecePosition): Boolean =
-      Board.isStraightMove(rook.piecePosition, to)
+  implicit class RookValidator(board: BoardState) extends MoveValidator[Rook] {
+    override def isValidMove(piece: Rook, to: PiecePosition): Boolean =
+      Board.isStraightMove(piece.piecePosition, to)
   }
 
-  implicit class KingValidator(king: King) extends MoveValidator {
-    override def isValidMove(to: PiecePosition): Boolean = {
-      val horizontalDif = to.X - king.piecePosition.X
-      val verticalDif = to.Y - king.piecePosition.Y
+  implicit class KingValidator(board: BoardState) extends MoveValidator[King] {
+    override def isValidMove(piece: King, to: PiecePosition): Boolean = {
+      val horizontalDif = to.X - piece.piecePosition.X
+      val verticalDif = to.Y - piece.piecePosition.Y
 
       isAmongAllMoves(verticalDif, horizontalDif, -1, 1, -1, 1)
     }
   }
 
-  implicit class QueenValidator(queen: Queen) extends MoveValidator {
-    override def isValidMove(to: PiecePosition): Boolean =
-      Board.isStraightMove(queen.piecePosition, to) || Board.isDiagonalMove(queen.piecePosition, to)
+  implicit class QueenValidator(board: BoardState) extends MoveValidator[Queen] {
+    override def isValidMove(piece: Queen, to: PiecePosition): Boolean =
+      Board.isStraightMove(piece.piecePosition, to) || Board.isDiagonalMove(piece.piecePosition, to)
   }
 
-  implicit class KnightValidator(knight: Knight) extends MoveValidator {
-    override def isValidMove(to: PiecePosition): Boolean = {
-      val verticalDif = to.X - knight.piecePosition.X
-      val horizontalDif = to.Y - knight.piecePosition.Y
+  implicit class KnightValidator(board: BoardState) extends MoveValidator[Knight] {
+    override def isValidMove(piece: Knight, to: PiecePosition): Boolean = {
+      val verticalDif = to.X - piece.piecePosition.X
+      val horizontalDif = to.Y - piece.piecePosition.Y
 
       isAmongAllMoves(verticalDif, horizontalDif, -2, +2, -1, +1)
     }
   }
 
-  implicit class PawnValidator(pawn: Pawn) extends MoveValidator {
-    override def isValidMove(to: PiecePosition): Boolean = {
-      val verticalMove = to.X - pawn.piecePosition.X
-      val horizontalMove = to.Y - pawn.piecePosition.Y
+  implicit class PawnValidator(board: BoardState) extends MoveValidator[Pawn] {
+    override def isValidMove(piece: Pawn,to: PiecePosition): Boolean = {
+      val verticalMove = to.X - piece.piecePosition.X
+      val horizontalMove = to.Y - piece.piecePosition.Y
 
       verticalMove == 1 && (horizontalMove >= -1 && horizontalMove <= 1)
     }
