@@ -52,6 +52,18 @@ object MoveValidator {
     }
   }
 
+  def isClearPath(board: BoardState, from: PiecePosition, to: PiecePosition, incrementFunction: (Int, Int) => (Int, Int)): Boolean = {
+    def verify(currentPosition: PiecePosition): Boolean = {
+      val next = currentPosition(incrementFunction)
+
+      if(next == to) true
+      else board.isPositionFree(next) && verify(next)
+    }
+
+    verify(from(incrementFunction))
+  }
+
+
   private def isAmongAllMoves(verticalDif: Int, horizontalDif: Int,
                               verticalLow: Int, verticalHigh: Int,
                               horizontalLow: Int, horizontalHigh: Int): Boolean =
