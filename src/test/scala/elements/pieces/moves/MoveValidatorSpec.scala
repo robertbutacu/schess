@@ -43,16 +43,11 @@ class MoveValidatorSpec extends FlatSpec {
 
 
   "Initialization with bad position" should "fail " in {
-    lazy val invalidPiece1 = Pawn(genericPlayer, PiecePosition(-1, 0))
-    //X low
-    lazy val invalidPiece2 = Pawn(genericPlayer, PiecePosition(1, -1))
-    //Y low
-    lazy val invalidPiece3 = Pawn(genericPlayer, PiecePosition(1, 8))
-    //Y high
-    lazy val invalidPiece4 = Pawn(genericPlayer, PiecePosition(-1, -2))
-    //both low
-    lazy val invalidPiece5 = Pawn(genericPlayer, PiecePosition(11, 0))
-    //X high
+    lazy val invalidPiece1 = Pawn(genericPlayer, PiecePosition(-1, 0))  //X low
+    lazy val invalidPiece2 = Pawn(genericPlayer, PiecePosition(1, -1))  //Y low
+    lazy val invalidPiece3 = Pawn(genericPlayer, PiecePosition(1, 8))   //Y high
+    lazy val invalidPiece4 = Pawn(genericPlayer, PiecePosition(-1, -2)) //both low
+    lazy val invalidPiece5 = Pawn(genericPlayer, PiecePosition(11, 0))  //X high
     lazy val invalidPiece6 = Pawn(genericPlayer, PiecePosition(11, 11)) //both high
 
     assertThrows[IllegalArgumentException](invalidPiece1)
