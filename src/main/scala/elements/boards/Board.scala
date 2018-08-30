@@ -10,7 +10,8 @@ object Board {
 
   def isStraightMove(from: PiecePosition, to: PiecePosition): Boolean = from.X == to.X || from.Y == to.Y
 
-  def isDiagonalMove(from: PiecePosition, to: PiecePosition): Boolean = Math.abs(from.X - to.X) == Math.abs(from.Y - to.Y)
+  def isDiagonalMove(from: PiecePosition, to: PiecePosition): Boolean =
+    Math.abs(from.X - to.X) == Math.abs(from.Y - to.Y)
 
   def isValidMove(piece: Piece, to: PiecePosition): Boolean = ???
 

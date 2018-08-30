@@ -30,7 +30,6 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
     * 0      1     2     3     4     5     6     7
     */
 
-
   "Initialization with bad position" should "fail " in {
     lazy val invalidPiece1 = Pawn(genericPlayer, PiecePosition(-1, 0))  //X low
     lazy val invalidPiece2 = Pawn(genericPlayer, PiecePosition(1, -1))  //Y low
@@ -56,15 +55,19 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
   }
 
   "A rook" should "not make valid moves " in {
-    //TODO fix
-    // assert(rook.isValidMove(PiecePosition(4, 4)) === false )// standing still
-    assert(board.isValidMove(rook, PiecePosition(2, 3)) === false)
-    assert(board.isValidMove(rook, PiecePosition(3, 5)) === false)
-    assert(board.isValidMove(rook, PiecePosition(7, 7)) === false)
-    assert(board.isValidMove(rook, PiecePosition(0, 0)) === false)
+    val rookBoard = getBoardWithPiece(rook)
+    assert(rookBoard.isValidMove(rook, PiecePosition(2, 3)) === false)
+    assert(rookBoard.isValidMove(rook, PiecePosition(3, 5)) === false)
+    assert(rookBoard.isValidMove(rook, PiecePosition(7, 7)) === false)
+    assert(rookBoard.isValidMove(rook, PiecePosition(0, 0)) === false)
   }
 
   "A queen " should " make valid moves " in {
+    val queenBoard = getBoardWithPiece(queen)
+    assert(queenBoard.isValidMove(queen, PiecePosition(4, 7)) === true) // moving along Y axis up
+    assert(queenBoard.isValidMove(queen, PiecePosition(4, 0)) === true) // moving along Y axis down
+    assert(queenBoard.isValidMove(queen, PiecePosition(7, 4)) === true) // moving along X axis up
+    assert(queenBoard.isValidMove(queen, PiecePosition(0, 4)) === true) // moving along X axis down
   }
 
   "A queen" should "not make valid moves " in {
@@ -72,8 +75,13 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
   }
 
   "A bishop " should " make valid moves " in {
-
+    val bishopBoard = getBoardWithPiece(bishop)
+    assert(bishopBoard.isValidMove(bishop, PiecePosition(7, 7)) === true) // right up
+    assert(bishopBoard.isValidMove(bishop, PiecePosition(7, 1)) === true) // right down
+    assert(bishopBoard.isValidMove(bishop, PiecePosition(1, 7)) === true) // left up
+    assert(bishopBoard.isValidMove(bishop, PiecePosition(0, 0)) === true) // left down
   }
+
 
   "A bishop" should "not make valid moves " in {
 

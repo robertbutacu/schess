@@ -21,13 +21,13 @@ object Moves {
 
   def moveType(from: PiecePosition, to: PiecePosition): (Int, Int) => (Int, Int) = {
     val xAxis = to.X - from.X
-    val yAxis = to.Y - from.X
+    val yAxis = to.Y - from.Y
 
     (xAxis, yAxis) match {
-      case (down, left) if down < 0 && left < 0 => diagonalLeftDown
-      case (down, right) if down < 0 && right > 0 => diagonalRightDown
-      case (up, left) if up > 0 && left < 0 => diagonalLeftUp
-      case (up, right) if up > 0 && right > 0 => diagonalRightUp
+      case (left, down) if down < 0 && left < 0 => diagonalLeftDown
+      case (right, down) if down < 0 && right > 0 => diagonalRightDown
+      case (left, up) if up > 0 && left < 0 => diagonalLeftUp
+      case (right, up) if up > 0 && right > 0 => diagonalRightUp
       case (straight, up) if straight == 0 && up > 0 => straightUp
       case (straight, down) if straight == 0 && down < 0 => straightDown
       case (right, straight) if right > 0 && straight == 0 => straightRight

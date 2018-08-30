@@ -62,7 +62,7 @@ object MoveValidator {
       else board.isPositionFree(next) && verify(next)
     }
 
-    verify(from(incrementFunction))
+    verify(from)
   }
 
 
