@@ -25,7 +25,7 @@ object Moves {
 
     (xAxis, yAxis) match {
       case (down, left) if down < 0 && left < 0 => diagonalLeftDown
-      case (down, right) if down > 0 && right > 0 => diagonalRightDown
+      case (down, right) if down < 0 && right > 0 => diagonalRightDown
       case (up, left) if up > 0 && left < 0 => diagonalLeftUp
       case (up, right) if up > 0 && right > 0 => diagonalRightUp
       case (straight, right) if straight == 0 && right > 0 => straightRight
