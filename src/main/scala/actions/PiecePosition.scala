@@ -9,5 +9,5 @@ case class PiecePosition(X: Int, Y: Int) {
 }
 
 object PiecePosition {
-  def apply(position: (Int, Int)) = PiecePosition(position._1, position._2)
+  def apply(position: (Int, Int)): PiecePosition = PiecePosition(position._1, position._2)
 }
