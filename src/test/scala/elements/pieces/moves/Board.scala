@@ -24,12 +24,20 @@ trait Board {
 
   lazy val board = NoSpecialState(List.empty)
 
-  def mapToEmptyRow(rowIndex: Int) = emptyRow.map(p => Empty(PiecePosition(p.position.X, rowIndex)))
-  def mapToPawnRow(rowIndex: Int) = emptyRow.map(p => Pawn(genericPlayer, PiecePosition(p.position.X, rowIndex)))
+  def toEmptyRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Empty(PiecePosition(p.position.X, rowIndex)))
+  def mapToPawnRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Pawn(genericPlayer, PiecePosition(p.position.X, rowIndex)))
 
-  def addPieceToMiddleRow(p: Piece, row: List[Piece]): List[Piece] = ???
+  def addPieceToMiddleRow(p: Piece, row: List[Piece]): List[Piece] = {
+    row.patch(4, Seq(p), 1)
+  }
 
-  def getBoardWithPiece(piece: Piece): BoardState = ???
+  def getBoardWithPiece(piece: Piece): BoardState = {
+    val emptyBoard = 0 to 7 map toEmptyRow toList
+
+    val withPiece = emptyBoard.slice(0, 4) ::: List(addPieceToMiddleRow(piece, emptyBoard(4)))::: emptyBoard.slice(5, 8)
+
+    NoSpecialState(withPiece)
+  }
   def getBoardWithTrappedPiece(piece: Piece): BoardState = ???
 
 //  lazy val rookBoard = List(0 to 7 map mapToEmptyRow)

@@ -3,10 +3,11 @@ package elements.pieces.moves
 import actions.PiecePosition
 import elements.boards.states.NoSpecialState
 import elements.pieces._
-import org.scalatest.FlatSpec
+import org.scalatest._
+import Matchers._
 import elements.pieces.moves.MoveValidator._
 
-class MoveValidatorSpec extends FlatSpec with Board {
+class MoveValidatorSpec extends FlatSpec with Matchers with Board {
 
 
   /**
@@ -47,10 +48,11 @@ class MoveValidatorSpec extends FlatSpec with Board {
   }
 
   "A rook " should " make valid moves " in {
-    assert(board.isValidMove(rook, PiecePosition(4, 7)) === true) // moving along Y axis up
-    assert(board.isValidMove(rook, PiecePosition(4, 0)) === true) // moving along Y axis down
-    assert(board.isValidMove(rook, PiecePosition(7, 4)) === true) // moving along X axis up
-    assert(board.isValidMove(rook, PiecePosition(0, 4)) === true) // moving along X axis down
+    val rookBoard = getBoardWithPiece(rook)
+    assert(rookBoard.isValidMove(rook, PiecePosition(4, 7)) === true) // moving along Y axis up
+    assert(rookBoard.isValidMove(rook, PiecePosition(4, 0)) === true) // moving along Y axis down
+    assert(rookBoard.isValidMove(rook, PiecePosition(7, 4)) === true) // moving along X axis up
+    assert(rookBoard.isValidMove(rook, PiecePosition(0, 4)) === true) // moving along X axis down
   }
 
   "A rook" should "not make valid moves " in {
@@ -63,7 +65,6 @@ class MoveValidatorSpec extends FlatSpec with Board {
   }
 
   "A queen " should " make valid moves " in {
-
   }
 
   "A queen" should "not make valid moves " in {

@@ -28,10 +28,10 @@ object Moves {
       case (down, right) if down < 0 && right > 0 => diagonalRightDown
       case (up, left) if up > 0 && left < 0 => diagonalLeftUp
       case (up, right) if up > 0 && right > 0 => diagonalRightUp
-      case (straight, right) if straight == 0 && right > 0 => straightRight
-      case (straight, left) if straight == 0 && left < 0 => straightLeft
-      case (up, straight) if up > 0 && straight == 0 => straightUp
-      case (down, straight) if down < 0 && straight == 0 => straightDown
+      case (straight, up) if straight == 0 && up > 0 => straightUp
+      case (straight, down) if straight == 0 && down < 0 => straightDown
+      case (right, straight) if right > 0 && straight == 0 => straightRight
+      case (left, straight) if left < 0 && straight == 0 => straightLeft
     }
   }
 }
