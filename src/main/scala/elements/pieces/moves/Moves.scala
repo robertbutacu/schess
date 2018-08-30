@@ -9,7 +9,7 @@ object Moves {
 
   def diagonalLeftDown = (X: Int, Y: Int) => (X - 1, Y - 1)
 
-  def diagonalRightDown = (X: Int, Y: Int) => (X - 1, Y + 1)
+  def diagonalRightDown = (X: Int, Y: Int) => (X + 1, Y - 1)
 
   def straightUp = (X: Int, Y: Int) => (X, Y + 1)
 
