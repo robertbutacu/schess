@@ -64,10 +64,19 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
 
   "A queen " should " make valid moves " in {
     val queenBoard = getBoardWithPiece(queen)
+
+    //rook moves
     assert(queenBoard.isValidMove(queen, PiecePosition(4, 7)) === true) // moving along Y axis up
     assert(queenBoard.isValidMove(queen, PiecePosition(4, 0)) === true) // moving along Y axis down
     assert(queenBoard.isValidMove(queen, PiecePosition(7, 4)) === true) // moving along X axis up
     assert(queenBoard.isValidMove(queen, PiecePosition(0, 4)) === true) // moving along X axis down
+
+
+    //bishop moves
+    assert(queenBoard.isValidMove(queen, PiecePosition(7, 7)) === true) // right up
+    assert(queenBoard.isValidMove(queen, PiecePosition(7, 1)) === true) // right down
+    assert(queenBoard.isValidMove(queen, PiecePosition(1, 7)) === true) // left up
+    assert(queenBoard.isValidMove(queen, PiecePosition(0, 0)) === true) // left down
   }
 
   "A queen" should "not make valid moves " in {
