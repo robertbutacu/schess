@@ -23,10 +23,10 @@ object MoveValidator {
 
   implicit class KingValidator(board: BoardState) extends MoveValidator[King] {
     override def isValidMove(piece: King, to: PiecePosition): Boolean = {
-      val horizontalDif = to.X - piece.position.X
-      val verticalDif = to.Y - piece.position.Y
+      val horizontalMove = List(-1, 0, 1)
+      val verticalMove = List(-1, 0, 1)
 
-      isAmongAllMoves(verticalDif, horizontalDif, -1, 1, -1, 1)
+      isAmongAllMoves(piece, verticalMove, horizontalMove, to)
     }
   }
 
@@ -38,10 +38,10 @@ object MoveValidator {
 
   implicit class KnightValidator(board: BoardState) extends MoveValidator[Knight] {
     override def isValidMove(piece: Knight, to: PiecePosition): Boolean = {
-      val verticalDif = to.X - piece.position.X
-      val horizontalDif = to.Y - piece.position.Y
+      val horizontalMove = List(-1, +1)
+      val verticalMove = List(+2, -2)
 
-      isAmongAllMoves(verticalDif, horizontalDif, -2, +2, -1, +1)
+      isAmongAllMoves(piece, verticalMove, horizontalMove, to)
     }
   }
 
@@ -52,6 +52,10 @@ object MoveValidator {
 
       verticalMove == 1 && (horizontalMove >= -1 && horizontalMove <= 1)
     }
+  }
+
+  def isDifferentOwner(firstPiece: Piece, secondPiece: Piece): Boolean = {
+    ???
   }
 
   def isClearPath(board: BoardState, from: PiecePosition, to: PiecePosition, incrementFunction: (Int, Int) => (Int, Int)): Boolean = {
@@ -65,10 +69,11 @@ object MoveValidator {
     verify(from)
   }
 
-
-  private def isAmongAllMoves(verticalDif: Int, horizontalDif: Int,
-                              verticalLow: Int, verticalHigh: Int,
-                              horizontalLow: Int, horizontalHigh: Int): Boolean =
-    verticalDif <= verticalHigh && verticalDif >= verticalLow && horizontalDif >= horizontalLow && horizontalDif <= horizontalHigh
-
+  private def isAmongAllMoves(piece: Piece, verticalMove: List[Int], horizontalMove: List[Int], to: PiecePosition): Boolean = {
+    horizontalMove.exists { x =>
+      verticalMove.exists { y =>
+        piece.position.X + x == to.X && piece.position.Y + y == to.Y
+      }
+    }
+  }
 }
