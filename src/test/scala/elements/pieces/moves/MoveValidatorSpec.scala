@@ -4,21 +4,9 @@ import actions.PiecePosition
 import elements.boards.states.NoSpecialState
 import elements.pieces._
 import org.scalatest.FlatSpec
-import players.AIPlayer
 import elements.pieces.moves.MoveValidator._
 
-class MoveValidatorSpec extends FlatSpec {
-  val genericPlayer = AIPlayer("XXX", 1)
-  val genericPosition = PiecePosition(4, 4)
-
-  lazy val rook = Rook(genericPlayer, genericPosition)
-  lazy val queen = Queen(genericPlayer, genericPosition)
-  lazy val king = King(genericPlayer, genericPosition)
-  lazy val bishop = Bishop(genericPlayer, genericPosition)
-  lazy val pawn = Pawn(genericPlayer, genericPosition)
-  lazy val knight = Knight(genericPlayer, genericPosition)
-
-  lazy val board = NoSpecialState(List.empty)
+class MoveValidatorSpec extends FlatSpec with Board {
 
 
   /**
