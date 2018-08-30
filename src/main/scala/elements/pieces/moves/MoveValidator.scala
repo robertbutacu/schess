@@ -26,7 +26,7 @@ object MoveValidator {
       val horizontalMove = List(-1, 0, 1)
       val verticalMove = List(-1, 0, 1)
 
-      isAmongAllMoves(piece, verticalMove, horizontalMove, to)
+      isAmongAllMoves(piece, to, verticalMove, horizontalMove)
     }
   }
 
@@ -41,7 +41,7 @@ object MoveValidator {
       val horizontalMove = List(-1, +1)
       val verticalMove = List(+2, -2)
 
-      isAmongAllMoves(piece, verticalMove, horizontalMove, to)
+      isAmongAllMoves(piece, to, verticalMove, horizontalMove)
     }
   }
 
@@ -54,7 +54,9 @@ object MoveValidator {
     }
   }
 
-  def isClearPath(board: BoardState, from: PiecePosition, to: PiecePosition, incrementFunction: (Int, Int) => (Int, Int)): Boolean = {
+  def isClearPath(board: BoardState,
+                  from: PiecePosition, to: PiecePosition,
+                  incrementFunction: (Int, Int) => (Int, Int)): Boolean = {
     def verify(currentPosition: PiecePosition): Boolean = {
       val next = currentPosition(incrementFunction)
 
@@ -65,7 +67,9 @@ object MoveValidator {
     verify(from)
   }
 
-  private def isAmongAllMoves(piece: Piece, verticalMove: List[Int], horizontalMove: List[Int], to: PiecePosition): Boolean = {
+  private def isAmongAllMoves(piece: Piece,
+                              to: PiecePosition,
+                              verticalMove: List[Int], horizontalMove: List[Int]): Boolean = {
     horizontalMove.exists { x =>
       verticalMove.exists { y =>
         piece.position.X + x == to.X && piece.position.Y + y == to.Y
