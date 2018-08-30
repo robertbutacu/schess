@@ -47,8 +47,8 @@ object MoveValidator {
 
   implicit class PawnValidator(board: BoardState) extends MoveValidator[Pawn] {
     override def isValidPath(piece: Pawn, to: PiecePosition): Boolean = {
-      val verticalMove = to.X - piece.position.X
-      val horizontalMove = to.Y - piece.position.Y
+      val horizontalMove = to.X - piece.position.X
+      val verticalMove = to.Y - piece.position.Y
 
       verticalMove == 1 && (horizontalMove >= -1 && horizontalMove <= 1)
     }

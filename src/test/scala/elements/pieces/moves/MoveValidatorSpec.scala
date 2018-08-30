@@ -93,11 +93,23 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
 
 
   "A bishop" should "not make valid moves " in {
-
+    val bishopBoard = getBoardWithPiece(bishop)
+    assert(bishopBoard.isValidPath(bishop, PiecePosition(4, 7)) === false) // straight up
+    assert(bishopBoard.isValidPath(bishop, PiecePosition(3, 7)) === false) // random
+    assert(bishopBoard.isValidPath(bishop, PiecePosition(4, 0)) === false) // straight down
+    assert(bishopBoard.isValidPath(bishop, PiecePosition(4, 5)) === false) // pawn move
   }
 
   "A king " should " make valid moves " in {
-
+    val kingBoard = getBoardWithPiece(king)
+    assert(kingBoard.isValidPath(king, PiecePosition(4, 5)) === true) //
+    assert(kingBoard.isValidPath(king, PiecePosition(4, 3)) === true) //
+    assert(kingBoard.isValidPath(king, PiecePosition(5, 4)) === true) //
+    assert(kingBoard.isValidPath(king, PiecePosition(5, 5)) === true) //
+    assert(kingBoard.isValidPath(king, PiecePosition(3, 3)) === true) //
+    assert(kingBoard.isValidPath(king, PiecePosition(3, 4)) === true) //
+    assert(kingBoard.isValidPath(king, PiecePosition(5, 3)) === true) //
+    assert(kingBoard.isValidPath(king, PiecePosition(3, 5)) === true) //
   }
 
   "A king" should "not make valid moves " in {
@@ -105,7 +117,10 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
   }
 
   "A pawn " should " make valid moves " in {
-
+    val pawnBoard = getBoardWithPiece(pawn)
+    assert(pawnBoard.isValidPath(pawn, PiecePosition(4, 5)) === true) //
+    assert(pawnBoard.isValidPath(pawn, PiecePosition(3, 5)) === true) //
+    assert(pawnBoard.isValidPath(pawn, PiecePosition(5, 5)) === true) //
   }
 
   "A pawn" should "not make valid moves " in {
