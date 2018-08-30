@@ -5,6 +5,7 @@ import elements.pieces.Piece
 
 trait BoardState {
   def players: Players
+
   def kingsPositions: KingsPositions
 
   def pieces: List[List[Piece]]

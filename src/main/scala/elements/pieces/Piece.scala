@@ -17,6 +17,7 @@ case class Pawn(player: Player, position: PiecePosition) extends Piece {
     else "P2"
 }
 
+
 case class Knight(player: Player, position: PiecePosition) extends Piece {
   override def toString: String =
     if (player.index == 1) "Kn1"
@@ -24,6 +25,7 @@ case class Knight(player: Player, position: PiecePosition) extends Piece {
 
   override def owner: Option[Player] = Some(player)
 }
+
 
 case class King(player: Player, position: PiecePosition) extends Piece {
   override def toString: String =
@@ -33,6 +35,7 @@ case class King(player: Player, position: PiecePosition) extends Piece {
   override def owner: Option[Player] = Some(player)
 }
 
+
 case class Queen(player: Player, position: PiecePosition) extends Piece {
   override def toString: String =
     if (player.index == 1) "Q1"
@@ -40,6 +43,7 @@ case class Queen(player: Player, position: PiecePosition) extends Piece {
 
   override def owner: Option[Player] = Some(player)
 }
+
 
 case class Rook(player: Player, position: PiecePosition) extends Piece {
   override def toString: String =
@@ -49,11 +53,13 @@ case class Rook(player: Player, position: PiecePosition) extends Piece {
   override def owner: Option[Player] = Some(player)
 }
 
+
 case class Empty(position: PiecePosition) extends Piece {
   override def toString: String = "  "
 
   override def owner: Option[Player] = None
 }
+
 
 case class Bishop(player: Player, position: PiecePosition) extends Piece {
   override def toString: String =
