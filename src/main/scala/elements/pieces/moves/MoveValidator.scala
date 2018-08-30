@@ -1,7 +1,8 @@
 package elements.pieces.moves
 
 import actions.PiecePosition
-import elements.boards.{Board, BoardState}
+import elements.boards.BoardState
+import elements.boards.Board._
 import elements.pieces._
 
 trait MoveValidator[P] {
@@ -12,12 +13,12 @@ object MoveValidator {
 
   implicit class BishopValidator(board: BoardState) extends MoveValidator[Bishop] {
     override def isValidMove(piece: Bishop, to: PiecePosition): Boolean =
-      Board.isDiagonalMove(piece.position, to)
+      isDiagonalMove(piece.position, to) && isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
   }
 
   implicit class RookValidator(board: BoardState) extends MoveValidator[Rook] {
     override def isValidMove(piece: Rook, to: PiecePosition): Boolean =
-      Board.isStraightMove(piece.position, to)
+      isStraightMove(piece.position, to) && isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
   }
 
   implicit class KingValidator(board: BoardState) extends MoveValidator[King] {
@@ -31,7 +32,8 @@ object MoveValidator {
 
   implicit class QueenValidator(board: BoardState) extends MoveValidator[Queen] {
     override def isValidMove(piece: Queen, to: PiecePosition): Boolean =
-      Board.isStraightMove(piece.position, to) || Board.isDiagonalMove(piece.position, to)
+      (isStraightMove(piece.position, to) || isDiagonalMove(piece.position, to)) &&
+        isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
   }
 
   implicit class KnightValidator(board: BoardState) extends MoveValidator[Knight] {
@@ -56,7 +58,7 @@ object MoveValidator {
     def verify(currentPosition: PiecePosition): Boolean = {
       val next = currentPosition(incrementFunction)
 
-      if(next == to) true
+      if (next == to) true
       else board.isPositionFree(next) && verify(next)
     }
 
