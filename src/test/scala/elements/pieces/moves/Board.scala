@@ -1,6 +1,7 @@
 package elements.pieces.moves
 
 import actions.PiecePosition
+import elements.boards.BoardState
 import elements.boards.states.NoSpecialState
 import elements.pieces._
 import players.AIPlayer
@@ -28,17 +29,20 @@ trait Board {
 
   def addPieceToMiddleRow(p: Piece, row: List[Piece]): List[Piece] = ???
 
-  lazy val rookBoard = List(0 to 7 map mapToEmptyRow)
-  lazy val queenBoard = List(0 to 7 map mapToEmptyRow)
-  lazy val kingBoard = List(0 to 7 map mapToEmptyRow)
-  lazy val bishopBoard = List(0 to 7 map mapToEmptyRow)
-  lazy val pawnBoard = List(0 to 7 map mapToEmptyRow)
-  lazy val knightBoard = List(0 to 7 map mapToEmptyRow)
+  def getBoardWithPiece(piece: Piece): BoardState = ???
+  def getBoardWithTrappedPiece(piece: Piece): BoardState = ???
 
-  lazy val trappedRookBoard = List(0 to 7 map mapToPawnRow)
-  lazy val trappedQueenBoard = List(0 to 7 map mapToPawnRow)
-  lazy val trappedKingBoard = List(0 to 7 map mapToPawnRow)
-  lazy val trappedBishopBoard = List(0 to 7 map mapToPawnRow)
-  lazy val trappedPawnBoard = List(0 to 7 map mapToPawnRow)
-  lazy val trappedKnightBoard = List(0 to 7 map mapToPawnRow)
+//  lazy val rookBoard = List(0 to 7 map mapToEmptyRow)
+//  lazy val queenBoard = List(0 to 7 map mapToEmptyRow)
+//  lazy val kingBoard = List(0 to 7 map mapToEmptyRow)
+//  lazy val bishopBoard = List(0 to 7 map mapToEmptyRow)
+//  lazy val pawnBoard = List(0 to 7 map mapToEmptyRow)
+//  lazy val knightBoard = List(0 to 7 map mapToEmptyRow)
+//
+//  lazy val trappedRookBoard = List(0 to 7 map mapToPawnRow)
+//  lazy val trappedQueenBoard = List(0 to 7 map mapToPawnRow)
+//  lazy val trappedKingBoard = List(0 to 7 map mapToPawnRow)
+//  lazy val trappedBishopBoard = List(0 to 7 map mapToPawnRow)
+//  lazy val trappedPawnBoard = List(0 to 7 map mapToPawnRow)
+//  lazy val trappedKnightBoard = List(0 to 7 map mapToPawnRow)
 }
