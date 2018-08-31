@@ -23,4 +23,10 @@ trait BoardState {
       case _        => false
     }
   }
+
+  def isPieceInstance[P](position: PiecePosition) =
+    pieces(position.X)(position.Y) match {
+      case _: P => true
+      case _ => false
+    }
 }

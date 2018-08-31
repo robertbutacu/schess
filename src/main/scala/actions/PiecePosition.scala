@@ -5,9 +5,11 @@ import elements.boards.BoardUtils
 import scala.util.{Failure, Success, Try}
 
 case class PiecePosition(X: Int, Y: Int) {
-  def isInBounds(i: Int) = i >= 0 && i <= 7
+  private def isInBounds(i: Int) = i >= 0 && i <= 7
 
   def apply(increment: (Int, Int) => (Int, Int)) = PiecePosition(increment(X, Y))
+
+  def isRookDefaultPosition: Boolean = X == 0 && (Y == 0 || Y == 7)
 
   require(isInBounds(X) && isInBounds(Y))
 }
@@ -20,7 +22,7 @@ object PiecePosition {
       position(1).asDigit
     } match {
       case Success(digit) => BoardUtils.letterMapping.get(position(0)).map(x => PiecePosition(x, digit))
-      case Failure(_)     => None
+      case Failure(_) => None
     }
 
   }
