@@ -30,12 +30,22 @@ trait Board {
     row.patch(4, Seq(p), 1)
   }
 
-  def getBoard(piece: Piece, fillFunction: Int => List[Piece] = toEmptyRow): BoardState = {
+  def getBoard(piece: Piece,
+               fillFunction: Int => List[Piece] = toEmptyRow,
+               otherPieces: List[Piece] = List.empty): BoardState = {
+
+    def patchBoard(board: List[List[Piece]], piece: Piece) =
+      board.patch(4, Seq(addPieceToMiddleRow(piece, board(4))), 1)
+
+
     val board = 0 to 7 map fillFunction toList
 
+    val withPiece = patchBoard(board, piece)
 
-    val withPiece = board.patch(4, Seq(addPieceToMiddleRow(piece, board(4))), 1)
+    val finalBoard = otherPieces.foldRight(withPiece){(piece, board) =>
+      patchBoard(board, piece)
+    }
 
-    NoSpecialState(withPiece)
+    NoSpecialState(finalBoard)
   }
 }
