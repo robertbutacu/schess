@@ -35,10 +35,17 @@ object MoveValidator {
 
   implicit class KingValidator(board: BoardState) extends MoveValidator[King] {
     override protected def isValidPath(piece: King, to: PiecePosition): Boolean = {
+      def isCastling: Boolean = {
+        piece.isDefaultPosition && to.X == 0 && (to.Y == 0 || to.Y == 7) && (board(to.X)(to.Y) match {
+          case _: Rook => true
+          case _       => false
+        })
+      }
+
       val horizontalMove = List(-1, 0, 1)
       val verticalMove = List(-1, 0, 1)
 
-      isAmongAllMoves(piece, to, verticalMove, horizontalMove)
+      isAmongAllMoves(piece, to, verticalMove, horizontalMove) || isCastling
     }
 
     override protected def canOccupyPosition(piece: King, to: PiecePosition): Boolean = {
@@ -77,8 +84,9 @@ object MoveValidator {
       (isFirstPawnMove || verticalMove == 1) && (horizontalMove >= -1 && horizontalMove <= 1)
     }
 
-    override protected def canOccupyPosition(piece: Pawn, to: PiecePosition): Boolean =
+    override protected def canOccupyPosition(piece: Pawn, to: PiecePosition): Boolean = {
       isNotOwnPiece(board, to, piece.player)
+    }
   }
 
   def isNotOwnPiece(boardState: BoardState, to: PiecePosition, player: Player): Boolean =
