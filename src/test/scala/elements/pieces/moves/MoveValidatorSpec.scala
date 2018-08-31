@@ -1,7 +1,6 @@
 package elements.pieces.moves
 
 import actions.PiecePosition
-import elements.boards.states.NoSpecialState
 import elements.pieces._
 import org.scalatest._
 import elements.pieces.moves.MoveValidator._
@@ -105,16 +104,20 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
   }
 
   "A knight " should " make valid moves " in {
-    assert(board.isValidMove(knight, PiecePosition(5, 6)) === true)
-    assert(board.isValidMove(knight, PiecePosition(5, 2)) === true)
-    assert(board.isValidMove(knight, PiecePosition(3, 2)) === true)
-    assert(board.isValidMove(knight, PiecePosition(3, 6)) === true)
+    val knightBoard = getBoard(knight)
+
+    assert(knightBoard.isValidMove(knight, PiecePosition(5, 6)) === true)
+    assert(knightBoard.isValidMove(knight, PiecePosition(5, 2)) === true)
+    assert(knightBoard.isValidMove(knight, PiecePosition(3, 2)) === true)
+    assert(knightBoard.isValidMove(knight, PiecePosition(3, 6)) === true)
   }
 
   "A knight" should "not make valid moves " in {
-    assert(board.isValidMove(knight, PiecePosition(5, 7)) === false)
-    assert(board.isValidMove(knight, PiecePosition(4, 5)) === false)
-    assert(board.isValidMove(knight, PiecePosition(3, 4)) === false)
-    assert(board.isValidMove(knight, PiecePosition(3, 7)) === false)
+    val knightBoard = getBoard(knight)
+
+    assert(knightBoard.isValidMove(knight, PiecePosition(5, 7)) === false)
+    assert(knightBoard.isValidMove(knight, PiecePosition(4, 5)) === false)
+    assert(knightBoard.isValidMove(knight, PiecePosition(3, 4)) === false)
+    assert(knightBoard.isValidMove(knight, PiecePosition(3, 7)) === false)
   }
 }

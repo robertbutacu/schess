@@ -22,8 +22,6 @@ trait Board {
   lazy val pawn = Pawn(genericPlayer, genericPosition)
   lazy val knight = Knight(genericPlayer, genericPosition)
 
-  lazy val board = NoSpecialState(List.empty)
-
   def toEmptyRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Empty(PiecePosition(p.position.X, rowIndex)))
 
   def mapToPawnRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Pawn(genericPlayer, PiecePosition(p.position.X, rowIndex)))

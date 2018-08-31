@@ -4,13 +4,15 @@ import actions.PiecePosition
 import elements.boards.BoardState
 import elements.boards.Board._
 import elements.pieces._
+import players.Player
 
 trait MoveValidator[P] {
   def isValidMove(piece: P, to: PiecePosition): Boolean = isValidPath(piece, to) && canOccupyPosition(piece, to)
 
   protected def isValidPath(piece: P, to: PiecePosition): Boolean
 
-  protected def canOccupyPosition(piece: P, to: PiecePosition): Boolean = true // needed for en passant and shielding with rook
+  // needed for en passant and shielding with rook
+  protected def canOccupyPosition(piece: P, to: PiecePosition): Boolean
 }
 
 object MoveValidator {
@@ -19,14 +21,16 @@ object MoveValidator {
     override protected def isValidPath(piece: Bishop, to: PiecePosition): Boolean =
       isDiagonalMove(piece.position, to) && isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
 
-    //override protected def canOccupyPosition(piece: Bishop, to: PiecePosition): Boolean = ???
+    override protected def canOccupyPosition(piece: Bishop, to: PiecePosition): Boolean =
+      isNotOwnPiece(board, to, piece.player)
   }
 
   implicit class RookValidator(board: BoardState) extends MoveValidator[Rook] {
     override protected def isValidPath(piece: Rook, to: PiecePosition): Boolean =
       isStraightMove(piece.position, to) && isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
 
-    //override protected def canOccupyPosition(piece: Rook, to: PiecePosition): Boolean = ???
+    override protected def canOccupyPosition(piece: Rook, to: PiecePosition): Boolean =
+      isNotOwnPiece(board, to, piece.player)
   }
 
   implicit class KingValidator(board: BoardState) extends MoveValidator[King] {
@@ -37,7 +41,9 @@ object MoveValidator {
       isAmongAllMoves(piece, to, verticalMove, horizontalMove)
     }
 
-    //override protected def canOccupyPosition(piece: King, to: PiecePosition): Boolean = ???
+    override protected def canOccupyPosition(piece: King, to: PiecePosition): Boolean = {
+      isNotOwnPiece(board, to, piece.player)
+    }
   }
 
   implicit class QueenValidator(board: BoardState) extends MoveValidator[Queen] {
@@ -45,7 +51,8 @@ object MoveValidator {
       (isStraightMove(piece.position, to) || isDiagonalMove(piece.position, to)) &&
         isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
 
-    //override protected def canOccupyPosition(piece: Queen, to: PiecePosition): Boolean = ???
+    override protected def canOccupyPosition(piece: Queen, to: PiecePosition): Boolean =
+      isNotOwnPiece(board, to, piece.player)
   }
 
   implicit class KnightValidator(board: BoardState) extends MoveValidator[Knight] {
@@ -56,7 +63,8 @@ object MoveValidator {
       isAmongAllMoves(piece, to, verticalMove, horizontalMove)
     }
 
-    //override protected def canOccupyPosition(piece: Knight, to: PiecePosition): Boolean = ???
+    override protected def canOccupyPosition(piece: Knight, to: PiecePosition): Boolean =
+      isNotOwnPiece(board, to, piece.player)
   }
 
   implicit class PawnValidator(board: BoardState) extends MoveValidator[Pawn] {
@@ -66,11 +74,15 @@ object MoveValidator {
       val horizontalMove = to.X - piece.position.X
       val verticalMove = to.Y - piece.position.Y
 
-      (isFirstPawnMove || verticalMove == 1 ) && (horizontalMove >= -1 && horizontalMove <= 1)
+      (isFirstPawnMove || verticalMove == 1) && (horizontalMove >= -1 && horizontalMove <= 1)
     }
 
-    //override protected def canOccupyPosition(piece: Pawn, to: PiecePosition): Boolean = ???
+    override protected def canOccupyPosition(piece: Pawn, to: PiecePosition): Boolean =
+      isNotOwnPiece(board, to, piece.player)
   }
+
+  def isNotOwnPiece(boardState: BoardState, to: PiecePosition, player: Player): Boolean =
+    !boardState.pieces(to.X)(to.Y).owner.contains(player)
 
   def isClearPath(board: BoardState,
                   from: PiecePosition, to: PiecePosition,
