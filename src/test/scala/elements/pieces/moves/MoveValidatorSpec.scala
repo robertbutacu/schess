@@ -24,35 +24,35 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
 
   "A rook " should " make valid moves " in {
     val rookBoard = getBoard(rook)
-    assert(rookBoard.isValidMove(rook, PiecePosition(4, 7)) === true) // moving along Y axis up
-    assert(rookBoard.isValidMove(rook, PiecePosition(4, 0)) === true) // moving along Y axis down
-    assert(rookBoard.isValidMove(rook, PiecePosition(7, 4)) === true) // moving along X axis up
-    assert(rookBoard.isValidMove(rook, PiecePosition(0, 4)) === true) // moving along X axis down
+    rookBoard.isValidMove(rook, PiecePosition(4, 7)) shouldBe true // moving along Y axis up
+    rookBoard.isValidMove(rook, PiecePosition(4, 0)) shouldBe true // moving along Y axis down
+    rookBoard.isValidMove(rook, PiecePosition(7, 4)) shouldBe true // moving along X axis up
+    rookBoard.isValidMove(rook, PiecePosition(0, 4)) shouldBe true // moving along X axis down
   }
 
   "A rook" should "not make valid moves " in {
     val rookBoard = getBoard(rook)
-    assert(rookBoard.isValidMove(rook, PiecePosition(2, 3)) === false)
-    assert(rookBoard.isValidMove(rook, PiecePosition(3, 5)) === false)
-    assert(rookBoard.isValidMove(rook, PiecePosition(7, 7)) === false)
-    assert(rookBoard.isValidMove(rook, PiecePosition(0, 0)) === false)
+    rookBoard.isValidMove(rook, PiecePosition(2, 3)) shouldBe false
+    rookBoard.isValidMove(rook, PiecePosition(3, 5)) shouldBe false
+    rookBoard.isValidMove(rook, PiecePosition(7, 7)) shouldBe false
+    rookBoard.isValidMove(rook, PiecePosition(0, 0)) shouldBe false
   }
 
   "A queen " should " make valid moves " in {
     val queenBoard = getBoard(queen)
 
     //rook moves
-    assert(queenBoard.isValidMove(queen, PiecePosition(4, 7)) === true) // moving along Y axis up
-    assert(queenBoard.isValidMove(queen, PiecePosition(4, 0)) === true) // moving along Y axis down
-    assert(queenBoard.isValidMove(queen, PiecePosition(7, 4)) === true) // moving along X axis up
-    assert(queenBoard.isValidMove(queen, PiecePosition(0, 4)) === true) // moving along X axis down
+    queenBoard.isValidMove(queen, PiecePosition(4, 7)) shouldBe true // moving along Y axis up
+    queenBoard.isValidMove(queen, PiecePosition(4, 0)) shouldBe true // moving along Y axis down
+    queenBoard.isValidMove(queen, PiecePosition(7, 4)) shouldBe true // moving along X axis up
+    queenBoard.isValidMove(queen, PiecePosition(0, 4)) shouldBe true // moving along X axis down
 
 
     //bishop moves
-    assert(queenBoard.isValidMove(queen, PiecePosition(7, 7)) === true) // right up
-    assert(queenBoard.isValidMove(queen, PiecePosition(7, 1)) === true) // right down
-    assert(queenBoard.isValidMove(queen, PiecePosition(1, 7)) === true) // left up
-    assert(queenBoard.isValidMove(queen, PiecePosition(0, 0)) === true) // left down
+    queenBoard.isValidMove(queen, PiecePosition(7, 7)) shouldBe true // right up
+    queenBoard.isValidMove(queen, PiecePosition(7, 1)) shouldBe true // right down
+    queenBoard.isValidMove(queen, PiecePosition(1, 7)) shouldBe true // left up
+    queenBoard.isValidMove(queen, PiecePosition(0, 0)) shouldBe true // left down
   }
 
   "A queen" should "not make valid moves " in {
@@ -61,38 +61,38 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
 
   "A bishop " should " make valid moves " in {
     val bishopBoard = getBoard(bishop)
-    assert(bishopBoard.isValidMove(bishop, PiecePosition(7, 7)) === true) // right up
-    assert(bishopBoard.isValidMove(bishop, PiecePosition(7, 1)) === true) // right down
-    assert(bishopBoard.isValidMove(bishop, PiecePosition(1, 7)) === true) // left up
-    assert(bishopBoard.isValidMove(bishop, PiecePosition(0, 0)) === true) // left down
+    bishopBoard.isValidMove(bishop, PiecePosition(7, 7)) shouldBe true // right up
+    bishopBoard.isValidMove(bishop, PiecePosition(7, 1)) shouldBe true // right down
+    bishopBoard.isValidMove(bishop, PiecePosition(1, 7)) shouldBe true // left up
+    bishopBoard.isValidMove(bishop, PiecePosition(0, 0)) shouldBe true // left down
   }
 
 
   "A bishop" should "not make valid moves " in {
     val bishopBoard = getBoard(bishop)
-    assert(bishopBoard.isValidMove(bishop, PiecePosition(4, 7)) === false) // straight up
-    assert(bishopBoard.isValidMove(bishop, PiecePosition(3, 7)) === false) // random
-    assert(bishopBoard.isValidMove(bishop, PiecePosition(4, 0)) === false) // straight down
-    assert(bishopBoard.isValidMove(bishop, PiecePosition(4, 5)) === false) // pawn move
+    bishopBoard.isValidMove(bishop, PiecePosition(4, 7)) shouldBe false // straight up
+    bishopBoard.isValidMove(bishop, PiecePosition(3, 7)) shouldBe false // random
+    bishopBoard.isValidMove(bishop, PiecePosition(4, 0)) shouldBe false // straight down
+    bishopBoard.isValidMove(bishop, PiecePosition(4, 5)) shouldBe false // pawn move
   }
 
   "A king " should " make valid moves " in {
     val kingBoard = getBoard(king)
-    assert(kingBoard.isValidMove(king, PiecePosition(4, 5)) === true) //
-    assert(kingBoard.isValidMove(king, PiecePosition(4, 3)) === true) //
-    assert(kingBoard.isValidMove(king, PiecePosition(5, 4)) === true) //
-    assert(kingBoard.isValidMove(king, PiecePosition(5, 5)) === true) //
-    assert(kingBoard.isValidMove(king, PiecePosition(3, 3)) === true) //
-    assert(kingBoard.isValidMove(king, PiecePosition(3, 4)) === true) //
-    assert(kingBoard.isValidMove(king, PiecePosition(5, 3)) === true) //
-    assert(kingBoard.isValidMove(king, PiecePosition(3, 5)) === true) //
+    kingBoard.isValidMove(king, PiecePosition(4, 5)) shouldBe true //
+    kingBoard.isValidMove(king, PiecePosition(4, 3)) shouldBe true //
+    kingBoard.isValidMove(king, PiecePosition(5, 4)) shouldBe true //
+    kingBoard.isValidMove(king, PiecePosition(5, 5)) shouldBe true //
+    kingBoard.isValidMove(king, PiecePosition(3, 3)) shouldBe true //
+    kingBoard.isValidMove(king, PiecePosition(3, 4)) shouldBe true //
+    kingBoard.isValidMove(king, PiecePosition(5, 3)) shouldBe true //
+    kingBoard.isValidMove(king, PiecePosition(3, 5)) shouldBe true //
   }
 
   "A king " should "be able to castle " in {
     val kingBoard = getBoard(kingDefaultPosition, List(rookDefaultPositionLeft, rookDefaultPositionRight))
 
-    assert(kingBoard.isValidMove(kingDefaultPosition, PiecePosition(0, 0)) === true)
-    assert(kingBoard.isValidMove(kingDefaultPosition, PiecePosition(7, 0)) === true)
+    kingBoard.isValidMove(kingDefaultPosition, PiecePosition(0, 0)) shouldBe true
+    kingBoard.isValidMove(kingDefaultPosition, PiecePosition(7, 0)) shouldBe true
   }
 
   "A king" should "not make valid moves " in {
@@ -101,9 +101,9 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
 
   "A pawn " should " make valid moves " in {
     val pawnBoard = getBoard(pawn)
-    assert(pawnBoard.isValidMove(pawn, PiecePosition(4, 5)) === true) //
-    assert(pawnBoard.isValidMove(pawn, PiecePosition(3, 5)) === true) //
-    assert(pawnBoard.isValidMove(pawn, PiecePosition(5, 5)) === true) //
+    pawnBoard.isValidMove(pawn, PiecePosition(4, 5)) shouldBe true //
+    pawnBoard.isValidMove(pawn, PiecePosition(3, 5)) shouldBe true //
+    pawnBoard.isValidMove(pawn, PiecePosition(5, 5)) shouldBe true //
   }
 
   "A pawn" should "not make valid moves " in {
@@ -113,18 +113,18 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
   "A knight " should " make valid moves " in {
     val knightBoard = getBoard(knight)
 
-    assert(knightBoard.isValidMove(knight, PiecePosition(5, 6)) === true)
-    assert(knightBoard.isValidMove(knight, PiecePosition(5, 2)) === true)
-    assert(knightBoard.isValidMove(knight, PiecePosition(3, 2)) === true)
-    assert(knightBoard.isValidMove(knight, PiecePosition(3, 6)) === true)
+    knightBoard.isValidMove(knight, PiecePosition(5, 6)) shouldBe true
+    knightBoard.isValidMove(knight, PiecePosition(5, 2)) shouldBe true
+    knightBoard.isValidMove(knight, PiecePosition(3, 2)) shouldBe true
+    knightBoard.isValidMove(knight, PiecePosition(3, 6)) shouldBe true
   }
 
   "A knight" should "not make valid moves " in {
     val knightBoard = getBoard(knight)
 
-    assert(knightBoard.isValidMove(knight, PiecePosition(5, 7)) === false)
-    assert(knightBoard.isValidMove(knight, PiecePosition(4, 5)) === false)
-    assert(knightBoard.isValidMove(knight, PiecePosition(3, 4)) === false)
-    assert(knightBoard.isValidMove(knight, PiecePosition(3, 7)) === false)
+    knightBoard.isValidMove(knight, PiecePosition(5, 7)) shouldBe false
+    knightBoard.isValidMove(knight, PiecePosition(4, 5)) shouldBe false
+    knightBoard.isValidMove(knight, PiecePosition(3, 4)) shouldBe false
+    knightBoard.isValidMove(knight, PiecePosition(3, 7)) shouldBe false
   }
 }
