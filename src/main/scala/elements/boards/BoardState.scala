@@ -3,6 +3,7 @@ package elements.boards
 import actions.PiecePosition
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{Empty, Piece}
+import players.Player
 
 trait BoardState {
   def players: Players
@@ -24,9 +25,9 @@ trait BoardState {
     }
   }
 
-  def isPieceInstance[P](position: PiecePosition) =
+  def isPieceInstance[P <: Piece](position: PiecePosition, owner: Player) =
     pieces(position.X)(position.Y) match {
-      case _: P => true
-      case _ => false
+      case p: P => p.owner.forall(p => p == owner)
+      case _    => false
     }
 }

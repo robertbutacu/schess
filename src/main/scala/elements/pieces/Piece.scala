@@ -28,7 +28,7 @@ case class King(player: Player, position: PiecePosition) extends Piece {
 
   override def owner: Option[Player] = Some(player)
 
-  def isDefaultPosition: Boolean = position.X == 0 && position.Y == 4
+  def isDefaultPosition: Boolean = position.X == 4 && position.Y == 0
 }
 
 

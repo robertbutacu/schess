@@ -9,7 +9,7 @@ case class PiecePosition(X: Int, Y: Int) {
 
   def apply(increment: (Int, Int) => (Int, Int)) = PiecePosition(increment(X, Y))
 
-  def isRookDefaultPosition: Boolean = X == 0 && (Y == 0 || Y == 7)
+  def isRookDefaultPosition: Boolean = Y == 0 && (X == 0 || X == 7)
 
   require(isInBounds(X) && isInBounds(Y))
 }

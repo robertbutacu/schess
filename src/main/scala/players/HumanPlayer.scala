@@ -5,7 +5,7 @@ import actions.{Move, PiecePosition}
 import scala.io.StdIn.readLine
 import scala.util.{Failure, Success, Try}
 
-case class HumanPlayer(name: String, index: Int) extends Player {
+case class HumanPlayer(name: String, index: PlayerIndex) extends Player {
   override def askForMove: Move = {
     def getValidMove(msg: String): Move = {
       def getMove(msg: String) =

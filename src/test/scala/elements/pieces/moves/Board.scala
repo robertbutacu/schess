@@ -4,12 +4,13 @@ import actions.PiecePosition
 import elements.boards.BoardState
 import elements.boards.states.NoSpecialState
 import elements.pieces._
-import players.AIPlayer
+import players._
 
 import scala.language.postfixOps
 
 trait Board {
-  val genericPlayer = AIPlayer("XXX", 1)
+  val genericPlayer = AIPlayer("XXX", PlayerOne)
+  val genericEnemyPlayer = AIPlayer("YYY", PlayerTwo)
   val genericPosition = PiecePosition(4, 4)
 
   lazy val emptyRow: List[Piece] = (0 to 7) map (i => Empty(PiecePosition(i, 0))) toList
@@ -22,6 +23,10 @@ trait Board {
   lazy val pawn = Pawn(genericPlayer, genericPosition)
   lazy val knight = Knight(genericPlayer, genericPosition)
 
+  lazy val rookDefaultPositionLeft = Rook(genericPlayer, PiecePosition(0, 0))
+  lazy val rookDefaultPositionRight = Rook(genericPlayer, PiecePosition(7, 0))
+  lazy val kingDefaultPosition = King(genericPlayer, PiecePosition(4, 0))
+
   def toEmptyRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Empty(PiecePosition(p.position.X, rowIndex)))
 
   def mapToPawnRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Pawn(genericPlayer, PiecePosition(p.position.X, rowIndex)))
@@ -31,8 +36,8 @@ trait Board {
   }
 
   def getBoard(piece: Piece,
-               fillFunction: Int => List[Piece] = toEmptyRow,
-               otherPieces: List[Piece] = List.empty): BoardState = {
+               otherPieces: List[Piece] = List.empty,
+               fillFunction: Int => List[Piece] = toEmptyRow): BoardState = {
 
     def patchBoard(board: List[List[Piece]], piece: Piece) =
       board.patch(4, Seq(addPieceToMiddleRow(piece, board(4))), 1)
@@ -42,7 +47,7 @@ trait Board {
 
     val withPiece = patchBoard(board, piece)
 
-    val finalBoard = otherPieces.foldRight(withPiece){(piece, board) =>
+    val finalBoard = otherPieces.foldRight(withPiece) { (piece, board) =>
       patchBoard(board, piece)
     }
 

@@ -3,7 +3,7 @@ package players
 import actions.Move
 
 trait Player {
-  def index: Int
+  def index: PlayerIndex
 
   def askForMove: Move
 }

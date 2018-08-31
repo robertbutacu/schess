@@ -37,7 +37,7 @@ object MoveValidator {
     override protected def isValidPath(piece: King, to: PiecePosition): Boolean = {
       def isCastling: Boolean =
       //TODO test this!!!
-        piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceInstance[Rook](to)
+        piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceInstance[Rook](to, piece.player)
 
       val horizontalMove = List(-1, 0, 1)
       val verticalMove = List(-1, 0, 1)
