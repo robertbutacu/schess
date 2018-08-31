@@ -1,5 +1,9 @@
 package actions
 
+import elements.boards.BoardUtils
+
+import scala.util.{Failure, Success, Try}
+
 case class PiecePosition(X: Int, Y: Int) {
   def isInBounds(i: Int) = i >= 0 && i <= 7
 
@@ -10,4 +14,14 @@ case class PiecePosition(X: Int, Y: Int) {
 
 object PiecePosition {
   def apply(position: (Int, Int)): PiecePosition = PiecePosition(position._1, position._2)
+
+  def apply(position: String): Option[PiecePosition] = {
+    Try {
+      position(1).asDigit
+    } match {
+      case Success(digit) => BoardUtils.letterMapping.get(position(0)).map(x => PiecePosition(x, digit))
+      case Failure(_)     => None
+    }
+
+  }
 }

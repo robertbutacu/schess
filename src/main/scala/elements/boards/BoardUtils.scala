@@ -4,6 +4,9 @@ import elements.boards.information.KingsPositions
 import elements.pieces.{Empty, Piece}
 
 object BoardUtils {
+  val letterMapping = Map('A' -> 0, 'B' -> 1, 'C' -> 2, 'D' -> 3, 'E' -> 4, 'F' -> 5, 'G' -> 6, 'H' -> 7)
+  val numberMapping = Map(0 -> 'A', 1 -> 'B', 2 -> 'C', 3 -> 'D', 4 -> 'E', 5 -> 'F', 6 -> 'G', 7 -> 'H')
+
   def isKingInCheckState(pieces: List[List[Piece]], playerTurn: Int, kingsPositions: KingsPositions): Boolean = {
     require(playerTurn == 1 || playerTurn == 2)
 
