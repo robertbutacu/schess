@@ -19,15 +19,16 @@ trait BoardState {
   def next: Option[BoardState]
 
   def isPositionFree(position: PiecePosition): Boolean = {
-    pieces(position.X)(position.Y) match {
+    pieces(position.Y)(position.X) match {
       case _: Empty => true
       case _        => false
     }
   }
 
   def isPieceInstance[P <: Piece](position: PiecePosition, owner: Player) =
-    pieces(position.X)(position.Y) match {
-      case p: P => p.owner.forall(p => p == owner)
+    pieces(position.Y)(position.X) match {
+      case p: P => val result = p.owner.forall(p => p == owner)
+        result
       case _    => false
     }
 }

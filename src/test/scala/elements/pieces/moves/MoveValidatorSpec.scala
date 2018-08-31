@@ -95,6 +95,14 @@ class MoveValidatorSpec extends FlatSpec with Matchers with Board {
     kingBoard.isValidMove(kingDefaultPosition, PiecePosition(7, 0)) shouldBe true
   }
 
+  "A king " should "not be able to castle using enemy rooks" in {
+    val kingBoard = getBoard(kingDefaultPosition, List(rookDefaultPositionLeftEnemy, rookDefaultPositionRightEnemy))
+
+    kingBoard.isValidMove(kingDefaultPosition, PiecePosition(0, 0)) shouldBe false
+    kingBoard.isValidMove(kingDefaultPosition, PiecePosition(7, 0)) shouldBe false
+  }
+
+
   "A king" should "not make valid moves " in {
 
   }
