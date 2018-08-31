@@ -33,7 +33,8 @@ trait Board {
   def getBoard(piece: Piece, fillFunction: Int => List[Piece] = toEmptyRow): BoardState = {
     val board = 0 to 7 map fillFunction toList
 
-    val withPiece = board.slice(0, 4) ::: List(addPieceToMiddleRow(piece, board(4))) ::: board.slice(5, 8)
+
+    val withPiece = board.patch(4, Seq(addPieceToMiddleRow(piece, board(4))), 1)
 
     NoSpecialState(withPiece)
   }
