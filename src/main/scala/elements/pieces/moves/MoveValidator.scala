@@ -46,7 +46,7 @@ object MoveValidator {
     }
 
     override protected def canOccupyPosition(piece: King, to: PiecePosition): Boolean = {
-      isNotOwnPiece(board, to, piece.player)
+      piece.isDefaultPosition || isNotOwnPiece(board, to, piece.player)
     }
   }
 

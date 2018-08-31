@@ -31,8 +31,8 @@ trait Board {
 
   def mapToPawnRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Pawn(genericPlayer, PiecePosition(p.position.X, rowIndex)))
 
-  def addPieceToMiddleRow(p: Piece, row: List[Piece]): List[Piece] = {
-    row.patch(4, Seq(p), 1)
+  def addPiece(p: Piece, row: List[Piece]): List[Piece] = {
+    row.patch(p.position.X, Seq(p), 1)
   }
 
   def getBoard(piece: Piece,
@@ -40,8 +40,7 @@ trait Board {
                fillFunction: Int => List[Piece] = toEmptyRow): BoardState = {
 
     def patchBoard(board: List[List[Piece]], piece: Piece) =
-      board.patch(4, Seq(addPieceToMiddleRow(piece, board(4))), 1)
-
+      board.patch(piece.position.Y, Seq(addPiece(piece, board(piece.position.Y))), 1)
 
     val board = 0 to 7 map fillFunction toList
 
