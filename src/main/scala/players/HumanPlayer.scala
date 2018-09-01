@@ -8,7 +8,7 @@ import scala.util.{Failure, Success, Try}
 case class HumanPlayer(name: String, index: PlayerIndex) extends Player {
   override def askForMove: Move = {
     def getValidMove(msg: String): Move = {
-      def getMove(msg: String) =
+      def getMove(msg: String): Try[Option[Position]] =
         Try {
           val from = readLine(msg)
           Position(from)

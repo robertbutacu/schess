@@ -11,7 +11,6 @@ case class StalemateState(pieces: List[List[Piece]], kingsPositions: KingsPositi
     println(s"""It's a stalemate! Nobody won.""")
     None
   }
-
-
+  
   override def isPlayerKingUncovered: Boolean = ???
 }

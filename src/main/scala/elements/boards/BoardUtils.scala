@@ -11,7 +11,7 @@ object BoardUtils {
   def isKingInCheckState(pieces: List[List[Piece]], playerTurn: PlayerIndex, kingsPositions: KingsPositions): Boolean = {
     def filterOppositePlayerPieces(): List[Piece] =
       for {
-        row <- pieces
+        row   <- pieces
         piece <- row
         owner <- piece.owner
         if owner.index == playerTurn.otherPlayerTurn
@@ -27,8 +27,8 @@ object BoardUtils {
   def nextPlayerIndex(playerTurn: Int): Int = 3 - playerTurn
 
   private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.pieces(Y)(X) match {
-    case Empty(_) => true
-    case _ => false
+    case _: Empty => true
+    case _        => false
   }
 
 }

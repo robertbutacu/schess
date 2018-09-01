@@ -3,7 +3,7 @@ package elements.pieces
 import actions.Position
 import players.Player
 
-trait Piece {
+sealed trait Piece {
   def owner: Option[Player]
 
   def position: Position

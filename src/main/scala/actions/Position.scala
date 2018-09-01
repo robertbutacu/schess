@@ -5,13 +5,13 @@ import elements.boards.BoardUtils
 import scala.util.{Failure, Success, Try}
 
 case class Position(X: Int, Y: Int) {
+  require(isInBounds(X) && isInBounds(Y))
+
   private def isInBounds(i: Int) = i >= 0 && i <= 7
 
   def apply(increment: (Int, Int) => (Int, Int)) = Position(increment(X, Y))
 
   def isRookDefaultPosition: Boolean = Y == 0 && (X == 0 || X == 7)
-
-  require(isInBounds(X) && isInBounds(Y))
 }
 
 object Position {
@@ -24,6 +24,5 @@ object Position {
       case Success(digit) => BoardUtils.letterMapping.get(position(0)).map(x => Position(x, digit))
       case Failure(_) => None
     }
-
   }
 }
