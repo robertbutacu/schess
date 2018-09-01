@@ -26,7 +26,7 @@ object BoardUtils {
 
   def nextPlayerIndex(playerTurn: Int): Int = 3 - playerTurn
 
-  private def isEmptyPosition(board: Board, X: Int, Y: Int) = board.table(X)(Y) match {
+  private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.pieces(Y)(X) match {
     case Empty(_) => true
     case _ => false
   }

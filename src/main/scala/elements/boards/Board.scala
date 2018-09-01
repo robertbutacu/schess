@@ -4,8 +4,6 @@ import actions.PiecePosition
 import elements.pieces.Piece
 import players.Player
 
-case class Board(table: List[List[Piece]], player1: Player, player2: Player)
-
 object Board {
 
   def isStraightMove(from: PiecePosition, to: PiecePosition): Boolean = from.X == to.X || from.Y == to.Y
@@ -15,11 +13,11 @@ object Board {
 
   def isValidMove(piece: Piece, to: PiecePosition): Boolean = ???
 
-  def isStall(board: Board, playerToPlay: Player): Boolean = ???
+  def isStall(board: BoardState, playerToPlay: Player): Boolean = ???
 
-  def isEndGame(board: Board, playerToPlay: Player): Boolean = ???
+  def isEndGame(board: BoardState, playerToPlay: Player): Boolean = ???
 
-  def isCheckState(board: Board, playerToPlay: Player): Boolean = ???
+  def isCheckState(board: BoardState, playerToPlay: Player): Boolean = ???
 
   /**
     * Interaction will be in the following way:
