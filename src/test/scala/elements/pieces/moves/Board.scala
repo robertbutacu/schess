@@ -13,7 +13,7 @@ trait Board {
   val genericEnemyPlayer = AIPlayer("YYY", PlayerTwo)
   val genericPosition = Position(4, 4)
 
-  lazy val emptyRow: List[Piece] = (0 to 7) map (i => Empty(Position(i, 0))) toList
+  lazy val emptyRow: List[Piece] = (0 to 7) map (i => EmptyPosition(Position(i, 0))) toList
   lazy val pawnRow: List[Piece] = (0 to 7) map { i => Pawn(genericPlayer, Position(i, 0)) } toList
 
   lazy val rook = Rook(genericPlayer, genericPosition)
@@ -29,7 +29,7 @@ trait Board {
   lazy val rookDefaultPositionRightEnemy = Rook(genericEnemyPlayer, Position(7, 0))
   lazy val kingDefaultPosition = King(genericPlayer, Position(4, 0))
 
-  def toEmptyRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Empty(Position(p.position.X, rowIndex)))
+  def toEmptyRow(rowIndex: Int): List[Piece] = emptyRow.map(p => EmptyPosition(Position(p.position.X, rowIndex)))
 
   def mapToPawnRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Pawn(genericPlayer, Position(p.position.X, rowIndex)))
 

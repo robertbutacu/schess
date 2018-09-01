@@ -1,7 +1,7 @@
 package elements.boards
 
 import elements.boards.information.KingsPositions
-import elements.pieces.{Empty, Piece}
+import elements.pieces.{EmptyPosition, Piece}
 import players.PlayerIndex
 
 object BoardUtils {
@@ -27,7 +27,7 @@ object BoardUtils {
   def nextPlayerIndex(playerTurn: Int): Int = 3 - playerTurn
 
   private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.pieces(Y)(X) match {
-    case _: Empty => true
+    case _: EmptyPosition => true
     case _        => false
   }
 

@@ -2,7 +2,7 @@ package actions.execute
 
 import actions.Position
 import elements.boards.BoardState
-import elements.pieces.Piece
+import elements.pieces.{EmptyPosition, Piece}
 
 sealed trait ExecuteMove {
   def boardState: BoardState
@@ -21,7 +21,7 @@ sealed trait ExecuteMove {
     def patchBoard(board: List[List[Piece]], piece: Piece) =
       board.patch(piece.position.Y, Seq(addPiece(piece, board(piece.position.Y))), 1)
 
-    val removedInitial = patchBoard(board, board(from.Y)(from.X))
+    val removedInitial = patchBoard(board, EmptyPosition(from))
     val updatedMove = patchBoard(removedInitial, board(from.Y)(from.X)(to))
 
     updatedMove

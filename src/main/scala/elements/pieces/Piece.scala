@@ -58,7 +58,7 @@ case class Rook(player: Player, position: Position) extends Piece {
 }
 
 
-case class Empty(position: Position) extends Piece {
+case class EmptyPosition(position: Position) extends Piece {
   override def toString: String = "  "
 
   override def owner: Option[Player] = None

@@ -2,7 +2,7 @@ package elements.boards
 
 import actions.Position
 import elements.boards.information.{KingsPositions, Players}
-import elements.pieces.{Empty, Piece}
+import elements.pieces.{EmptyPosition, Piece}
 import players.Player
 
 trait BoardState {
@@ -20,7 +20,7 @@ trait BoardState {
 
   def isPositionFree(position: Position): Boolean = {
     pieces(position.Y)(position.X) match {
-      case _: Empty => true
+      case _: EmptyPosition => true
       case _        => false
     }
   }
