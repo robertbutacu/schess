@@ -30,6 +30,7 @@ sealed trait ExecuteMove {
 
 case class NormalMove(boardState: BoardState, from: Position, to: Position) extends ExecuteMove {
   override def go(): BoardState = {
+    updatePiece(boardState.pieces, from, to)
     ???
   }
 }

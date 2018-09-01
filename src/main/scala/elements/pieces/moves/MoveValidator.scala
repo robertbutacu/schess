@@ -38,16 +38,12 @@ object MoveValidator {
       val horizontalMove = List(-1, 0, 1)
       val verticalMove = List(-1, 0, 1)
 
-      isAmongAllMoves(piece, to, verticalMove, horizontalMove) || isCastling(piece, to)
+      isAmongAllMoves(piece, to, verticalMove, horizontalMove) || isCastling(board, piece, to)
     }
 
     override protected def canOccupyPosition(piece: King, to: Position): Boolean = {
-      isCastling(piece, to) || isNotOwnPiece(board, to, piece.player)
+      isCastling(board, piece, to) || isNotOwnPiece(board, to, piece.player)
     }
-
-    private def isCastling(piece: King, to: Position): Boolean =
-      piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceInstance[Rook](to, piece.player)
-
   }
 
   implicit class QueenValidator(board: BoardState) extends MoveValidator[Queen] {
@@ -101,6 +97,11 @@ object MoveValidator {
 
     verify(from)
   }
+
+  def isEnPassantMove(board: BoardState, piece: Pawn, to: Position): Boolean = ???
+
+  def isCastling(board: BoardState, piece: King, to: Position): Boolean =
+    piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceInstance[Rook](to, piece.player)
 
   private def isAmongAllMoves(piece: Piece,
                               to: Position,
