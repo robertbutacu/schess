@@ -2,7 +2,7 @@ package elements.pieces.moves
 
 import actions.PiecePosition
 import elements.boards.BoardState
-import elements.boards.states.NoSpecialState
+import elements.boards.states.NormalState
 import elements.pieces._
 import players._
 
@@ -52,6 +52,6 @@ trait Board {
       patchBoard(board, piece)
     }
 
-    NoSpecialState(finalBoard)
+    NormalState(finalBoard)
   }
 }

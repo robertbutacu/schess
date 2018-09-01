@@ -4,10 +4,8 @@ import elements.boards.BoardState
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{King, Piece}
 
-case class CheckState(pieces: List[List[Piece]]) extends BoardState {
+case class CheckState(pieces: List[List[Piece]], kingsPositions: KingsPositions) extends BoardState {
   override def players: Players = ???
-
-  override def kingsPositions: KingsPositions = ???
 
   override def next: Option[BoardState] = {
     val nextMove = players.getPlayerTurn.askForMove
