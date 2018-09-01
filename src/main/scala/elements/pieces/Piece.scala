@@ -1,29 +1,29 @@
 package elements.pieces
 
-import actions.PiecePosition
+import actions.Position
 import players.Player
 
 trait Piece {
   def owner: Option[Player]
 
-  def position: PiecePosition
+  def position: Position
 }
 
-case class Pawn(player: Player, position: PiecePosition) extends Piece {
+case class Pawn(player: Player, position: Position) extends Piece {
   override def owner: Option[Player] = Some(player)
 
   override def toString: String = s"""P${player.index}"""
 }
 
 
-case class Knight(player: Player, position: PiecePosition) extends Piece {
+case class Knight(player: Player, position: Position) extends Piece {
   override def toString: String = s"""Kn${player.index}"""
 
   override def owner: Option[Player] = Some(player)
 }
 
 
-case class King(player: Player, position: PiecePosition) extends Piece {
+case class King(player: Player, position: Position) extends Piece {
   override def toString: String = s"""Ki${player.index}"""
 
   override def owner: Option[Player] = Some(player)
@@ -32,28 +32,28 @@ case class King(player: Player, position: PiecePosition) extends Piece {
 }
 
 
-case class Queen(player: Player, position: PiecePosition) extends Piece {
+case class Queen(player: Player, position: Position) extends Piece {
   override def toString: String = s"""Q${player.index}"""
 
   override def owner: Option[Player] = Some(player)
 }
 
 
-case class Rook(player: Player, position: PiecePosition) extends Piece {
+case class Rook(player: Player, position: Position) extends Piece {
   override def toString: String = s"""R${player.index}"""
 
   override def owner: Option[Player] = Some(player)
 }
 
 
-case class Empty(position: PiecePosition) extends Piece {
+case class Empty(position: Position) extends Piece {
   override def toString: String = "  "
 
   override def owner: Option[Player] = None
 }
 
 
-case class Bishop(player: Player, position: PiecePosition) extends Piece {
+case class Bishop(player: Player, position: Position) extends Piece {
   override def toString: String = s"""B${player.index}"""
 
   override def owner: Option[Player] = Some(player)

@@ -1,10 +1,10 @@
 package elements.boards.information
 
-import actions.PiecePosition
+import actions.Position
 import elements.pieces.King
 import players.{PlayerOne, PlayerTwo}
 
-case class KingsPositions(firstKingPosition: PiecePosition, secondKingPosition: PiecePosition) {
+case class KingsPositions(firstKingPosition: Position, secondKingPosition: Position) {
   def apply(kingPosition: King) = {
     kingPosition.player.index match {
       case PlayerOne => this.copy(firstKingPosition = kingPosition.position)

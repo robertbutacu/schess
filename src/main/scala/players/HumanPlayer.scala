@@ -1,6 +1,6 @@
 package players
 
-import actions.{Move, PiecePosition}
+import actions.{Move, Position}
 
 import scala.io.StdIn.readLine
 import scala.util.{Failure, Success, Try}
@@ -11,7 +11,7 @@ case class HumanPlayer(name: String, index: PlayerIndex) extends Player {
       def getMove(msg: String) =
         Try {
           val from = readLine(msg)
-          PiecePosition(from)
+          Position(from)
         }
 
       getMove(msg) match {

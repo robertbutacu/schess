@@ -1,17 +1,17 @@
 package elements.boards
 
-import actions.PiecePosition
+import actions.Position
 import elements.pieces.Piece
 import players.Player
 
 object Board {
 
-  def isStraightMove(from: PiecePosition, to: PiecePosition): Boolean = from.X == to.X || from.Y == to.Y
+  def isStraightMove(from: Position, to: Position): Boolean = from.X == to.X || from.Y == to.Y
 
-  def isDiagonalMove(from: PiecePosition, to: PiecePosition): Boolean =
+  def isDiagonalMove(from: Position, to: Position): Boolean =
     Math.abs(from.X - to.X) == Math.abs(from.Y - to.Y)
 
-  def isValidMove(piece: Piece, to: PiecePosition): Boolean = ???
+  def isValidMove(piece: Piece, to: Position): Boolean = ???
 
   def isStall(board: BoardState, playerToPlay: Player): Boolean = ???
 

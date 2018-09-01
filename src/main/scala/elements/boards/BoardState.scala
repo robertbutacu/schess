@@ -1,6 +1,6 @@
 package elements.boards
 
-import actions.PiecePosition
+import actions.Position
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{Empty, Piece}
 import players.Player
@@ -18,14 +18,14 @@ trait BoardState {
 
   def next: Option[BoardState]
 
-  def isPositionFree(position: PiecePosition): Boolean = {
+  def isPositionFree(position: Position): Boolean = {
     pieces(position.Y)(position.X) match {
       case _: Empty => true
       case _        => false
     }
   }
 
-  def isPieceInstance[P <: Piece](position: PiecePosition, owner: Player) =
+  def isPieceInstance[P <: Piece](position: Position, owner: Player) =
     pieces(position.Y)(position.X) match {
       case p: P => val result = p.owner.forall(p => p == owner)
         result

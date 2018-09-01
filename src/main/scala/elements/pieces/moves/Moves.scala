@@ -1,6 +1,6 @@
 package elements.pieces.moves
 
-import actions.PiecePosition
+import actions.Position
 
 object Moves {
   def diagonalLeftUp    = (X: Int, Y: Int) => (X - 1, Y + 1)
@@ -20,7 +20,7 @@ object Moves {
   def straightRight     = (X: Int, Y: Int) => (X + 1, Y)
 
 
-  def moveType(from: PiecePosition, to: PiecePosition): (Int, Int) => (Int, Int) = {
+  def moveType(from: Position, to: Position): (Int, Int) => (Int, Int) = {
     val xAxis = to.X - from.X
     val yAxis = to.Y - from.Y
 

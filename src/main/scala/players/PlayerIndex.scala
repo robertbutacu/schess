@@ -1,11 +1,11 @@
 package players
 
-import actions.PiecePosition
+import actions.Position
 import elements.boards.information.KingsPositions
 
 trait PlayerIndex {
   def otherPlayerTurn: PlayerIndex
-  def getKingPosition(kingsPositions: KingsPositions): PiecePosition
+  def getKingPosition(kingsPositions: KingsPositions): Position
 }
 
 case object PlayerOne extends PlayerIndex {
@@ -13,7 +13,7 @@ case object PlayerOne extends PlayerIndex {
 
   override def otherPlayerTurn: PlayerIndex = PlayerTwo
 
-  override def getKingPosition(kingsPositions: KingsPositions): PiecePosition = kingsPositions.firstKingPosition
+  override def getKingPosition(kingsPositions: KingsPositions): Position = kingsPositions.firstKingPosition
 }
 
 case object PlayerTwo extends PlayerIndex {
@@ -21,6 +21,6 @@ case object PlayerTwo extends PlayerIndex {
 
   override def otherPlayerTurn: PlayerIndex = PlayerOne
 
-  override def getKingPosition(kingsPositions: KingsPositions): PiecePosition = kingsPositions.secondKingPosition
+  override def getKingPosition(kingsPositions: KingsPositions): Position = kingsPositions.secondKingPosition
 }
 

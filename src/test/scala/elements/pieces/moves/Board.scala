@@ -1,6 +1,6 @@
 package elements.pieces.moves
 
-import actions.PiecePosition
+import actions.Position
 import elements.boards.BoardState
 import elements.boards.states.NormalState
 import elements.pieces._
@@ -11,10 +11,10 @@ import scala.language.postfixOps
 trait Board {
   val genericPlayer = AIPlayer("XXX", PlayerOne)
   val genericEnemyPlayer = AIPlayer("YYY", PlayerTwo)
-  val genericPosition = PiecePosition(4, 4)
+  val genericPosition = Position(4, 4)
 
-  lazy val emptyRow: List[Piece] = (0 to 7) map (i => Empty(PiecePosition(i, 0))) toList
-  lazy val pawnRow: List[Piece] = (0 to 7) map { i => Pawn(genericPlayer, PiecePosition(i, 0)) } toList
+  lazy val emptyRow: List[Piece] = (0 to 7) map (i => Empty(Position(i, 0))) toList
+  lazy val pawnRow: List[Piece] = (0 to 7) map { i => Pawn(genericPlayer, Position(i, 0)) } toList
 
   lazy val rook = Rook(genericPlayer, genericPosition)
   lazy val queen = Queen(genericPlayer, genericPosition)
@@ -23,15 +23,15 @@ trait Board {
   lazy val pawn = Pawn(genericPlayer, genericPosition)
   lazy val knight = Knight(genericPlayer, genericPosition)
 
-  lazy val rookDefaultPositionLeft = Rook(genericPlayer, PiecePosition(0, 0))
-  lazy val rookDefaultPositionLeftEnemy = Rook(genericEnemyPlayer, PiecePosition(0, 0))
-  lazy val rookDefaultPositionRight = Rook(genericPlayer, PiecePosition(7, 0))
-  lazy val rookDefaultPositionRightEnemy = Rook(genericEnemyPlayer, PiecePosition(7, 0))
-  lazy val kingDefaultPosition = King(genericPlayer, PiecePosition(4, 0))
+  lazy val rookDefaultPositionLeft = Rook(genericPlayer, Position(0, 0))
+  lazy val rookDefaultPositionLeftEnemy = Rook(genericEnemyPlayer, Position(0, 0))
+  lazy val rookDefaultPositionRight = Rook(genericPlayer, Position(7, 0))
+  lazy val rookDefaultPositionRightEnemy = Rook(genericEnemyPlayer, Position(7, 0))
+  lazy val kingDefaultPosition = King(genericPlayer, Position(4, 0))
 
-  def toEmptyRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Empty(PiecePosition(p.position.X, rowIndex)))
+  def toEmptyRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Empty(Position(p.position.X, rowIndex)))
 
-  def mapToPawnRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Pawn(genericPlayer, PiecePosition(p.position.X, rowIndex)))
+  def mapToPawnRow(rowIndex: Int): List[Piece] = emptyRow.map(p => Pawn(genericPlayer, Position(p.position.X, rowIndex)))
 
   def addPiece(p: Piece, row: List[Piece]): List[Piece] = {
     row.patch(p.position.X, Seq(p), 1)
