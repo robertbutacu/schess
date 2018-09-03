@@ -110,8 +110,8 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "A pawn " should " make valid moves " in {
     val pawnBoard = getBoard(pawn)
     pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe true //
-    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe true //
-    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe true //
+    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe true // en passant left
+    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe true // en passant right
   }
 
   "A pawn" should "not make valid moves " in {

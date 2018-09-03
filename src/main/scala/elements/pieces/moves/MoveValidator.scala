@@ -74,7 +74,8 @@ object MoveValidator {
       val horizontalMove = to.X - piece.position.X
       val verticalMove = to.Y - piece.position.Y
 
-      (isFirstPawnMove || verticalMove == 1) && (horizontalMove >= -1 && horizontalMove <= 1)
+      // checking vertical move                   checking horizontal move
+      (isFirstPawnMove || verticalMove == 1) && (horizontalMove == 0 || isEnPassantMove(board, piece, to))
     }
 
     override protected def canOccupyPosition(piece: Pawn, to: Position): Boolean = {
@@ -98,7 +99,16 @@ object MoveValidator {
     verify(from)
   }
 
-  def isEnPassantMove(board: BoardState, piece: Pawn, to: Position): Boolean = ???
+  def isEnPassantMove(board: BoardState, piece: Pawn, to: Position): Boolean = {
+    def checkForLeftEnPassant: Boolean = ???
+
+    def checkForRightEnPassant: Boolean = ???
+
+    def couldBeLeftEnPassant: Boolean = to.X - piece.position.X == -1 && to.Y - piece.position.Y == 1
+
+    if (couldBeLeftEnPassant) checkForLeftEnPassant
+    else checkForRightEnPassant
+  }
 
   def isCastling(board: BoardState, piece: King, to: Position): Boolean =
     piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceOwner[Rook](to, piece.player)
