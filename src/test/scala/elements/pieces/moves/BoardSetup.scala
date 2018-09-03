@@ -8,7 +8,7 @@ import players._
 
 import scala.language.postfixOps
 
-trait Board {
+trait BoardSetup {
   val genericPlayer = AIPlayer("XXX", PlayerOne)
   val genericEnemyPlayer = AIPlayer("YYY", PlayerTwo)
   val genericPosition = Position(4, 4)

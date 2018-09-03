@@ -2,10 +2,11 @@ package actions.execute
 
 import actions.Position
 import elements.boards.BoardState
+import elements.boards.states.NormalState
 import elements.pieces.{EmptyPosition, Piece}
 
 sealed trait ExecuteMove {
-  def boardState: BoardState
+  def board: BoardState
 
   def from: Position
 
@@ -23,22 +24,32 @@ sealed trait ExecuteMove {
 
     val removedInitial = patchBoard(board, EmptyPosition(from))
     val updatedMove = patchBoard(removedInitial, board(from.Y)(from.X)(to))
+    //the coordonates of the pieces are being updated above here directly
 
     updatedMove
   }
 }
 
-case class NormalMove(boardState: BoardState, from: Position, to: Position) extends ExecuteMove {
+case class NormalMove(board: BoardState, from: Position, to: Position) extends ExecuteMove {
   override def go(): BoardState = {
-    updatePiece(boardState.pieces, from, to)
-    ???
+    NormalState(updatePiece(board.pieces, from, to))
   }
 }
 
-case class EnPassantMove(boardState: BoardState, from: Position, to: Position) extends ExecuteMove {
+case class EnPassantMove(board: BoardState, from: Position, to: Position) extends ExecuteMove {
   override def go(): BoardState = ???
 }
 
-case class KingCastleMove(boardState: BoardState, from: Position, to: Position) extends ExecuteMove {
-  override def go(): BoardState = ???
+case class KingCastleMove(board: BoardState, from: Position, to: Position) extends ExecuteMove {
+  override def go(): BoardState = {
+    val king = board.pieces(from.Y)(from.X)
+    val rook = board.pieces(to.Y)(from.X)
+
+    val kingCastled = updatePiece(board.pieces, from, to)
+
+    //TODO change king to coordonates, doesnt work as you thought
+    //figure out a formula where the rook goes to its position
+    // the king aint no problem, its just patching to the to position
+    ???
+  }
 }

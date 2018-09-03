@@ -101,7 +101,7 @@ object MoveValidator {
   def isEnPassantMove(board: BoardState, piece: Pawn, to: Position): Boolean = ???
 
   def isCastling(board: BoardState, piece: King, to: Position): Boolean =
-    piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceInstance[Rook](to, piece.player)
+    piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceOwner[Rook](to, piece.player)
 
   private def isAmongAllMoves(piece: Piece,
                               to: Position,

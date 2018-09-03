@@ -5,7 +5,7 @@ import elements.pieces._
 import org.scalatest._
 import elements.pieces.moves.MoveValidator._
 
-class MoveValidatorSpec extends FlatSpec with Matchers with Board {
+class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "Initialization with bad position" should "fail " in {
     lazy val invalidPiece1 = Pawn(genericPlayer, Position(-1, 0)) //X low
     lazy val invalidPiece2 = Pawn(genericPlayer, Position(1, -1)) //Y low

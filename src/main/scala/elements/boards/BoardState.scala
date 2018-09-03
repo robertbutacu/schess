@@ -3,10 +3,17 @@ package elements.boards
 import actions.Position
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{EmptyPosition, Piece}
-import players.Player
+import players.{Player, PlayerOne, PlayerTwo}
 
 trait BoardState {
   def players: Players
+
+  def getKingPositionForCurrentPlayer: Position = {
+    players.getPlayerTurn.index match {
+      case PlayerOne => kingsPositions.firstKingPosition
+      case PlayerTwo => kingsPositions.secondKingPosition
+    }
+  }
 
   def kingsPositions: KingsPositions
 
@@ -25,7 +32,8 @@ trait BoardState {
     }
   }
 
-  def isPieceInstance[P <: Piece](position: Position, owner: Player) =
+  //TODO test
+  def isPieceOwner[P <: Piece](position: Position, owner: Player) =
     pieces(position.Y)(position.X) match {
       case p: P => val result = p.owner.forall(p => p == owner)
         result
