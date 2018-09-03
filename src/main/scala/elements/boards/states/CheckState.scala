@@ -22,14 +22,4 @@ case class CheckState(pieces: List[List[Piece]], kingsPositions: KingsPositions)
       else None
     } else None
   }
-
-  override def wouldPlayerKingBeInCheck(givenMove: Move): Boolean = {
-    val possibleBoardUpdated = MoveCategorisation.categorise(this, givenMove.from, givenMove.to)
-
-    val possibleKingUpdated = possibleBoardUpdated.pieces(givenMove.to.Y)(givenMove.to.X)
-
-    BoardUtils.isKingInCheckState(possibleBoardUpdated.pieces,
-      players.getPlayerTurn.index,
-      KingsPositions(possibleBoardUpdated.pieces))
-  }
 }

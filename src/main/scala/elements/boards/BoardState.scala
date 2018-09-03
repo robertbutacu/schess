@@ -1,5 +1,6 @@
 package elements.boards
 
+import actions.execute.MoveCategorisation
 import actions.{Move, Position}
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{EmptyPosition, Piece}
@@ -21,7 +22,13 @@ trait BoardState {
 
   def pieces: List[List[Piece]]
 
-  def wouldPlayerKingBeInCheck(givenMove: Move): Boolean
+  def wouldPlayerKingBeInCheck(givenMove: Move): Boolean = {
+    val possibleBoardUpdated = MoveCategorisation.categorise(this, givenMove.from, givenMove.to)
+
+    BoardUtils.isKingInCheckState(possibleBoardUpdated.pieces,
+      players.getPlayerTurn.index,
+      KingsPositions(possibleBoardUpdated.pieces))
+  }
 
   def revertBoard: List[List[Piece]] = this.pieces.reverse
 
