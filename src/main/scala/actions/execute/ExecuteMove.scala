@@ -42,14 +42,17 @@ case class EnPassantMove(board: BoardState, from: Position, to: Position) extend
 
 case class KingCastleMove(board: BoardState, from: Position, to: Position) extends ExecuteMove {
   override def go(): BoardState = {
-    val king = board.pieces(from.Y)(from.X)
-    val rook = board.pieces(to.Y)(from.X)
+    def adjustCastlingMoves: (Position, Position, Position) =
+      if (to.X == 0) // left castling
+        (Position(2, 0), Position(0, 0), Position(3, 0))
+      else //right castling
+        (Position(6, 0), Position(7, 0), Position(5, 0))
 
-    val kingCastled = updatePiece(board.pieces, from, to)
+    val (kingMove, rookFrom, rookTo) = adjustCastlingMoves
 
-    //TODO change king to coordonates, doesnt work as you thought
-    //figure out a formula where the rook goes to its position
-    // the king aint no problem, its just patching to the to position
-    ???
+    val kingCastled = updatePiece(board.pieces, from, kingMove)
+    val rookAdjusted = updatePiece(kingCastled, rookFrom, rookTo)
+
+    NormalState(rookAdjusted)
   }
 }
