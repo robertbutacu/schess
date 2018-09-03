@@ -4,8 +4,7 @@ import actions.Position
 import elements.boards.BoardState
 import elements.boards.Board._
 import elements.pieces._
-import players.Player
-
+import elements.pieces.moves.BoardCheckers._
 trait MoveValidator[P] {
   def isValidMove(piece: P, to: Position): Boolean = isValidPath(piece, to) && canOccupyPosition(piece, to)
 
@@ -16,21 +15,20 @@ trait MoveValidator[P] {
 }
 
 object MoveValidator {
-
   implicit class BishopValidator(board: BoardState) extends MoveValidator[Bishop] {
     override protected def isValidPath(piece: Bishop, to: Position): Boolean =
-      isDiagonalMove(piece.position, to) && isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
+      isDiagonalMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
     override protected def canOccupyPosition(piece: Bishop, to: Position): Boolean =
-      isNotOwnPiece(board, to, piece.player)
+      board.isNotOwnPiece(to, piece.player)
   }
 
   implicit class RookValidator(board: BoardState) extends MoveValidator[Rook] {
     override protected def isValidPath(piece: Rook, to: Position): Boolean =
-      isStraightMove(piece.position, to) && isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
+      isStraightMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
     override protected def canOccupyPosition(piece: Rook, to: Position): Boolean =
-      isNotOwnPiece(board, to, piece.player)
+      board.isNotOwnPiece(to, piece.player)
   }
 
   implicit class KingValidator(board: BoardState) extends MoveValidator[King] {
@@ -38,21 +36,21 @@ object MoveValidator {
       val horizontalMove = List(-1, 0, 1)
       val verticalMove = List(-1, 0, 1)
 
-      isAmongAllMoves(piece, to, verticalMove, horizontalMove) || isCastling(board, piece, to)
+      isAmongAllMoves(piece, to, verticalMove, horizontalMove) || board.isCastling(piece, to)
     }
 
     override protected def canOccupyPosition(piece: King, to: Position): Boolean = {
-      isCastling(board, piece, to) || isNotOwnPiece(board, to, piece.player)
+      board.isCastling(piece, to) || board.isNotOwnPiece(to, piece.player)
     }
   }
 
   implicit class QueenValidator(board: BoardState) extends MoveValidator[Queen] {
     override protected def isValidPath(piece: Queen, to: Position): Boolean =
       (isStraightMove(piece.position, to) || isDiagonalMove(piece.position, to)) &&
-        isClearPath(board, piece.position, to, Moves.moveType(piece.position, to))
+        board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
     override protected def canOccupyPosition(piece: Queen, to: Position): Boolean =
-      isNotOwnPiece(board, to, piece.player)
+      board.isNotOwnPiece(to, piece.player)
   }
 
   implicit class KnightValidator(board: BoardState) extends MoveValidator[Knight] {
@@ -64,7 +62,7 @@ object MoveValidator {
     }
 
     override protected def canOccupyPosition(piece: Knight, to: Position): Boolean =
-      isNotOwnPiece(board, to, piece.player)
+      board.isNotOwnPiece(to, piece.player)
   }
 
   implicit class PawnValidator(board: BoardState) extends MoveValidator[Pawn] {
@@ -75,43 +73,13 @@ object MoveValidator {
       val verticalMove = to.Y - piece.position.Y
 
       // checking vertical move                   checking horizontal move
-      (isFirstPawnMove || verticalMove == 1) && (horizontalMove == 0 || isEnPassantMove(board, piece, to))
+      (isFirstPawnMove || verticalMove == 1) && (horizontalMove == 0 || board.isEnPassantMove(piece, to))
     }
 
     override protected def canOccupyPosition(piece: Pawn, to: Position): Boolean = {
-      isNotOwnPiece(board, to, piece.player)
+      board.isNotOwnPiece(to, piece.player)
     }
   }
-
-  def isNotOwnPiece(boardState: BoardState, to: Position, player: Player): Boolean =
-    !boardState.pieces(to.X)(to.Y).owner.contains(player)
-
-  def isClearPath(board: BoardState,
-                  from: Position, to: Position,
-                  incrementFunction: (Int, Int) => (Int, Int)): Boolean = {
-    def verify(currentPosition: Position): Boolean = {
-      val next = currentPosition(incrementFunction)
-
-      if (next == to) true
-      else board.isPositionFree(next) && verify(next)
-    }
-
-    verify(from)
-  }
-
-  def isEnPassantMove(board: BoardState, piece: Pawn, to: Position): Boolean = {
-    def checkForLeftEnPassant: Boolean = ???
-
-    def checkForRightEnPassant: Boolean = ???
-
-    def couldBeLeftEnPassant: Boolean = to.X - piece.position.X == -1 && to.Y - piece.position.Y == 1
-
-    if (couldBeLeftEnPassant) checkForLeftEnPassant
-    else checkForRightEnPassant
-  }
-
-  def isCastling(board: BoardState, piece: King, to: Position): Boolean =
-    piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceOwner[Rook](to, piece.player)
 
   private def isAmongAllMoves(piece: Piece,
                               to: Position,
