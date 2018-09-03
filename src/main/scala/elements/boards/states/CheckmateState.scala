@@ -5,9 +5,9 @@ import elements.boards.BoardState
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.Piece
 
-case class CheckmateState(pieces: List[List[Piece]], kingsPositions: KingsPositions) extends BoardState {
-  override def players: Players = ???
-
+case class CheckmateState(pieces: List[List[Piece]],
+                          players: Players,
+                          kingsPositions: KingsPositions) extends BoardState {
   override def next: Option[BoardState] = {
     println(s"""${players.getPlayerTurn} has won! Sorry, ${players.getOtherPlayerTurn}.""")
     None

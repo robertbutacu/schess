@@ -1,14 +1,12 @@
 package elements.boards.states
 
-import actions.Move
-import actions.execute.MoveCategorisation
-import elements.boards.{BoardState, BoardUtils}
+import elements.boards.BoardState
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{King, Piece}
 
-case class CheckState(pieces: List[List[Piece]], kingsPositions: KingsPositions) extends BoardState {
-  override def players: Players = ???
-
+case class CheckState(pieces: List[List[Piece]],
+                      players: Players,
+                      kingsPositions: KingsPositions) extends BoardState {
   override def next: Option[BoardState] = {
     val nextMove = players.getPlayerTurn.askForMove
 

@@ -4,9 +4,7 @@ import elements.boards.BoardState
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.Piece
 
-case class NormalState(pieces: List[List[Piece]]) extends BoardState {
-  override def players: Players = ???
-
+case class NormalState(pieces: List[List[Piece]], players: Players) extends BoardState {
   override def kingsPositions: KingsPositions = ???
 
   override def next: Option[BoardState] = ???

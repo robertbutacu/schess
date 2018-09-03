@@ -1,9 +1,9 @@
-package elements.pieces.moves
+package elements.pieces
 
 import actions.Position
 import elements.boards.BoardState
+import elements.boards.information.Players
 import elements.boards.states.NormalState
-import elements.pieces._
 import players._
 
 import scala.language.postfixOps
@@ -52,6 +52,6 @@ trait BoardSetup {
       patchBoard(board, piece)
     }
 
-    NormalState(finalBoard)
+    NormalState(finalBoard, Players(genericPlayer, genericEnemyPlayer, 1))
   }
 }

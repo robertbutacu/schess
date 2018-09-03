@@ -25,7 +25,7 @@ trait BoardState {
   def wouldPlayerKingBeInCheck(givenMove: Move): Boolean = {
     val possibleBoardUpdated = MoveCategorisation.categorise(this, givenMove.from, givenMove.to)
 
-    BoardUtils.isKingInCheckState(possibleBoardUpdated.pieces,
+    BoardUtils.isKingInCheckState(possibleBoardUpdated,
       players.getPlayerTurn.index,
       KingsPositions(possibleBoardUpdated.pieces))
   }

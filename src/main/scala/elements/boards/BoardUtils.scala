@@ -1,17 +1,18 @@
 package elements.boards
 
 import elements.boards.information.KingsPositions
-import elements.pieces.{EmptyPosition, Piece}
+import elements.pieces.{EmptyPosition, King, Piece}
 import players.PlayerIndex
+import elements.pieces.moves.MoveValidator._
 
 object BoardUtils {
   val letterMapping = Map('A' -> 0, 'B' -> 1, 'C' -> 2, 'D' -> 3, 'E' -> 4, 'F' -> 5, 'G' -> 6, 'H' -> 7)
   val numberMapping = Map(0 -> 'A', 1 -> 'B', 2 -> 'C', 3 -> 'D', 4 -> 'E', 5 -> 'F', 6 -> 'G', 7 -> 'H')
 
-  def isKingInCheckState(pieces: List[List[Piece]], playerTurn: PlayerIndex, kingsPositions: KingsPositions): Boolean = {
+  def isKingInCheckState(board: BoardState, playerTurn: PlayerIndex, kingsPositions: KingsPositions): Boolean = {
     def filterOppositePlayerPieces(): List[Piece] =
       for {
-        row   <- pieces
+        row   <- board.pieces
         piece <- row
         owner <- piece.owner
         if owner.index == playerTurn.otherPlayerTurn
@@ -21,7 +22,7 @@ object BoardUtils {
 
     val possibleDangers = filterOppositePlayerPieces()
 
-    possibleDangers.exists(p => Board.isValidMove(p, playerKing))
+    possibleDangers.exists(p => board.isValidMove(p, playerKing))
   }
 
   def nextPlayerIndex(playerTurn: Int): Int = 3 - playerTurn

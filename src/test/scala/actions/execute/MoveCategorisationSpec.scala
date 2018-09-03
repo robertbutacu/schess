@@ -1,8 +1,7 @@
 package actions.execute
 
 import actions.Position
-import elements.pieces.{King, Rook}
-import elements.pieces.moves.BoardSetup
+import elements.pieces.{BoardSetup, King, Rook}
 import org.scalatest.{FlatSpec, Matchers}
 
 class MoveCategorisationSpec extends FlatSpec with Matchers with BoardSetup {

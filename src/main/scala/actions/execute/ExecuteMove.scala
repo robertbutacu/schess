@@ -32,7 +32,7 @@ sealed trait ExecuteMove {
 
 case class NormalMove(board: BoardState, from: Position, to: Position) extends ExecuteMove {
   override def go(): BoardState = {
-    NormalState(updatePiece(board.pieces, from, to))
+    NormalState(updatePiece(board.pieces, from, to), board.players)
   }
 }
 
@@ -53,6 +53,6 @@ case class KingCastleMove(board: BoardState, from: Position, to: Position) exten
     val kingCastled = updatePiece(board.pieces, from, kingMove)
     val rookAdjusted = updatePiece(kingCastled, rookFrom, rookTo)
 
-    NormalState(rookAdjusted)
+    NormalState(rookAdjusted, board.players)
   }
 }
