@@ -9,9 +9,11 @@ object BoardCheckers {
 
   implicit class Board(board: BoardState) {
     def isEnPassantMove(piece: Pawn, to: Position): Boolean = {
-      def checkForLeftEnPassant: Boolean = ???
+      def checkForLeftEnPassant: Boolean = {
+        false
+      }
 
-      def checkForRightEnPassant: Boolean = ???
+      def checkForRightEnPassant: Boolean = false
 
       def couldBeLeftEnPassant: Boolean = to.X - piece.position.X == -1 && to.Y - piece.position.Y == 1
 

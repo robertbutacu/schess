@@ -8,6 +8,8 @@ import players.{Player, PlayerOne, PlayerTwo}
 trait BoardState {
   def players: Players
 
+  def previousMove: PreviousMove = ???
+
   def getKingPositionForCurrentPlayer: Position = {
     players.getPlayerTurn.index match {
       case PlayerOne => kingsPositions.firstKingPosition
