@@ -6,7 +6,7 @@ import elements.boards.Board._
 import elements.pieces._
 import elements.pieces.moves.BoardCheckers._
 
-trait MoveValidator[P] {
+trait MoveValidator[P <: Piece] {
   def isValidMove(piece: P, to: Position): Boolean = isValidPath(piece, to) && canOccupyPosition(piece, to)
 
   protected def isValidPath(piece: P, to: Position): Boolean
@@ -16,20 +16,6 @@ trait MoveValidator[P] {
 }
 
 object MoveValidator {
-  implicit class PieceValidator(board: BoardState) extends MoveValidator[Piece] {
-    override protected def isValidPath(piece: Piece, to: Position): Boolean =
-      executeFunction(piece, to, this.isValidPath)
-
-    override protected def canOccupyPosition(piece: Piece, to: Position): Boolean =
-      executeFunction(piece, to, this.canOccupyPosition)
-
-    private def executeFunction(piece: Piece, to: Position, f: (Piece, Position) => Boolean): Boolean = {
-      piece match {
-        case k: King => f(k, to)
-        case q: Queen => f(q, to)
-      }
-    }
-  }
 
   implicit class BishopValidator(board: BoardState) extends MoveValidator[Bishop] {
     override protected def isValidPath(piece: Bishop, to: Position): Boolean =

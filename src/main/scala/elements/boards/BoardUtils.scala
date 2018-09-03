@@ -1,7 +1,7 @@
 package elements.boards
 
 import elements.boards.information.KingsPositions
-import elements.pieces.{EmptyPosition, King, Piece}
+import elements.pieces._
 import players.PlayerIndex
 import elements.pieces.moves.MoveValidator._
 
@@ -22,7 +22,14 @@ object BoardUtils {
 
     val possibleDangers = filterOppositePlayerPieces()
 
-    possibleDangers.exists(p => board.isValidMove(p, playerKing))
+    possibleDangers.exists {
+      case r: Rook => board.isValidMove(r, playerKing)
+      case k: King => board.isValidMove(k, playerKing)
+      case q: Queen => board.isValidMove(q, playerKing)
+      case kn: Knight => board.isValidMove(kn, playerKing)
+      case p: Pawn => board.isValidMove(p, playerKing)
+      case b: Bishop => board.isValidMove(b, playerKing)
+    }
   }
 
   def nextPlayerIndex(playerTurn: Int): Int = 3 - playerTurn
