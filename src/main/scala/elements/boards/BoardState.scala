@@ -1,6 +1,6 @@
 package elements.boards
 
-import actions.Position
+import actions.{Move, Position}
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{EmptyPosition, Piece}
 import players.{Player, PlayerOne, PlayerTwo}
@@ -21,7 +21,7 @@ trait BoardState {
 
   def pieces: List[List[Piece]]
 
-  def isPlayerKingUncovered: Boolean
+  def wouldPlayerKingBeInCheck(givenMove: Move): Boolean
 
   def revertBoard: List[List[Piece]] = this.pieces.reverse
 

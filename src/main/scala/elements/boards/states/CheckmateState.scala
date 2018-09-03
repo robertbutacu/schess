@@ -1,5 +1,6 @@
 package elements.boards.states
 
+import actions.Move
 import elements.boards.BoardState
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.Piece
@@ -12,7 +13,7 @@ case class CheckmateState(pieces: List[List[Piece]], kingsPositions: KingsPositi
     None
   }
 
-  override def isPlayerKingUncovered: Boolean = {
+  override def wouldPlayerKingBeInCheck(givenMove: Move): Boolean = {
     ???
   }
 }
