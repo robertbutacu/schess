@@ -16,11 +16,11 @@ case class KingsPositions(firstKingPosition: Position, secondKingPosition: Posit
 object KingsPositions {
   def apply(pieces: List[List[Piece]]): KingsPositions = {
     val kings = for {
-      row <- pieces
+      row   <- pieces
       piece <- row
       if (piece match {
         case _: King => true
-        case _ => false
+        case _       => false
       })
     } yield piece
 

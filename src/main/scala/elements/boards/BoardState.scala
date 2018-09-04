@@ -37,7 +37,7 @@ trait BoardState {
   def isPositionFree(position: Position): Boolean = {
     pieces(position.Y)(position.X) match {
       case _: EmptyPosition => true
-      case _        => false
+      case _                => false
     }
   }
 

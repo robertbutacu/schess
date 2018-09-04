@@ -14,7 +14,7 @@ case class CheckState(pieces: List[List[Piece]],
 
     if (pieceToBeMoved.owner.contains(players.getPlayerTurn) && (pieceToBeMoved match {
       case _: King => true
-      case _ => false
+      case _       => false
     })) {
       if (wouldPlayerKingBeInCheck(nextMove)) None
       else None
