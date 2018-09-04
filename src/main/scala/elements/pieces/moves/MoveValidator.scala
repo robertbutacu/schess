@@ -17,12 +17,22 @@ trait MoveValidator[P] {
 }
 
 object MoveValidator {
+  def apply[MV](implicit mv: MoveValidator[MV]): MoveValidator[MV] = mv
 
-  implicit class BoardValidator[P](board: BoardState) {
-    def isValidMove(piece: P, to: Position)(implicit validator: MoveValidator[P]): Boolean = {
-      validator.isValidMove(board, piece, to)
+  object ops {
+
+    implicit class BoardValidator[P](board: BoardState) {
+      def isValidMove(piece: P, to: Position)(implicit validator: MoveValidator[P]): Boolean = {
+        validator.isValidMove(board, piece, to)
+      }
     }
   }
+
+/*  implicit val pieceValidator = new MoveValidator[Piece] {
+    override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Boolean = true
+
+    override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Boolean = true
+  }*/
 
   implicit val bishopValidator = new MoveValidator[Bishop] {
     override protected def isValidPath(board: BoardState, piece: Bishop, to: Position): Boolean =

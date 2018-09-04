@@ -3,6 +3,7 @@ package elements.boards
 import elements.boards.information.KingsPositions
 import elements.pieces._
 import players.PlayerIndex
+import elements.pieces.moves.MoveValidator.ops._
 import elements.pieces.moves.MoveValidator._
 
 object BoardUtils {
@@ -22,7 +23,7 @@ object BoardUtils {
 
     val possibleDangers = filterOppositePlayerPieces()
 
-    possibleDangers exists { board.isValidMove(_, playerKing) }
+    possibleDangers exists(p => board.isValidMove(p, playerKing))
   }
 
   def nextPlayerIndex(playerTurn: Int): Int = 3 - playerTurn

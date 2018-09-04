@@ -3,7 +3,7 @@ package elements.pieces.moves
 import actions.Position
 import elements.pieces._
 import org.scalatest._
-import elements.pieces.moves.MoveValidator._
+import elements.pieces.moves.MoveValidator.ops._
 
 class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "Initialization with bad position" should "fail " in {
