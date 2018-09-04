@@ -28,12 +28,6 @@ object MoveValidator {
     }
   }
 
-/*  implicit val pieceValidator = new MoveValidator[Piece] {
-    override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Boolean = true
-
-    override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Boolean = true
-  }*/
-
   implicit val bishopValidator = new MoveValidator[Bishop] {
     override protected def isValidPath(board: BoardState, piece: Bishop, to: Position): Boolean =
       isDiagonalMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
@@ -98,6 +92,28 @@ object MoveValidator {
     override protected def canOccupyPosition(board: BoardState, piece: Pawn, to: Position): Boolean = {
       board.isNotOwnPiece(to, piece.player)
     }
+  }
+
+  implicit val pieceValidator = new MoveValidator[Piece] {
+    override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Boolean =
+      piece match {
+        case x: King => implicitly[MoveValidator[King]].isValidPath(board, x, to)
+        case x: Queen => implicitly[MoveValidator[Queen]].isValidPath(board, x, to)
+        case x: Knight => implicitly[MoveValidator[Knight]].isValidPath(board, x, to)
+        case x: Pawn => implicitly[MoveValidator[Pawn]].isValidPath(board, x, to)
+        case x: Bishop => implicitly[MoveValidator[Bishop]].isValidPath(board, x, to)
+        case x: Rook => implicitly[MoveValidator[Rook]].isValidPath(board, x, to)
+      }
+
+    override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Boolean =
+      piece match {
+        case x: King => implicitly[MoveValidator[King]].canOccupyPosition(board, x, to)
+        case x: Queen => implicitly[MoveValidator[Queen]].canOccupyPosition(board, x, to)
+        case x: Knight => implicitly[MoveValidator[Knight]].canOccupyPosition(board, x, to)
+        case x: Pawn => implicitly[MoveValidator[Pawn]].canOccupyPosition(board, x, to)
+        case x: Bishop => implicitly[MoveValidator[Bishop]].canOccupyPosition(board, x, to)
+        case x: Rook => implicitly[MoveValidator[Rook]].canOccupyPosition(board, x, to)
+      }
   }
 
   private def isAmongAllMoves(piece: Piece,
