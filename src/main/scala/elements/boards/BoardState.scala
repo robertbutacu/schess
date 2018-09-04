@@ -4,7 +4,8 @@ import actions.execute.MoveCategorisation
 import actions.{Move, Position}
 import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{EmptyPosition, Piece}
-import players.{Player, PlayerOne, PlayerTwo}
+import players.{PlayerOne, PlayerTwo}
+import elements.boards.validators.BoardValidators.BoardValidator
 
 trait BoardState {
   def players: Players
@@ -25,8 +26,7 @@ trait BoardState {
   def wouldPlayerKingBeInCheck(givenMove: Move): Boolean = {
     val possibleBoardUpdated = MoveCategorisation.categorise(this, givenMove.from, givenMove.to)
 
-    BoardUtils.isKingInCheckState(possibleBoardUpdated,
-      players.getPlayerTurn.index,
+    possibleBoardUpdated.isKingInCheckState(players.getPlayerTurn.index,
       KingsPositions(possibleBoardUpdated.pieces))
   }
 
@@ -37,7 +37,7 @@ trait BoardState {
   def isPositionFree(position: Position): Boolean = {
     pieces(position.Y)(position.X) match {
       case _: EmptyPosition => true
-      case _                => false
+      case _ => false
     }
   }
 }

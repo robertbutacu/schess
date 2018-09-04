@@ -2,7 +2,6 @@ package elements.pieces.moves
 
 import actions.Position
 import elements.boards.BoardState
-import elements.boards.Board._
 import elements.pieces._
 import elements.pieces.moves.BoardCheckers._
 import players.Player
@@ -23,12 +22,12 @@ object MoveValidator {
 
   object ops {
 
-    implicit class BoardValidator[P](board: BoardState) {
+    implicit class BoardMoveValidator[P](board: BoardState) {
       def isValidMove(piece: P, to: Position)(implicit validator: MoveValidator[P]): Boolean = {
         validator.isValidMove(board, piece, to)
       }
 
-      def isOwningRook(position: Position, owner: Player) =
+      def isOwningRook(position: Position, owner: Player): Boolean =
         board.pieces(position.Y)(position.X) match {
           case p: Rook => val result = p.owner.forall(p => p == owner)
             result

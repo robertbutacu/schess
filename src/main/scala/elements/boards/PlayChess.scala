@@ -1,10 +1,8 @@
 package elements.boards
 
-import actions.Position
-import elements.pieces.Piece
 import players.Player
 
-object Board {
+object PlayChess {
   /**
     * Interaction will be in the following way:
     *1. choose a player to start

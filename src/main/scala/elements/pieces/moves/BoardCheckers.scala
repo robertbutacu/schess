@@ -2,9 +2,9 @@ package elements.pieces.moves
 
 import actions.Position
 import elements.boards.BoardState
-import elements.pieces.{King, Pawn, Rook}
+import elements.pieces.{King, Pawn}
 import players.Player
-import elements.pieces.moves.MoveValidator.ops.BoardValidator
+import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
 
 object BoardCheckers {
 
