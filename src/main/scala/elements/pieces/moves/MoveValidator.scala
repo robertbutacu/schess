@@ -26,6 +26,7 @@ object MoveValidator {
         validator.isValidMove(board, piece, to)
       }
     }
+
   }
 
   implicit val bishopValidator = new MoveValidator[Bishop] {
@@ -97,22 +98,22 @@ object MoveValidator {
   implicit val pieceValidator = new MoveValidator[Piece] {
     override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Boolean =
       piece match {
-        case x: King => implicitly[MoveValidator[King]].isValidPath(board, x, to)
-        case x: Queen => implicitly[MoveValidator[Queen]].isValidPath(board, x, to)
+        case x: King   => implicitly[MoveValidator[King]].isValidPath(board, x, to)
+        case x: Queen  => implicitly[MoveValidator[Queen]].isValidPath(board, x, to)
         case x: Knight => implicitly[MoveValidator[Knight]].isValidPath(board, x, to)
-        case x: Pawn => implicitly[MoveValidator[Pawn]].isValidPath(board, x, to)
+        case x: Pawn   => implicitly[MoveValidator[Pawn]].isValidPath(board, x, to)
         case x: Bishop => implicitly[MoveValidator[Bishop]].isValidPath(board, x, to)
-        case x: Rook => implicitly[MoveValidator[Rook]].isValidPath(board, x, to)
+        case x: Rook   => implicitly[MoveValidator[Rook]].isValidPath(board, x, to)
       }
 
     override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Boolean =
       piece match {
-        case x: King => implicitly[MoveValidator[King]].canOccupyPosition(board, x, to)
-        case x: Queen => implicitly[MoveValidator[Queen]].canOccupyPosition(board, x, to)
+        case x: King   => implicitly[MoveValidator[King]].canOccupyPosition(board, x, to)
+        case x: Queen  => implicitly[MoveValidator[Queen]].canOccupyPosition(board, x, to)
         case x: Knight => implicitly[MoveValidator[Knight]].canOccupyPosition(board, x, to)
-        case x: Pawn => implicitly[MoveValidator[Pawn]].canOccupyPosition(board, x, to)
+        case x: Pawn   => implicitly[MoveValidator[Pawn]].canOccupyPosition(board, x, to)
         case x: Bishop => implicitly[MoveValidator[Bishop]].canOccupyPosition(board, x, to)
-        case x: Rook => implicitly[MoveValidator[Rook]].canOccupyPosition(board, x, to)
+        case x: Rook   => implicitly[MoveValidator[Rook]].canOccupyPosition(board, x, to)
       }
   }
 
