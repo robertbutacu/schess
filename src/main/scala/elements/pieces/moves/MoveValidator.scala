@@ -6,6 +6,7 @@ import elements.boards.Board._
 import elements.pieces._
 import elements.pieces.moves.BoardCheckers._
 import players.Player
+import elements.boards.validators.BoardValidators.BoardValidator
 
 trait MoveValidator[P] {
   def isValidMove(board: BoardState, piece: P, to: Position): Boolean =
@@ -39,7 +40,7 @@ object MoveValidator {
 
   implicit val bishopValidator = new MoveValidator[Bishop] {
     override protected def isValidPath(board: BoardState, piece: Bishop, to: Position): Boolean =
-      isDiagonalMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
+      board.isDiagonalMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
     override protected def canOccupyPosition(board: BoardState, piece: Bishop, to: Position): Boolean =
       board.isNotOwnPiece(to, piece.player)
@@ -47,7 +48,7 @@ object MoveValidator {
 
   implicit val rookValidator = new MoveValidator[Rook] {
     override protected def isValidPath(board: BoardState, piece: Rook, to: Position): Boolean =
-      isStraightMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
+      board.isStraightMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
     override protected def canOccupyPosition(board: BoardState, piece: Rook, to: Position): Boolean =
       board.isNotOwnPiece(to, piece.player)
@@ -68,7 +69,7 @@ object MoveValidator {
 
   implicit val queenValidator = new MoveValidator[Queen] {
     override protected def isValidPath(board: BoardState, piece: Queen, to: Position): Boolean =
-      (isStraightMove(piece.position, to) || isDiagonalMove(piece.position, to)) &&
+      (board.isStraightMove(piece.position, to) || board.isDiagonalMove(piece.position, to)) &&
         board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
     override protected def canOccupyPosition(board: BoardState, piece: Queen, to: Position): Boolean =
