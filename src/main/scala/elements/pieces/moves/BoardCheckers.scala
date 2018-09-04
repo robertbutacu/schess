@@ -4,6 +4,7 @@ import actions.Position
 import elements.boards.BoardState
 import elements.pieces.{King, Pawn, Rook}
 import players.Player
+import elements.pieces.moves.MoveValidator.ops.BoardValidator
 
 object BoardCheckers {
 
@@ -22,7 +23,7 @@ object BoardCheckers {
     }
 
     def isCastling(piece: King, to: Position): Boolean =
-      piece.isDefaultPosition && to.isRookDefaultPosition && board.isPieceOwner[Rook](to, piece.player)
+      piece.isDefaultPosition && to.isRookDefaultPosition && board.isOwningRook(to, piece.player)
 
 
     def isNotOwnPiece(to: Position, player: Player): Boolean =

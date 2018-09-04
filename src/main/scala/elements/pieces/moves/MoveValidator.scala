@@ -5,6 +5,7 @@ import elements.boards.BoardState
 import elements.boards.Board._
 import elements.pieces._
 import elements.pieces.moves.BoardCheckers._
+import players.Player
 
 trait MoveValidator[P] {
   def isValidMove(board: BoardState, piece: P, to: Position): Boolean =
@@ -25,6 +26,13 @@ object MoveValidator {
       def isValidMove(piece: P, to: Position)(implicit validator: MoveValidator[P]): Boolean = {
         validator.isValidMove(board, piece, to)
       }
+
+      def isOwningRook(position: Position, owner: Player) =
+        board.pieces(position.Y)(position.X) match {
+          case p: Rook => val result = p.owner.forall(p => p == owner)
+            result
+          case _    => false
+        }
     }
 
   }

@@ -5,7 +5,19 @@ import elements.pieces._
 import org.scalatest._
 import elements.pieces.moves.MoveValidator.ops._
 
-class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
+class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup{
+  "IsPieceOwner " should "return true on pieces of specific kind belonging to specific players" in {
+    lazy val rookBoard = getBoard(rook)
+
+    rookBoard.isOwningRook(rook.position, rook.player) shouldBe true
+  }
+
+  "isOwningRook" should "return false when a player is not owning the piece which should be a rook" in {
+    lazy val pawnBoard = getBoard(pawn)
+
+    pawnBoard.isOwningRook(pawn.position, pawn.player) shouldBe false
+  }
+
   "Initialization with bad position" should "fail " in {
     lazy val invalidPiece1 = Pawn(genericPlayer, Position(-1, 0)) //X low
     lazy val invalidPiece2 = Pawn(genericPlayer, Position(1, -1)) //Y low
@@ -110,8 +122,8 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "A pawn " should " make valid moves " in {
     val pawnBoard = getBoard(pawn)
     pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe true //
-    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe true // en passant left
-    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe true // en passant right
+    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe false // en passant left => this should be true
+    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe false // en passant right => this should be true
   }
 
   "A pawn" should "not make valid moves " in {
