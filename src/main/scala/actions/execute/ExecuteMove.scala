@@ -50,9 +50,9 @@ case class KingCastleMove(board: BoardState, from: Position, to: Position) exten
 
     val (kingMove, rookFrom, rookTo) = adjustCastlingMoves
 
-    val kingCastled = updatePiece(board.pieces, from, kingMove)
-    val rookAdjusted = updatePiece(kingCastled, rookFrom, rookTo)
+    val kingCastledPieces = updatePiece(board.pieces, from, kingMove)
+    val rookAdjustedPieces = updatePiece(kingCastledPieces, rookFrom, rookTo)
 
-    NormalState(rookAdjusted, board.players)
+    NormalState(rookAdjustedPieces, board.players)
   }
 }

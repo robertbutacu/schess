@@ -21,9 +21,7 @@ object BoardValidators {
 
     def isStall(board: BoardState, playerToPlay: Player): Boolean = ???
 
-    def isEndGame(board: BoardState, playerToPlay: Player): Boolean = ???
-
-    def isCheckState(board: BoardState, playerToPlay: Player): Boolean = ???
+    def isEndGame(playerToPlay: Player): Boolean = ???
 
     def isKingInCheckState(playerTurn: PlayerIndex, kingsPositions: KingsPositions): Boolean = {
       def filterOppositePlayerPieces(): List[Piece] =

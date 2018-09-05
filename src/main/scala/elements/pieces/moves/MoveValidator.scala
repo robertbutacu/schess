@@ -34,7 +34,6 @@ object MoveValidator {
           case _    => false
         }
     }
-
   }
 
   implicit val bishopValidator = new MoveValidator[Bishop] {
