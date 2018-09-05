@@ -105,12 +105,13 @@ object MoveValidator {
   implicit val pieceValidator = new MoveValidator[Piece] {
     override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Boolean =
       piece match {
-        case x: King   => implicitly[MoveValidator[King]].isValidPath(board, x, to)
-        case x: Queen  => implicitly[MoveValidator[Queen]].isValidPath(board, x, to)
-        case x: Knight => implicitly[MoveValidator[Knight]].isValidPath(board, x, to)
-        case x: Pawn   => implicitly[MoveValidator[Pawn]].isValidPath(board, x, to)
-        case x: Bishop => implicitly[MoveValidator[Bishop]].isValidPath(board, x, to)
-        case x: Rook   => implicitly[MoveValidator[Rook]].isValidPath(board, x, to)
+        case x: King          => implicitly[MoveValidator[King]].isValidPath(board, x, to)
+        case x: Queen         => implicitly[MoveValidator[Queen]].isValidPath(board, x, to)
+        case x: Knight        => implicitly[MoveValidator[Knight]].isValidPath(board, x, to)
+        case x: Pawn          => implicitly[MoveValidator[Pawn]].isValidPath(board, x, to)
+        case x: Bishop        => implicitly[MoveValidator[Bishop]].isValidPath(board, x, to)
+        case x: Rook          => implicitly[MoveValidator[Rook]].isValidPath(board, x, to)
+        case _: EmptyPosition => false // moving an empty piece is never valid
       }
 
     override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Boolean =

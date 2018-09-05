@@ -5,8 +5,7 @@ import elements.boards.information.{KingsPositions, Players}
 import elements.pieces.{King, Piece}
 
 case class CheckState(pieces: List[List[Piece]],
-                      players: Players,
-                      kingsPositions: KingsPositions) extends BoardState {
+                      players: Players) extends BoardState {
   override def next: Option[BoardState] = {
     val nextMove = players.getPlayerTurn.askForMove
 

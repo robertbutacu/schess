@@ -3,7 +3,7 @@ package elements.boards
 import actions.execute.MoveCategorisation
 import actions.{Move, Position}
 import elements.boards.information.{KingsPositions, Players}
-import elements.pieces.{EmptyPosition, Piece}
+import elements.pieces.{EmptyPosition, King, Piece}
 import players.{PlayerOne, PlayerTwo}
 import elements.boards.validators.BoardValidators.BoardValidator
 
@@ -19,7 +19,14 @@ trait BoardState {
     }
   }
 
-  def kingsPositions: KingsPositions
+  def getKingForCurrentPlayer: King = {
+    players.getPlayerTurn.index match {
+      case PlayerOne => pieces(kingsPositions.firstKingPosition.Y)(kingsPositions.firstKingPosition.X).asInstanceOf[King]
+      case PlayerTwo => pieces(kingsPositions.secondKingPosition.Y)(kingsPositions.secondKingPosition.X).asInstanceOf[King]
+    }
+  }
+
+  def kingsPositions: KingsPositions = KingsPositions(pieces)
 
   def pieces: List[List[Piece]]
 

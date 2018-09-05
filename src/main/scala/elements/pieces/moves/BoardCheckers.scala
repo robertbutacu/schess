@@ -2,7 +2,7 @@ package elements.pieces.moves
 
 import actions.Position
 import elements.boards.BoardState
-import elements.pieces.{King, Pawn}
+import elements.pieces.{King, Pawn, Piece}
 import players.Player
 import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
 
@@ -20,6 +20,17 @@ object BoardCheckers {
 
       if (couldBeLeftEnPassant) checkForLeftEnPassant
       else checkForRightEnPassant
+    }
+
+    def getPossiblePositionForKing(piece: King, to: Position): Position = {
+      def adjustCastlingMoves: Position =
+        if (to.X == 0) // left castling
+          Position(2, 0)
+        else //right castling
+          Position(6, 0)
+
+      if(board.isValidMove(piece, to) && board.isCastling(piece, to)) adjustCastlingMoves
+      else to
     }
 
     def isCastling(piece: King, to: Position): Boolean =

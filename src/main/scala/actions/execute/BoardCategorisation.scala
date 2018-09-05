@@ -2,22 +2,36 @@ package actions.execute
 
 import elements.boards.BoardState
 import elements.boards.information.Players
+import elements.pieces.Piece
 import elements.pieces.moves.MoveValidator.ops._
 import elements.pieces.moves.MoveValidator._
+import elements.pieces.moves.BoardCheckers._
+
 
 object BoardCategorisation {
   def getNextState(pieces: BoardState, players: Players): BoardState = ???
 
 
   def isCheckmate(board: BoardState, players: Players): Boolean = {
-    val playerKing = board.pieces(board.getKingPositionForCurrentPlayer.Y)(board.getKingPositionForCurrentPlayer.X)
+    def isEnemyPlayer(p: Piece) = p.owner.forall(player => player.index != players.getPlayerTurn.index)
+
+    val playerKing = board.getKingForCurrentPlayer
 
     val possibleMoves = for {
       row <- board.pieces
       piece <- row
       if board.isValidMove(playerKing, piece.position)
-    } yield piece.position
+    } yield board.getPossiblePositionForKing(playerKing, piece.position)
 
-    board.pieces.exists(row => row.exists(p => possibleMoves.exists(pm => board.isValidMove(p, pm))))
+    // there exists a move on the board which would threaten the king in his possible new position
+    board.pieces
+      .exists { row =>
+        row.exists { p =>
+          possibleMoves
+            .exists {
+              pm => isEnemyPlayer(p) && board.isValidMove(p, pm)
+            }
+        }
+      }
   }
 }
