@@ -4,6 +4,7 @@ import actions.execute.MoveCategorisation
 import elements.boards.BoardState
 import elements.boards.information.Players
 import elements.pieces.{King, Piece}
+import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
 
 case class CheckState(pieces: List[List[Piece]],
                       players: Players) extends BoardState {
@@ -15,7 +16,7 @@ case class CheckState(pieces: List[List[Piece]],
     def isValidMove: Boolean = pieceToBeMoved.owner.contains(players.getPlayerTurn) && (pieceToBeMoved match {
       case _: King => true
       case _       => false
-    })
+    }) && this.isValidMove(pieceToBeMoved, nextMove.to)
 
     val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
 

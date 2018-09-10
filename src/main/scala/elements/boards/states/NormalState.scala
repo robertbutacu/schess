@@ -4,6 +4,7 @@ import actions.execute.MoveCategorisation
 import elements.boards.BoardState
 import elements.boards.information.Players
 import elements.pieces.Piece
+import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
 
 case class NormalState(pieces: List[List[Piece]], players: Players) extends BoardState {
   override def next: Option[BoardState] = {
@@ -11,18 +12,19 @@ case class NormalState(pieces: List[List[Piece]], players: Players) extends Boar
 
     val pieceToBeMoved = pieces(nextMove.from.X)(nextMove.from.Y)
 
-    def isValidMove: Boolean = pieceToBeMoved.owner.contains(players.getPlayerTurn)
+    def isValidMove: Boolean =
+      pieceToBeMoved.owner.contains(players.getPlayerTurn) && this.isValidMove(pieceToBeMoved, nextMove.to)
 
     val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
 
     if (isValidMove) {
       if (wouldPlayerKingBeInCheck(possibleBoardUpdated)) {
-        println("\n The king would still be in check! Please choose another one!")
+        println("\n The king would be in check! Please choose another move!")
         this.next
       }
       else Some(possibleBoardUpdated)
     } else {
-      println("Please choose one of your pieces - keep in mind that you are in check")
+      println("Please choose one of your pieces!")
       this.next
     }
   }
