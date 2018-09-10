@@ -39,8 +39,6 @@ object BoardValidators {
       possibleDangers exists(p => board.isValidMove(p, playerKing))
     }
 
-    def nextPlayerIndex(playerTurn: Int): Int = 3 - playerTurn
-
     private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.pieces(Y)(X) match {
       case _: EmptyPosition => true
       case _                => false

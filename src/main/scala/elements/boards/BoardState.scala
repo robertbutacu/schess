@@ -26,6 +26,8 @@ trait BoardState {
     }
   }
 
+  def swapPlayerTurn = players.copy(playerTurn = players.otherPlayerTurn)
+
   def kingsPositions: KingsPositions = KingsPositions(pieces)
 
   def pieces: List[List[Piece]]
