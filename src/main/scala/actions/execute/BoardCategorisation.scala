@@ -32,7 +32,19 @@ object BoardCategorisation {
       }
   }
 
+  // player is not in check, but for all moves, it would result a check
   def isStalemate(board: BoardState, players: Players): Boolean = {
-    ???
+    val possibleMoves = for {
+      row <- board.pieces
+      piece <- row
+      if piece.owner.forall(p => p.index.toInt == players.playerTurn)
+      possibleMoveRow <- board.pieces
+      possibleEndPosition <- possibleMoveRow
+      if board.isValidMove(piece, possibleEndPosition.position)
+      updatedBoard = MoveCategorisation.categorise(board, piece.position, possibleEndPosition.position)
+      if !updatedBoard.wouldPlayerKingBeInCheck()
+    } yield piece
+
+    possibleMoves.isEmpty
   }
 }
