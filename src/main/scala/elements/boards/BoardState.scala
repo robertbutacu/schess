@@ -32,12 +32,9 @@ trait BoardState {
 
   def pieces: List[List[Piece]]
 
-  def wouldPlayerKingBeInCheck(givenMove: Move): Boolean = {
-    val possibleBoardUpdated = MoveCategorisation.categorise(this, givenMove.from, givenMove.to)
-
+  def wouldPlayerKingBeInCheck(possibleBoardUpdated: BoardState): Boolean =
     possibleBoardUpdated.isKingInCheckState(players.getPlayerTurn.index,
       KingsPositions(possibleBoardUpdated.pieces))
-  }
 
   def revertBoard: List[List[Piece]] = this.pieces.reverse
 
