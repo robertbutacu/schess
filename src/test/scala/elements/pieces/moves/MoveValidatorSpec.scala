@@ -130,6 +130,12 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup{
 
   }
 
+  "A pawn" should "not be able to walk straight if position is occupied" in {
+    val pawnBoard = getBoard(pawn, List(Pawn(genericEnemyPlayer, Position(4, 5))))
+
+    pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe false
+  }
+
   "A knight " should " make valid moves " in {
     val knightBoard = getBoard(knight)
 
