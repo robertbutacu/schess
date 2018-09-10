@@ -9,9 +9,6 @@ import elements.pieces.moves.BoardCheckers._
 
 
 object BoardCategorisation {
-  def getNextState(pieces: BoardState, players: Players): BoardState = ???
-
-
   def isCheckmate(board: BoardState, players: Players): Boolean = {
     def isEnemyPlayer(p: Piece) = p.owner.forall(player => player.index != players.getPlayerTurn.index)
 
