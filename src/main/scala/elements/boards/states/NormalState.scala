@@ -1,9 +1,29 @@
 package elements.boards.states
 
+import actions.execute.MoveCategorisation
 import elements.boards.BoardState
-import elements.boards.information.{KingsPositions, Players}
+import elements.boards.information.Players
 import elements.pieces.Piece
 
 case class NormalState(pieces: List[List[Piece]], players: Players) extends BoardState {
-  override def next: Option[BoardState] = ???
+  override def next: Option[BoardState] = {
+    val nextMove = players.getPlayerTurn.askForMove
+
+    val pieceToBeMoved = pieces(nextMove.from.X)(nextMove.from.Y)
+
+    def isValidMove: Boolean = pieceToBeMoved.owner.contains(players.getPlayerTurn)
+
+    val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
+
+    if (isValidMove) {
+      if (wouldPlayerKingBeInCheck(possibleBoardUpdated)) {
+        println("\n The king would still be in check! Please choose another one!")
+        this.next
+      }
+      else Some(possibleBoardUpdated)
+    } else {
+      println("Please choose one of your pieces - keep in mind that you are in check")
+      this.next
+    }
+  }
 }
