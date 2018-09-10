@@ -89,22 +89,21 @@ object MoveValidator {
   implicit val pawnValidator = new MoveValidator[Pawn] {
     override protected def isValidPath(board: BoardState, piece: Pawn, to: Position): Boolean = {
       def isFirstPawnMove = piece.position.Y == 1 && to.Y == 3
-      def isEmptySpaceForVerticalMove = {
-        if(piece.position.X == to.X && piece.position.Y + 1 == to.Y) board.isPositionFree(to)
-        else true
-      }
 
       val horizontalMove = to.X - piece.position.X
       val verticalMove = to.Y - piece.position.Y
 
       // checking vertical move                   checking horizontal move
-      isEmptySpaceForVerticalMove &&
-        (isFirstPawnMove || verticalMove == 1) &&
-        (horizontalMove == 0 || board.isEnPassantMove(piece, to))
+        (isFirstPawnMove || verticalMove == 1) && (horizontalMove == 0 || board.isEnPassantMove(piece, to))
     }
 
     override protected def canOccupyPosition(board: BoardState, piece: Pawn, to: Position): Boolean = {
-      board.isNotOwnPiece(to, piece.player)
+      def isEmptySpaceForVerticalMove = {
+        if(piece.position.X == to.X && piece.position.Y + 1 == to.Y) board.isPositionFree(to)
+        else true
+      }
+
+      isEmptySpaceForVerticalMove && board.isNotOwnPiece(to, piece.player)
     }
   }
 
