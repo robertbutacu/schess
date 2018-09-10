@@ -110,23 +110,24 @@ object MoveValidator {
   implicit val pieceValidator = new MoveValidator[Piece] {
     override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Boolean =
       piece match {
-        case x: King          => implicitly[MoveValidator[King]].isValidPath(board, x, to)
-        case x: Queen         => implicitly[MoveValidator[Queen]].isValidPath(board, x, to)
-        case x: Knight        => implicitly[MoveValidator[Knight]].isValidPath(board, x, to)
-        case x: Pawn          => implicitly[MoveValidator[Pawn]].isValidPath(board, x, to)
-        case x: Bishop        => implicitly[MoveValidator[Bishop]].isValidPath(board, x, to)
-        case x: Rook          => implicitly[MoveValidator[Rook]].isValidPath(board, x, to)
+        case king: King       => implicitly[MoveValidator[King]].isValidPath(board, king, to)
+        case queen: Queen     => implicitly[MoveValidator[Queen]].isValidPath(board, queen, to)
+        case knight: Knight   => implicitly[MoveValidator[Knight]].isValidPath(board, knight, to)
+        case pawn: Pawn       => implicitly[MoveValidator[Pawn]].isValidPath(board, pawn, to)
+        case bishop: Bishop   => implicitly[MoveValidator[Bishop]].isValidPath(board, bishop, to)
+        case rook: Rook       => implicitly[MoveValidator[Rook]].isValidPath(board, rook, to)
         case _: EmptyPosition => false // moving an empty piece is never valid
       }
 
     override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Boolean =
       piece match {
-        case x: King   => implicitly[MoveValidator[King]].canOccupyPosition(board, x, to)
-        case x: Queen  => implicitly[MoveValidator[Queen]].canOccupyPosition(board, x, to)
-        case x: Knight => implicitly[MoveValidator[Knight]].canOccupyPosition(board, x, to)
-        case x: Pawn   => implicitly[MoveValidator[Pawn]].canOccupyPosition(board, x, to)
-        case x: Bishop => implicitly[MoveValidator[Bishop]].canOccupyPosition(board, x, to)
-        case x: Rook   => implicitly[MoveValidator[Rook]].canOccupyPosition(board, x, to)
+        case king: King       => implicitly[MoveValidator[King]].canOccupyPosition(board, king, to)
+        case queen: Queen     => implicitly[MoveValidator[Queen]].canOccupyPosition(board, queen, to)
+        case knight: Knight   => implicitly[MoveValidator[Knight]].canOccupyPosition(board, knight, to)
+        case pawn: Pawn       => implicitly[MoveValidator[Pawn]].canOccupyPosition(board, pawn, to)
+        case bishop: Bishop   => implicitly[MoveValidator[Bishop]].canOccupyPosition(board, bishop, to)
+        case rook: Rook       => implicitly[MoveValidator[Rook]].canOccupyPosition(board, rook, to)
+        case _: EmptyPosition => false // moving an empty piece is never valid
       }
   }
 

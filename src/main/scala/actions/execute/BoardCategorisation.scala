@@ -31,4 +31,8 @@ object BoardCategorisation {
         }
       }
   }
+
+  def isStalemate(board: BoardState, players: Players): Boolean = {
+    ???
+  }
 }
