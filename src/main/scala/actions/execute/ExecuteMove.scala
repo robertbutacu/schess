@@ -19,7 +19,7 @@ sealed trait ExecuteMove {
       row.patch(p.position.X, Seq(p), 1)
     }
 
-    def patchBoard(board: List[List[Piece]], piece: Piece) =
+    def patchBoard(board: List[List[Piece]], piece: Piece): List[List[Piece]] =
       board.patch(piece.position.Y, Seq(addPiece(piece, board(piece.position.Y))), 1)
 
     val removedInitial = patchBoard(board, EmptyPosition(from))

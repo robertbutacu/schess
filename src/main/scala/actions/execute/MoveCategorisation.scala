@@ -3,7 +3,6 @@ package actions.execute
 import actions.Position
 import elements.boards.BoardState
 import elements.pieces.{King, Pawn}
-import elements.pieces.moves.BoardCheckers._
 import elements.boards.validators.BoardQueries.BoardQueries
 
 object MoveCategorisation {
