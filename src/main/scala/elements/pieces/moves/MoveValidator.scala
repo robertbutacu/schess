@@ -3,7 +3,6 @@ package elements.pieces.moves
 import actions.Position
 import elements.boards.BoardState
 import elements.pieces._
-import elements.pieces.moves.BoardCheckers._
 import players.Player
 import elements.boards.validators.BoardValidators.BoardValidator
 

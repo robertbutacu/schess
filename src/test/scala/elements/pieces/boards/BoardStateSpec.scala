@@ -1,9 +1,10 @@
 package elements.pieces.boards
 
 import actions.execute.MoveCategorisation
-import actions.{Move, Position}
+import actions.Position
 import elements.pieces.{BoardSetup, King, Rook}
 import org.scalatest.{FlatSpec, Matchers}
+import elements.boards.validators.BoardValidators.BoardValidator
 
 class BoardStateSpec extends FlatSpec with Matchers with BoardSetup {
 

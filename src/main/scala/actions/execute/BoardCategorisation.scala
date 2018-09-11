@@ -6,7 +6,7 @@ import elements.pieces.Piece
 import elements.pieces.moves.MoveValidator.ops._
 import elements.pieces.moves.MoveValidator._
 import elements.pieces.moves.BoardCheckers._
-
+import elements.boards.validators.BoardValidators.BoardValidator
 
 object BoardCategorisation {
   def isCheckmate(board: BoardState, players: Players): Boolean = {
