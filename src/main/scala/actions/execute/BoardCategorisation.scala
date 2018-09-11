@@ -15,7 +15,7 @@ object BoardCategorisation {
     val playerKing = board.getKingForCurrentPlayer
 
     val possibleMoves = for {
-      row <- board.pieces
+      row   <- board.pieces
       piece <- row
       if board.isValidMove(playerKing, piece.position)
     } yield board.getPossiblePositionForKing(playerKing, piece.position)
@@ -35,14 +35,14 @@ object BoardCategorisation {
   // player is not in check, but for all moves, it would result a check
   def isStalemate(board: BoardState, players: Players): Boolean = {
     val possibleMoves = for {
-      row <- board.pieces
-      piece <- row
+      row                 <- board.pieces
+      piece               <- row
       if piece.owner.forall(p => p.index.toInt == players.playerTurn)
-      possibleMoveRow <- board.pieces
+      possibleMoveRow     <- board.pieces
       possibleEndPosition <- possibleMoveRow
       if board.isValidMove(piece, possibleEndPosition.position)
       updatedBoard = MoveCategorisation.categorise(board, piece.position, possibleEndPosition.position)
-      if !updatedBoard.wouldPlayerKingBeInCheck()
+      if updatedBoard.isKingNotInCheck()
     } yield piece
 
     possibleMoves.isEmpty

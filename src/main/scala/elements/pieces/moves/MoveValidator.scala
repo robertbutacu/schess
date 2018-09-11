@@ -31,12 +31,12 @@ object MoveValidator {
         board.pieces(position.Y)(position.X) match {
           case p: Rook => val result = p.owner.forall(p => p == owner)
             result
-          case _    => false
+          case _       => false
         }
     }
   }
 
-  implicit val bishopValidator = new MoveValidator[Bishop] {
+  implicit val bishopValidator: MoveValidator[Bishop] = new MoveValidator[Bishop] {
     override protected def isValidPath(board: BoardState, piece: Bishop, to: Position): Boolean =
       board.isDiagonalMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
@@ -44,7 +44,7 @@ object MoveValidator {
       board.isNotOwnPiece(to, piece.player)
   }
 
-  implicit val rookValidator = new MoveValidator[Rook] {
+  implicit val rookValidator: MoveValidator[Rook] = new MoveValidator[Rook] {
     override protected def isValidPath(board: BoardState, piece: Rook, to: Position): Boolean =
       board.isStraightMove(piece.position, to) && board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
@@ -52,7 +52,7 @@ object MoveValidator {
       board.isNotOwnPiece(to, piece.player)
   }
 
-  implicit val kingValidator = new MoveValidator[King] {
+  implicit val kingValidator: MoveValidator[King] = new MoveValidator[King] {
     override protected def isValidPath(board: BoardState, piece: King, to: Position): Boolean = {
       val horizontalMove = List(-1, 0, 1)
       val verticalMove = List(-1, 0, 1)
@@ -65,7 +65,7 @@ object MoveValidator {
     }
   }
 
-  implicit val queenValidator = new MoveValidator[Queen] {
+  implicit val queenValidator: MoveValidator[Queen] = new MoveValidator[Queen] {
     override protected def isValidPath(board: BoardState, piece: Queen, to: Position): Boolean =
       (board.isStraightMove(piece.position, to) || board.isDiagonalMove(piece.position, to)) &&
         board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
@@ -74,7 +74,7 @@ object MoveValidator {
       board.isNotOwnPiece(to, piece.player)
   }
 
-  implicit val knightValidator = new MoveValidator[Knight] {
+  implicit val knightValidator: MoveValidator[Knight] = new MoveValidator[Knight] {
     override protected def isValidPath(board: BoardState, piece: Knight, to: Position): Boolean = {
       val horizontalMove = List(-1, +1)
       val verticalMove = List(+2, -2)
@@ -86,7 +86,7 @@ object MoveValidator {
       board.isNotOwnPiece(to, piece.player)
   }
 
-  implicit val pawnValidator = new MoveValidator[Pawn] {
+  implicit val pawnValidator: MoveValidator[Pawn] = new MoveValidator[Pawn] {
     override protected def isValidPath(board: BoardState, piece: Pawn, to: Position): Boolean = {
       def isFirstPawnMove = piece.position.Y == 1 && to.Y == 3
 
@@ -107,7 +107,7 @@ object MoveValidator {
     }
   }
 
-  implicit val pieceValidator = new MoveValidator[Piece] {
+  implicit val pieceValidator: MoveValidator[Piece] = new MoveValidator[Piece] {
     override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Boolean =
       piece match {
         case king: King       => implicitly[MoveValidator[King]].isValidPath(board, king, to)

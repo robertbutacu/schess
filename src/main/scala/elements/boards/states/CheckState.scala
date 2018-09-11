@@ -21,7 +21,7 @@ case class CheckState(pieces: List[List[Piece]],
     val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
 
     if (isValidMove) {
-      if (wouldPlayerKingBeInCheck(possibleBoardUpdated)) {
+      if (isKingInCheck()) {
         println("\n The king would still be in check! Please choose another one!")
         this.next
       }

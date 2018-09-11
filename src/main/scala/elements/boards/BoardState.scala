@@ -32,9 +32,11 @@ trait BoardState {
 
   def pieces: List[List[Piece]]
 
-  def wouldPlayerKingBeInCheck(): Boolean =
+  def isKingInCheck(): Boolean =
     this.isKingInCheckState(players.getPlayerTurn.index,
       KingsPositions(this.pieces))
+
+  def isKingNotInCheck(): Boolean = !isKingInCheck()
 
   def revertBoard: List[List[Piece]] = this.pieces.reverse
 

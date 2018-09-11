@@ -18,7 +18,7 @@ case class NormalState(pieces: List[List[Piece]], players: Players) extends Boar
     val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
 
     if (isValidMove) {
-      if (wouldPlayerKingBeInCheck(possibleBoardUpdated)) {
+      if (isKingInCheck()) {
         println("\n The king would be in check! Please choose another move!")
         this.next
       }
