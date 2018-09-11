@@ -5,7 +5,7 @@ import elements.boards.BoardState
 import elements.boards.information.Players
 import elements.pieces.{King, Piece}
 import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
-import elements.boards.validators.BoardValidators.BoardValidator
+import elements.boards.validators.BoardQueries.BoardQueries
 
 case class CheckState(pieces: List[List[Piece]],
                       players: Players) extends BoardState {
@@ -22,7 +22,7 @@ case class CheckState(pieces: List[List[Piece]],
     val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
 
     if (isValidMove) {
-      if (this.isKingInCheck()) {
+      if (this.isKingInCheck) {
         println("\n The king would still be in check! Please choose another one!")
         this.next
       }

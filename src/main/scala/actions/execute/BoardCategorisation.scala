@@ -6,7 +6,7 @@ import elements.pieces.Piece
 import elements.pieces.moves.MoveValidator.ops._
 import elements.pieces.moves.MoveValidator._
 import elements.pieces.moves.BoardCheckers._
-import elements.boards.validators.BoardValidators.BoardValidator
+import elements.boards.validators.BoardQueries.BoardQueries
 
 object BoardCategorisation {
   def isCheckmate(board: BoardState, players: Players): Boolean = {
@@ -42,7 +42,7 @@ object BoardCategorisation {
       possibleEndPosition <- possibleMoveRow
       if board.isValidMove(piece, possibleEndPosition.position)
       updatedBoard = MoveCategorisation.categorise(board, piece.position, possibleEndPosition.position)
-      if updatedBoard.isKingNotInCheck()
+      if updatedBoard.isKingNotInCheck
     } yield piece
 
     possibleMoves.isEmpty

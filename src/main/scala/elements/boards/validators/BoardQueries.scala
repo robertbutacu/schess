@@ -2,17 +2,16 @@ package elements.boards.validators
 
 import actions.Position
 import elements.boards.BoardState
-import elements.boards.information.KingsPositions
 import elements.pieces.{EmptyPosition, King, Pawn, Piece}
-import players.{Player, PlayerIndex}
+import players.Player
 import elements.pieces.moves.MoveValidator._
 import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
 
-object BoardValidators {
+object BoardQueries {
   val letterMapping = Map('A' -> 0, 'B' -> 1, 'C' -> 2, 'D' -> 3, 'E' -> 4, 'F' -> 5, 'G' -> 6, 'H' -> 7)
   val numberMapping = Map(0 -> 'A', 1 -> 'B', 2 -> 'C', 3 -> 'D', 4 -> 'E', 5 -> 'F', 6 -> 'G', 7 -> 'H')
 
-  implicit class BoardValidator(board: BoardState) {
+  implicit class BoardQueries(board: BoardState) {
     def isEnPassantMove(piece: Pawn, to: Position): Boolean = {
       def checkForLeftEnPassant: Boolean = {
         false
@@ -35,27 +34,23 @@ object BoardValidators {
 
     def isEndGame(playerToPlay: Player): Boolean = ???
 
-    def isKingInCheckState(playerTurn: PlayerIndex, kingsPositions: KingsPositions): Boolean = {
+    def isKingInCheck: Boolean = {
       def filterOppositePlayerPieces(): List[Piece] =
         for {
           row   <- board.pieces
           piece <- row
           owner <- piece.owner
-          if owner.index == playerTurn.otherPlayerTurn
+          if owner.index == board.players.getPlayerTurn.index.otherPlayerTurn
         } yield piece
 
-      val playerKing = playerTurn.getKingPosition(kingsPositions)
+      val playerKing = board.players.getPlayerTurn.index.getKingPosition(board.kingsPositions)
 
       val possibleDangers = filterOppositePlayerPieces()
 
-      possibleDangers exists(p => board.isValidMove(p, playerKing))
+      possibleDangers exists (p => board.isValidMove(p, playerKing))
     }
 
-    def isKingInCheck(): Boolean =
-      this.isKingInCheckState(board.players.getPlayerTurn.index,
-        KingsPositions(board.pieces))
-
-    def isKingNotInCheck(): Boolean = !isKingInCheck()
+    def isKingNotInCheck: Boolean = !isKingInCheck
 
     private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.pieces(Y)(X) match {
       case _: EmptyPosition => true

@@ -1,6 +1,6 @@
 package actions
 
-import elements.boards.validators.BoardValidators
+import elements.boards.validators.BoardQueries
 
 import scala.util.{Failure, Success, Try}
 
@@ -21,7 +21,7 @@ object Position {
     Try {
       position(1).asDigit
     } match {
-      case Success(digit) => BoardValidators.letterMapping.get(position(0)).map(x => Position(x, digit))
+      case Success(digit) => BoardQueries.letterMapping.get(position(0)).map(x => Position(x, digit))
       case Failure(_) => None
     }
   }

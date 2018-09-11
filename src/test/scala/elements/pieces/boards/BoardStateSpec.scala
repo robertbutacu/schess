@@ -4,7 +4,7 @@ import actions.execute.MoveCategorisation
 import actions.Position
 import elements.pieces.{BoardSetup, King, Rook}
 import org.scalatest.{FlatSpec, Matchers}
-import elements.boards.validators.BoardValidators.BoardValidator
+import elements.boards.validators.BoardQueries.BoardQueries
 
 class BoardStateSpec extends FlatSpec with Matchers with BoardSetup {
 
@@ -12,6 +12,6 @@ class BoardStateSpec extends FlatSpec with Matchers with BoardSetup {
     val kingBoard = getBoard(king, List(Rook(genericEnemyPlayer, Position(5, 0)), King(genericEnemyPlayer, Position(0, 0))))
 
     val updatedBoard = MoveCategorisation.categorise(kingBoard, Position(4, 4), Position(5, 5))
-    updatedBoard.isKingInCheck() shouldBe true
+    updatedBoard.isKingInCheck shouldBe true
   }
 }

@@ -4,7 +4,7 @@ import actions.Position
 import elements.boards.BoardState
 import elements.pieces.King
 import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
-import elements.boards.validators.BoardValidators.BoardValidator
+import elements.boards.validators.BoardQueries.BoardQueries
 
 
 object BoardCheckers {
