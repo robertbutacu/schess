@@ -5,7 +5,7 @@ import elements.pieces.Piece
 import actions.validators.moves.MoveValidator.ops._
 import actions.validators.moves.MoveValidator._
 import actions.validators.board.BoardCheckers._
-import actions.validators.board.BoardQueries.BoardQueries
+import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import players.Players
 
 object BoardCategorisation {

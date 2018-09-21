@@ -1,7 +1,7 @@
 package actions.validators.moves
 
 import actions.Position
-import actions.validators.board.BoardQueries.BoardQueries
+import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import elements.boards.states.BoardState
 import elements.pieces._
 import players.models.Player

@@ -3,7 +3,7 @@ package elements.boards.states
 import actions.execute.MoveCategorisation
 import elements.pieces.{King, Piece}
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
-import actions.validators.board.BoardQueries.BoardQueries
+import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import players.Players
 
 case class CheckState(pieces: List[List[Piece]],

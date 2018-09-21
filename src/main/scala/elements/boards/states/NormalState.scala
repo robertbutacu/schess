@@ -3,7 +3,7 @@ package elements.boards.states
 import actions.execute.MoveCategorisation
 import elements.pieces.Piece
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
-import actions.validators.board.BoardQueries.BoardQueries
+import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import players.Players
 
 case class NormalState(pieces: List[List[Piece]], players: Players) extends BoardState {

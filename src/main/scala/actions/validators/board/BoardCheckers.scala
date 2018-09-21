@@ -1,9 +1,9 @@
 package actions.validators.board
 
 import actions.Position
-import actions.validators.board.BoardQueries.BoardQueries
 import elements.boards.states.BoardState
 import elements.pieces.King
+import actions.validators.board.BoardQueries.{BoardQueriesImplicit, _}
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 
 
