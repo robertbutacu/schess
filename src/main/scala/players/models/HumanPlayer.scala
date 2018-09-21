@@ -1,6 +1,7 @@
-package players
+package players.models
 
 import actions.{Move, Position}
+import players.PlayerIndex
 
 import scala.io.StdIn.readLine
 import scala.util.{Failure, Success, Try}

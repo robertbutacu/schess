@@ -1,7 +1,7 @@
 package elements.pieces
 
 import actions.Position
-import players.Player
+import players.models.Player
 
 sealed trait Piece {
   def owner: Option[Player]

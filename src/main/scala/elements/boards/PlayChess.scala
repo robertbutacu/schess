@@ -1,6 +1,6 @@
 package elements.boards
 
-import players.Player
+import players.models.Player
 
 object PlayChess {
   /**

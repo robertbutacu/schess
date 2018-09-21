@@ -5,7 +5,7 @@ import elements.boards.states.BoardState
 import actions.validators.moves.MoveValidator._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import elements.pieces.{EmptyPosition, King, Pawn, Piece}
-import players.Player
+import players.models.Player
 
 object BoardQueries {
   val letterMapping = Map('A' -> 0, 'B' -> 1, 'C' -> 2, 'D' -> 3, 'E' -> 4, 'F' -> 5, 'G' -> 6, 'H' -> 7)

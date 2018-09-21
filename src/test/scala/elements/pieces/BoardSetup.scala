@@ -2,6 +2,7 @@ package elements.pieces
 
 import actions.Position
 import elements.boards.states.{BoardState, NormalState}
+import players.models.AIPlayer
 import players.{Players, _}
 
 import scala.language.postfixOps
