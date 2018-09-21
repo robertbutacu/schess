@@ -7,19 +7,30 @@ import scala.util.{Failure, Success, Try}
 
 case class HumanPlayer(name: String, index: PlayerIndex) extends Player {
   override def askForMove: Move = {
-    def getValidMove(msg: String): Move = {
-      def getMove(msg: String): Try[Option[Position]] =
-        Try {
-          val from = readLine(msg)
-          Position(from)
-        }
+    def getAPosition(msg: String, position: String): Option[Position] = {
+      def getValidMove(msg: String): Option[Position] = {
+        def getMove(msg: String): Try[Option[Position]] =
+          Try {
+            val from = readLine(msg)
+            Position(from)
+          }
 
-      getMove(msg) match {
-        case Success(piece) => ???
-        case Failure(_) => getValidMove("Invalid move. Please choose again: \n")
+        getMove(msg) match {
+          case Success(piece) => piece
+          case Failure(_) => getValidMove(s"Invalid $position move format. Please choose again: \n")
+        }
       }
+
+      getValidMove(msg)
     }
 
-    getValidMove("Choose the piece you want to move: \n")
+    (
+      getAPosition("Choose a piece to move\n", "starting"),
+      getAPosition("Choose a destination\n", "ending")
+    ) match {
+      case (Some(from), Some(to)) => Move(from, to)
+      case (None, _)              => println("Invalid starting position. Choose again.\n"); askForMove
+      case (Some(_), None)        => println("Invalid end position. Choose again. \n"); askForMove
+    }
   }
 }
