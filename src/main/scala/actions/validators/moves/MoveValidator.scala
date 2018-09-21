@@ -1,10 +1,10 @@
-package elements.pieces.moves
+package actions.validators.moves
 
 import actions.Position
-import elements.boards.BoardState
+import actions.validators.board.BoardQueries.BoardQueries
+import elements.boards.states.BoardState
 import elements.pieces._
 import players.Player
-import elements.boards.validators.BoardQueries.BoardQueries
 
 trait MoveValidator[P] {
   def isValidMove(board: BoardState, piece: P, to: Position): Boolean =

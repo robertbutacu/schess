@@ -1,12 +1,12 @@
 package actions.execute
 
-import elements.boards.BoardState
-import elements.boards.information.Players
+import elements.boards.states.BoardState
 import elements.pieces.Piece
-import elements.pieces.moves.MoveValidator.ops._
-import elements.pieces.moves.MoveValidator._
-import elements.pieces.moves.BoardCheckers._
-import elements.boards.validators.BoardQueries.BoardQueries
+import actions.validators.moves.MoveValidator.ops._
+import actions.validators.moves.MoveValidator._
+import actions.validators.board.BoardCheckers._
+import actions.validators.board.BoardQueries.BoardQueries
+import players.Players
 
 object BoardCategorisation {
   def isCheckmate(board: BoardState, players: Players): Boolean = {

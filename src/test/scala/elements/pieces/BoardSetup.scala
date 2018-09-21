@@ -1,10 +1,8 @@
 package elements.pieces
 
 import actions.Position
-import elements.boards.BoardState
-import elements.boards.information.Players
-import elements.boards.states.NormalState
-import players._
+import elements.boards.states.{BoardState, NormalState}
+import players.{Players, _}
 
 import scala.language.postfixOps
 

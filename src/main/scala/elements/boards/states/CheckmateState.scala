@@ -1,8 +1,7 @@
 package elements.boards.states
 
-import elements.boards.BoardState
-import elements.boards.information.Players
 import elements.pieces.Piece
+import players.Players
 
 case class CheckmateState(pieces: List[List[Piece]],
                           players: Players) extends BoardState {

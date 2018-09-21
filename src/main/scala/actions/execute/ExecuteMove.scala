@@ -1,8 +1,7 @@
 package actions.execute
 
 import actions.Position
-import elements.boards.BoardState
-import elements.boards.states.NormalState
+import elements.boards.states.{BoardState, NormalState}
 import elements.pieces.{EmptyPosition, Piece}
 
 sealed trait ExecuteMove {

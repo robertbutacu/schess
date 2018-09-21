@@ -3,7 +3,7 @@ package players
 import actions.Position
 import elements.boards.information.KingsPositions
 
-trait PlayerIndex {
+sealed trait PlayerIndex {
   def otherPlayerTurn: PlayerIndex
   def getKingPosition(kingsPositions: KingsPositions): Position
   def toInt: Int

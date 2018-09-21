@@ -1,11 +1,10 @@
 package elements.boards.states
 
 import actions.execute.MoveCategorisation
-import elements.boards.BoardState
-import elements.boards.information.Players
 import elements.pieces.{King, Piece}
-import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
-import elements.boards.validators.BoardQueries.BoardQueries
+import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
+import actions.validators.board.BoardQueries.BoardQueries
+import players.Players
 
 case class CheckState(pieces: List[List[Piece]],
                       players: Players) extends BoardState {

@@ -1,6 +1,6 @@
 package actions
 
-import elements.boards.validators.BoardQueries
+import actions.validators.board.BoardQueries
 
 import scala.util.{Failure, Success, Try}
 

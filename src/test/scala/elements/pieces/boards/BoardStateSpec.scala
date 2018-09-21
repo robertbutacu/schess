@@ -4,7 +4,7 @@ import actions.execute.MoveCategorisation
 import actions.Position
 import elements.pieces.{BoardSetup, King, Rook}
 import org.scalatest.{FlatSpec, Matchers}
-import elements.boards.validators.BoardQueries.BoardQueries
+import actions.validators.board.BoardQueries.BoardQueries
 
 class BoardStateSpec extends FlatSpec with Matchers with BoardSetup {
 

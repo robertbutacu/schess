@@ -1,10 +1,10 @@
-package elements.pieces.moves
+package actions.validators.board
 
 import actions.Position
-import elements.boards.BoardState
+import actions.validators.board.BoardQueries.BoardQueries
+import elements.boards.states.BoardState
 import elements.pieces.King
-import elements.pieces.moves.MoveValidator.ops.BoardMoveValidator
-import elements.boards.validators.BoardQueries.BoardQueries
+import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 
 
 object BoardCheckers {

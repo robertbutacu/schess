@@ -1,9 +1,10 @@
-package elements.boards
+package elements.boards.states
 
 import actions.Position
-import elements.boards.information.{KingsPositions, Players}
+import elements.boards.PreviousMove
+import elements.boards.information.KingsPositions
 import elements.pieces.{EmptyPosition, King, Piece}
-import players.{PlayerOne, PlayerTwo}
+import players.{PlayerOne, PlayerTwo, Players}
 
 trait BoardState {
   def players: Players
@@ -24,7 +25,7 @@ trait BoardState {
     }
   }
 
-  def swapPlayerTurn = players.copy(playerTurn = players.otherPlayerTurn)
+  def swapPlayerTurn: Players = players.copy(playerTurn = players.otherPlayerTurn)
 
   def kingsPositions: KingsPositions = KingsPositions(pieces)
 

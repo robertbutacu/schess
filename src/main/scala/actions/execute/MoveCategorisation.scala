@@ -1,9 +1,9 @@
 package actions.execute
 
 import actions.Position
-import elements.boards.BoardState
+import elements.boards.states.BoardState
 import elements.pieces.{King, Pawn}
-import elements.boards.validators.BoardQueries.BoardQueries
+import actions.validators.board.BoardQueries.BoardQueries
 
 object MoveCategorisation {
   def categorise(board: BoardState, from: Position, to: Position): BoardState = {

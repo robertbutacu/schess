@@ -6,6 +6,7 @@ import scala.io.StdIn.readLine
 import scala.util.{Failure, Success, Try}
 
 case class HumanPlayer(name: String, index: PlayerIndex) extends Player {
+  //TODO testing
   override def askForMove: Move = {
     def getAPosition(msg: String, position: String): Option[Position] = {
       def getValidMove(msg: String): Option[Position] = {
