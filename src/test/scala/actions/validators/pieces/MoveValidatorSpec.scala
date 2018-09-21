@@ -1,9 +1,9 @@
-package elements.pieces.moves
+package actions.validators.pieces
 
 import actions.Position
 import elements.pieces._
 import org.scalatest._
-import elements.pieces.moves.MoveValidator.ops._
+import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 
 class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup{
   "IsPieceOwner " should "return true on pieces of specific kind belonging to specific players" in {

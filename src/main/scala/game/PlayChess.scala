@@ -1,4 +1,4 @@
-package elements.boards
+package game
 
 import players.models.Player
 
