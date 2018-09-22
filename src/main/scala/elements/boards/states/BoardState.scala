@@ -48,7 +48,7 @@ trait BoardState {
       r =>
         s"""${BoardQueries.numberMapping(r._2)}| ${
           r._1.foldLeft("")((res, curr) =>
-            res + curr.toString + (" " * (curr.spacing + (2 - curr.toString.length))))
+            res + curr.toString + (" " * (4 + (2 - curr.toString.length))))
         }"""
     }.reverse
 
