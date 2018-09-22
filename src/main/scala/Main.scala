@@ -1,6 +1,7 @@
-import players.PlayerOne
-import players.models.HumanPlayer
+import game.PlayChess
+import players.{PlayerOne, PlayerTwo, Players}
+import players.models.{AIPlayer, HumanPlayer}
 
 object Main extends App {
-  HumanPlayer("Robert", PlayerOne).askForMove
+  PlayChess.initialBoardState(AIPlayer("X", PlayerOne), AIPlayer("Y", PlayerTwo)).foreach(println)
 }

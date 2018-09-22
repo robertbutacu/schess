@@ -5,7 +5,7 @@ import elements.pieces._
 import org.scalatest._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 
-class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup{
+class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "IsPieceOwner " should "return true on pieces of specific kind belonging to specific players" in {
     lazy val rookBoard = getBoard(rook)
 
