@@ -6,6 +6,7 @@ import elements.pieces._
 import players.{PlayerIndex, PlayerOne, PlayerTwo, Players}
 import players.models.{AIPlayer, HumanPlayer, Player}
 
+import scala.annotation.tailrec
 import scala.io.StdIn.readLine
 import scala.language.postfixOps
 
@@ -27,7 +28,17 @@ object PlayChess {
     * if end game OR stall:
     * other player wins( meaning current player has no available moves )
     */
-  def play: Player = ???
+  def play(): Unit = {
+    @tailrec
+    def go(boardState: BoardState): Option[BoardState] = {
+      boardState.next match {
+        case None => None
+        case Some(b) => go(b)
+      }
+    }
+
+    go(initiateGame)
+  }
 
   private def initiateGame: BoardState = {
     def instantiatePlayer(name: String, playerIndex: PlayerIndex, isBot: String): Player = {
