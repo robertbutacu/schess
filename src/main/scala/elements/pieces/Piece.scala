@@ -9,6 +9,8 @@ sealed trait Piece {
   def position: Position
 
   def apply(p: Position): Piece
+
+  def spacing: Int = 4
 }
 
 case class Pawn(player: Player, position: Position) extends Piece {
@@ -59,11 +61,13 @@ case class Rook(player: Player, position: Position) extends Piece {
 
 
 case class EmptyPosition(position: Position) extends Piece {
-  override def toString: String = "  "
+  override def toString: String = "■"
 
   override def owner: Option[Player] = None
 
   def apply(p: Position): Piece = this.copy(position = p)
+
+  override def spacing: Int = 4
 }
 
 

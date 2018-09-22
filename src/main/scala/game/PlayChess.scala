@@ -40,7 +40,7 @@ object PlayChess {
     go(initiateGame)
   }
 
-  private def initiateGame: BoardState = {
+  def initiateGame: BoardState = {
     def instantiatePlayer(name: String, playerIndex: PlayerIndex, isBot: String): Player = {
       isBot.toLowerCase match {
         case "yes" => AIPlayer(name, playerIndex)

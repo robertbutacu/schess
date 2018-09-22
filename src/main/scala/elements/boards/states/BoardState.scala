@@ -1,6 +1,7 @@
 package elements.boards.states
 
 import actions.Position
+import actions.validators.board.BoardQueries
 import elements.boards.PreviousMove
 import elements.boards.information.KingsPositions
 import elements.pieces.{EmptyPosition, King, Piece}
@@ -40,5 +41,19 @@ trait BoardState {
       case _: EmptyPosition => true
       case _ => false
     }
+  }
+
+  override def toString: String = {
+    val rows = pieces.zipWithIndex.map {
+      r =>
+        s"""${BoardQueries.numberMapping(r._2)}| ${
+          r._1.foldLeft("")((res, curr) =>
+            res + curr.toString + (" " * (curr.spacing + (2 - curr.toString.length))))
+        }"""
+    }.reverse
+
+    val finalBoard = rows :+ s" |  ${0 to 7 mkString "     "}"
+
+    finalBoard.mkString("\n")//.replace(" ", "-")
   }
 }
