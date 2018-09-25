@@ -85,7 +85,6 @@ object MoveValidator {
       board.isNotOwnPiece(to, piece.player)
   }
 
-  //TODO have this so that it can eat pieces
   implicit val pawnValidator: MoveValidator[Pawn] = new MoveValidator[Pawn] {
     override protected def isValidPath(board: BoardState, piece: Pawn, to: Position): Boolean = {
       def isFirstPawnMove = piece.position.Y == 1 && to.Y == 3
@@ -93,8 +92,19 @@ object MoveValidator {
       val horizontalMove = to.X - piece.position.X
       val verticalMove = to.Y - piece.position.Y
 
+      def isEatingPiece: Boolean = {
+        def isDiagonalMove: Boolean = Math.abs(horizontalMove) == 1 && verticalMove == 1
+        def isNotOwnPiece: Boolean = board.getPiece(to.X, to.Y).owner != piece.owner
+
+        isDiagonalMove && isNotOwnPiece
+      }
+
+
+      def isStraightMove: Boolean =
       // checking vertical move                   checking horizontal move
         (isFirstPawnMove || verticalMove == 1) && (horizontalMove == 0 || board.isEnPassantMove(piece, to))
+
+      isEatingPiece || isStraightMove
     }
 
     override protected def canOccupyPosition(board: BoardState, piece: Pawn, to: Position): Boolean = {
