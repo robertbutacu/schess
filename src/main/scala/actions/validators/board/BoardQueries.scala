@@ -68,6 +68,13 @@ object BoardQueries {
     def isNotOwnPiece(to: Position, player: Player): Boolean =
       !board.getPiece(to.X, to.Y).owner.contains(player)
 
+    def isNotKing(to: Position): Boolean = {
+      board.getPiece(to.X, to.Y) match {
+        case king: King => false
+        case _          => true
+      }
+    }
+
     def isClearPath(from: Position, to: Position,
                     incrementFunction: (Int, Int) => (Int, Int)): Boolean = {
       def verify(currentPosition: Position): Boolean = {

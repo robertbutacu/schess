@@ -8,7 +8,7 @@ import players.models.Player
 
 trait MoveValidator[P] {
   def isValidMove(board: BoardState, piece: P, to: Position): Boolean =
-    isValidPath(board, piece, to) && canOccupyPosition(board, piece, to)
+    isValidPath(board, piece, to) && canOccupyPosition(board, piece, to) && board.isNotKing(to)
 
   protected def isValidPath(board: BoardState, piece: P, to: Position): Boolean
 
