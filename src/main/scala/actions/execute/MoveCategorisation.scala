@@ -7,7 +7,7 @@ import actions.validators.board.BoardQueries.BoardQueriesImplicit
 
 object MoveCategorisation {
   def categorise(board: BoardState, from: Position, to: Position): BoardState = {
-    board.pieces(from.Y)(from.X) match {
+    board.getPiece(from.X,from.Y) match {
       case king: King =>
         if (board.isCastling(king, to)) KingCastleMove(board, from, to).go()
         else NormalMove(board, from, to).go()

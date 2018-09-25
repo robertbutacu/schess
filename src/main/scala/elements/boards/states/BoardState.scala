@@ -21,10 +21,12 @@ trait BoardState {
 
   def getKingForCurrentPlayer: King = {
     players.getPlayerTurn.index match {
-      case PlayerOne => pieces(kingsPositions.firstKingPosition.Y)(kingsPositions.firstKingPosition.X).asInstanceOf[King]
-      case PlayerTwo => pieces(kingsPositions.secondKingPosition.Y)(kingsPositions.secondKingPosition.X).asInstanceOf[King]
+      case PlayerOne => getPiece(kingsPositions.firstKingPosition.X, kingsPositions.firstKingPosition.Y).asInstanceOf[King]
+      case PlayerTwo => getPiece(kingsPositions.secondKingPosition.X, kingsPositions.secondKingPosition.Y).asInstanceOf[King]
     }
   }
+
+  def getPiece(X: Int, Y: Int): Piece = this.pieces(Y)(X)
 
   def swapPlayerTurn: Players = players.copy(playerTurn = players.otherPlayerTurn)
 
@@ -37,7 +39,7 @@ trait BoardState {
   def next: Option[BoardState]
 
   def isPositionFree(position: Position): Boolean = {
-    pieces(position.Y)(position.X) match {
+    getPiece(position.X, position.Y) match {
       case _: EmptyPosition => true
       case _ => false
     }

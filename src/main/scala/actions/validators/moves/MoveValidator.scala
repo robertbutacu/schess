@@ -27,7 +27,7 @@ object MoveValidator {
       }
 
       def isOwningRook(position: Position, owner: Player): Boolean =
-        board.pieces(position.Y)(position.X) match {
+        board.getPiece(position.X, position.Y) match {
           case p: Rook => val result = p.owner.forall(p => p == owner)
             result
           case _       => false

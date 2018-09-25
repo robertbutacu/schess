@@ -52,7 +52,7 @@ object BoardQueries {
 
     def isKingNotInCheck: Boolean = !isKingInCheck
 
-    private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.pieces(Y)(X) match {
+    private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.getPiece(X, Y) match {
       case _: EmptyPosition => true
       case _                => false
     }
@@ -61,7 +61,7 @@ object BoardQueries {
       piece.isDefaultPosition && to.isRookDefaultPosition && board.isOwningRook(to, piece.player)
 
     def isNotOwnPiece(to: Position, player: Player): Boolean =
-      !board.pieces(to.Y)(to.X).owner.contains(player)
+      !board.getPiece(to.X, to.Y).owner.contains(player)
 
     def isClearPath(from: Position, to: Position,
                     incrementFunction: (Int, Int) => (Int, Int)): Boolean = {

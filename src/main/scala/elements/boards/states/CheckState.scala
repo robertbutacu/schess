@@ -11,7 +11,7 @@ case class CheckState(pieces: List[List[Piece]],
   override def next: Option[BoardState] = {
     val nextMove = players.getPlayerTurn.askForMove
 
-    val pieceToBeMoved = pieces(nextMove.from.X)(nextMove.from.Y)
+    val pieceToBeMoved = getPiece(nextMove.from.X, nextMove.from.Y)
 
     def isValidMove: Boolean = pieceToBeMoved.owner.contains(players.getPlayerTurn) && (pieceToBeMoved match {
       case _: King => true
