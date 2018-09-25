@@ -5,6 +5,8 @@ import actions.validators.board.BoardQueries
 import scala.util.{Failure, Success, Try}
 
 case class Position(X: Int, Y: Int) {
+  def reverse: Position = this.copy(Y = 7 - this.Y)
+
   require(isInBounds(X) && isInBounds(Y))
 
   private def isInBounds(i: Int) = i >= 0 && i <= 7

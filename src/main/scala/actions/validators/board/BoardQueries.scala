@@ -35,13 +35,18 @@ object BoardQueries {
     def isEndGame(playerToPlay: Player): Boolean = ???
 
     def isKingInCheck: Boolean = {
-      def filterOppositePlayerPieces(): List[Piece] =
+      def filterOppositePlayerPieces(): List[Piece] = {
+        val otherPlayerTurn = board.players.getPlayerTurn.index.otherPlayerTurn
+
         for {
           row   <- board.pieces
           piece <- row
           owner <- piece.owner
-          if owner.index == board.players.getPlayerTurn.index.otherPlayerTurn
+          if owner.index == otherPlayerTurn
         } yield piece
+      }
+
+
 
       val playerKing = board.players.getPlayerTurn.index.getKingPosition(board.kingsPositions)
 

@@ -3,6 +3,7 @@ package actions.execute
 import actions.Position
 import elements.boards.states.{BoardState, NormalState}
 import elements.pieces.{EmptyPosition, Piece}
+import actions.validators.board.BoardCheckers.Board
 
 sealed trait ExecuteMove {
   def board: BoardState
@@ -25,7 +26,13 @@ sealed trait ExecuteMove {
     val updatedMove = patchBoard(removedInitial, board(from.Y)(from.X)(to))
     //the coordonates of the pieces are being updated above here directly
 
-    updatedMove.reverse
+    invertBoard(updatedMove)
+  }
+
+  protected def invertBoard(pieces: List[List[Piece]]): List[List[Piece]] = {
+    pieces.reverse.map{row =>
+      row.map{piece => piece(piece.reverse)}
+    }
   }
 }
 

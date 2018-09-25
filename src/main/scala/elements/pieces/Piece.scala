@@ -4,6 +4,10 @@ import actions.Position
 import players.models.Player
 
 sealed trait Piece {
+  def reverse: Position = {
+    this.position.reverse
+  }
+
   def owner: Option[Player]
 
   def position: Position
