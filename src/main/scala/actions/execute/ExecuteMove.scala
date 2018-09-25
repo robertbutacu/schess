@@ -25,13 +25,13 @@ sealed trait ExecuteMove {
     val updatedMove = patchBoard(removedInitial, board(from.Y)(from.X)(to))
     //the coordonates of the pieces are being updated above here directly
 
-    updatedMove
+    updatedMove.reverse
   }
 }
 
 case class NormalMove(board: BoardState, from: Position, to: Position) extends ExecuteMove {
   override def go(): BoardState = {
-    NormalState(updatePiece(board.pieces, from, to), board.players)
+    NormalState(updatePiece(board.pieces, from, to), board.players.switchTurns)
   }
 }
 
@@ -52,6 +52,6 @@ case class KingCastleMove(board: BoardState, from: Position, to: Position) exten
     val kingCastledPieces = updatePiece(board.pieces, from, kingMove)
     val rookAdjustedPieces = updatePiece(kingCastledPieces, rookFrom, rookTo)
 
-    NormalState(rookAdjustedPieces, board.players)
+    NormalState(rookAdjustedPieces, board.players.switchTurns)
   }
 }
