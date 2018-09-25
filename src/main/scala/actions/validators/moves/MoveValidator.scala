@@ -85,6 +85,7 @@ object MoveValidator {
       board.isNotOwnPiece(to, piece.player)
   }
 
+  //TODO have this so that it can eat pieces
   implicit val pawnValidator: MoveValidator[Pawn] = new MoveValidator[Pawn] {
     override protected def isValidPath(board: BoardState, piece: Pawn, to: Position): Boolean = {
       def isFirstPawnMove = piece.position.Y == 1 && to.Y == 3
