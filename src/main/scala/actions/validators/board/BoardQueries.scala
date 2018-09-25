@@ -61,7 +61,7 @@ object BoardQueries {
       piece.isDefaultPosition && to.isRookDefaultPosition && board.isOwningRook(to, piece.player)
 
     def isNotOwnPiece(to: Position, player: Player): Boolean =
-      !board.pieces(to.X)(to.Y).owner.contains(player)
+      !board.pieces(to.Y)(to.X).owner.contains(player)
 
     def isClearPath(from: Position, to: Position,
                     incrementFunction: (Int, Int) => (Int, Int)): Boolean = {

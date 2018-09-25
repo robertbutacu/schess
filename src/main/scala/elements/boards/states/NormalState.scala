@@ -10,7 +10,7 @@ case class NormalState(pieces: List[List[Piece]], players: Players) extends Boar
   override def next: Option[BoardState] = {
     val nextMove = players.getPlayerTurn.askForMove
 
-    val pieceToBeMoved = pieces(nextMove.from.X)(nextMove.from.Y)
+    val pieceToBeMoved = pieces(nextMove.from.Y)(nextMove.from.X)
 
     def isValidMove: Boolean =
       pieceToBeMoved.owner.contains(players.getPlayerTurn) && this.isValidMove(pieceToBeMoved, nextMove.to)

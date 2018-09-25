@@ -31,6 +31,8 @@ object PlayChess {
   def play(): Unit = {
     @tailrec
     def go(boardState: BoardState): Option[BoardState] = {
+      println(boardState)
+
       boardState.next match {
         case None => None
         case Some(b) => go(b)

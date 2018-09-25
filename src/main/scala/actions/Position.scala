@@ -21,7 +21,7 @@ object Position {
     Try {
       position(1).asDigit
     } match {
-      case Success(digit) => BoardQueries.letterMapping.get(position(0)).map(x => Position(x, digit))
+      case Success(digit) => BoardQueries.letterMapping.get(position(0)).map(y => Position(digit, y))
       case Failure(_)     => None
     }
   }
