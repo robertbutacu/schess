@@ -10,10 +10,10 @@ import players.Players
 import validator.ValidatorConverterImplicits.toBoolean
 
 object BoardCategorisation {
-  def isCheckmate(board: BoardState, players: Players): Boolean = {
-    val playerTurnIndex = players.getPlayerTurn.index
+  def isCheckmate(board: BoardState): Boolean = {
+    val playerTurnIndex = board.players.getPlayerTurn.index
 
-    def isEnemyPlayer(p: Piece) = p.owner.forall(player => player.index != players.getPlayerTurn.index)
+    def isEnemyPlayer(p: Piece) = p.owner.forall(player => player.index != playerTurnIndex)
 
     def areAllPossiblePositionsBlocked: Boolean = {
       val playerKing = board.getKingForCurrentPlayer
@@ -31,24 +31,25 @@ object BoardCategorisation {
             .exists { row => row.exists { p => isEnemyPlayer(p) && board.isValidMove(p, pm) } }
       }
     }
-
-    def isThereNoOtherAvailableMove: Boolean = {
-      (for {
-        row <- board.pieces
-        piece <- row
-        toRow <- board.pieces
-        otherPiece <- toRow
-        if piece != otherPiece
-        if piece.owner.forall(player => player.index == playerTurnIndex)
-        if board.isValidMove(piece, otherPiece.position) && !piece.isInstanceOf[King]
-      } yield piece).isEmpty
-    }
-
-    isThereNoOtherAvailableMove || areAllPossiblePositionsBlocked
+    isThereNoOtherAvailableMove(board) || areAllPossiblePositionsBlocked
   }
 
-  def isCheck(board: BoardState, players: Players): Boolean = {
-    val enemyPlayerIndex = players.getPlayerTurn.index
+  def isThereNoOtherAvailableMove(board: BoardState): Boolean = {
+    val playerTurnIndex = board.players.getPlayerTurn.index
+
+    (for {
+      row <- board.pieces
+      piece <- row
+      toRow <- board.pieces
+      otherPiece <- toRow
+      if piece != otherPiece
+      if piece.owner.forall(player => player.index == playerTurnIndex)
+      if board.isValidMove(piece, otherPiece.position) && !piece.isInstanceOf[King]
+    } yield piece).isEmpty
+  }
+
+  def isCheck(board: BoardState): Boolean = {
+    val enemyPlayerIndex = board.players.getPlayerTurn.index
     val kingPosition = board.getKingPositionForCurrentPlayer
 
     val threateningPieces = for {
@@ -62,11 +63,11 @@ object BoardCategorisation {
   }
 
   // player is not in check, but for all moves, it would result a check
-  def isStalemate(board: BoardState, players: Players): Boolean = {
+  def isStalemate(board: BoardState): Boolean = {
     val possibleMoves = for {
       row                 <- board.pieces
       piece               <- row
-      if piece.owner.forall(p => p.index.toInt == players.playerTurn)
+      if piece.owner.forall(p => p.index.toInt == board.players.playerTurn)
       possibleMoveRow     <- board.pieces
       possibleEndPosition <- possibleMoveRow
       if board.isValidMove(piece, possibleEndPosition.position)
