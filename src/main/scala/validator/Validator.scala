@@ -8,4 +8,6 @@ trait Validator {
   def board: BoardState
 
   def next: BoardState
+
+  def andThen(f: => Validator): Validator
 }

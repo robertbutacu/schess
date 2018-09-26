@@ -7,4 +7,6 @@ case class Failure(message: Option[String], board: BoardState) extends Validator
 
     board
   }
+
+  override def andThen(f: => Validator): Validator = this
 }
