@@ -1,6 +1,7 @@
 package elements.pieces
 
 import actions.Position
+import actions.execute.BoardCategorisation
 import elements.boards.states.{BoardState, NormalState}
 import players.models.AIPlayer
 import players.{Players, _}
@@ -38,7 +39,8 @@ trait BoardSetup {
 
   def getBoard(piece: Piece,
                otherPieces: List[Piece] = List.empty,
-               fillFunction: Int => List[Piece] = toEmptyRow): BoardState = {
+               fillFunction: Int => List[Piece] = toEmptyRow,
+               isFirstTime: Boolean = true): BoardState = {
 
     def patchBoard(board: List[List[Piece]], piece: Piece) =
       board.patch(piece.position.Y, Seq(addPiece(piece, board(piece.position.Y))), 1)
@@ -51,6 +53,13 @@ trait BoardSetup {
       patchBoard(board, piece)
     }
 
-    NormalState(finalBoard, Players(genericPlayer, genericEnemyPlayer, 1))
+    NormalState(finalBoard, Players(genericPlayer, genericEnemyPlayer, 1), isFirstTime)
+  }
+
+  def invertBoard(boardState: BoardState): BoardState = {
+    val pieces = boardState.pieces
+    val updatedPieces = BoardCategorisation.invertBoard(pieces)
+
+    NormalState(updatedPieces, boardState.players, isFirstMove = true)
   }
 }

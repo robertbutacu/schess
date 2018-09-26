@@ -2,10 +2,10 @@ package actions.validators.board
 
 import actions.Position
 import elements.boards.states.BoardState
-import elements.pieces.King
+import elements.pieces.{King, Piece}
 import actions.validators.board.BoardQueries.{BoardQueriesImplicit, _}
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
-
+import validator.ValidatorConverterImplicits.toBoolean
 
 object BoardCheckers {
 

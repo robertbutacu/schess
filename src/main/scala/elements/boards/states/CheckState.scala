@@ -1,13 +1,16 @@
 package elements.boards.states
 
-import actions.execute.MoveCategorisation
+import actions.execute.{BoardCategorisation, MoveCategorisation}
 import elements.pieces.{King, Piece}
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import players.Players
+import validator.ValidatorConverterImplicits.toBoolean
 
-case class CheckState(pieces: List[List[Piece]],
+case class CheckState(initialPieces: List[List[Piece]],
                       players: Players) extends BoardState {
+  val pieces: List[List[Piece]] = BoardCategorisation.invertBoard(initialPieces)
+
   override def next: Option[BoardState] = {
     val nextMove = players.getPlayerTurn.askForMove
 

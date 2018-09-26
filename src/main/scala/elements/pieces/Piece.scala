@@ -1,7 +1,9 @@
 package elements.pieces
 
 import actions.Position
+import elements.boards.states.BoardState
 import players.models.Player
+import validator.Validator
 
 sealed trait Piece {
   def reverse: Position = {
@@ -40,7 +42,8 @@ case class King(player: Player, position: Position) extends Piece {
 
   def apply(p: Position): Piece = this.copy(position = p)
 
-  def isDefaultPosition: Boolean = position.X == 4 && position.Y == 0
+  def isDefaultPosition(board: BoardState): Validator =
+    Validator.toValidate(position.X == 4 && position.Y == 0, "King is not in default position", board)
 }
 
 

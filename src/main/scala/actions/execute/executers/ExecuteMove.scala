@@ -1,6 +1,7 @@
 package actions.execute.executers
 
 import actions.Position
+import actions.execute.BoardCategorisation
 import elements.boards.states.BoardState
 import elements.pieces.{EmptyPosition, Piece}
 
@@ -25,12 +26,6 @@ trait ExecuteMove {
     val updatedMove = patchBoard(removedInitial, board(from.Y)(from.X)(to))
     //the coordonates of the pieces are being updated above here directly
 
-    invertBoard(updatedMove)
-  }
-
-  protected def invertBoard(pieces: List[List[Piece]]): List[List[Piece]] = {
-    pieces.reverse.map{row =>
-      row.map{piece => piece(piece.reverse)}
-    }
+    updatedMove
   }
 }

@@ -12,9 +12,10 @@ class BoardCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
     val enemyBishop2 = Bishop(genericEnemyPlayer, Position(1, 2))//threatening 01
     val enemyRook = Rook(genericEnemyPlayer, Position(2, 2))//threatening 20
     val enemyKing = King(genericEnemyPlayer, Position(7,7))
+    val randomPiece = Rook(genericPlayer, Position(0, 6))
 
-    val kingBoard = getBoard(king, List(enemyBishop, enemyBishop2, enemyRook, enemyKing))
+    val kingBoard = getBoard(king, List(randomPiece, enemyBishop, enemyBishop2, enemyRook, enemyKing))
 
-    BoardCategorisation.isCheckmate(kingBoard, Players(genericPlayer, genericEnemyPlayer, genericPlayer.index.toInt)) shouldBe true
+    BoardCategorisation.isCheckmate(kingBoard) shouldBe true
   }
 }
