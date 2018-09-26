@@ -1,6 +1,8 @@
 package elements.pieces
 
 import actions.Position
+import actions.execute.BoardCategorisation
+import actions.execute.executers.ExecuteMove
 import elements.boards.states.{BoardState, NormalState}
 import players.models.AIPlayer
 import players.{Players, _}
@@ -52,5 +54,12 @@ trait BoardSetup {
     }
 
     NormalState(finalBoard, Players(genericPlayer, genericEnemyPlayer, 1))
+  }
+
+  def invertBoard(boardState: BoardState): BoardState = {
+    val pieces = boardState.pieces
+    val updatedPieces = BoardCategorisation.invertBoard(pieces)
+
+    NormalState(pieces, boardState.players)
   }
 }

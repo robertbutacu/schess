@@ -13,13 +13,8 @@ case class NormalState(pieces: List[List[Piece]], players: Players) extends Boar
 
     val pieceToBeMoved = getPiece(nextMove.from.X, nextMove.from.Y)
 
-    def isValidMove: Boolean = {
-      println("*** player turn " + pieceToBeMoved.owner.contains(players.getPlayerTurn))
-      println("*** is valid move " + this.isValidMove(pieceToBeMoved, nextMove.to))
-      println("*** piece to be moved" + pieceToBeMoved.owner)
-      println("*** piece to be moved" + pieceToBeMoved.position)
+    def isValidMove: Boolean =
       pieceToBeMoved.owner.contains(players.getPlayerTurn) && this.isValidMove(pieceToBeMoved, nextMove.to)
-    }
 
     val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
 

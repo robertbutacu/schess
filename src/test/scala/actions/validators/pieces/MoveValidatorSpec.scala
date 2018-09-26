@@ -4,18 +4,20 @@ import actions.Position
 import elements.pieces._
 import org.scalatest._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
+import elements.boards.states.BoardState
+import validator.{Failure, Success}
 
 class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "IsPieceOwner " should "return true on pieces of specific kind belonging to specific players" in {
     lazy val rookBoard = getBoard(rook)
 
-    rookBoard.isOwningRook(rook.position, rook.player) shouldBe true
+    rookBoard.isOwningRook(rook.position, rook.player) shouldBe Success(_: BoardState)
   }
 
   "isOwningRook" should "return false when a player is not owning the piece which should be a rook" in {
     lazy val pawnBoard = getBoard(pawn)
 
-    pawnBoard.isOwningRook(pawn.position, pawn.player) shouldBe false
+    pawnBoard.isOwningRook(pawn.position, pawn.player) shouldBe Failure(_: Option[String], _: BoardState)
   }
 
   "Initialization with bad position" should "fail " in {
@@ -36,35 +38,35 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
 
   "A rook " should " make valid moves " in {
     val rookBoard = getBoard(rook)
-    rookBoard.isValidMove(rook, Position(4, 7)) shouldBe true // moving along Y axis up
-    rookBoard.isValidMove(rook, Position(4, 0)) shouldBe true // moving along Y axis down
-    rookBoard.isValidMove(rook, Position(7, 4)) shouldBe true // moving along X axis up
-    rookBoard.isValidMove(rook, Position(0, 4)) shouldBe true // moving along X axis down
+    rookBoard.isValidMove(rook, Position(4, 7)) shouldBe Success(_: BoardState) // moving along Y axis up
+    rookBoard.isValidMove(rook, Position(4, 0)) shouldBe Success(_: BoardState) // moving along Y axis down
+    rookBoard.isValidMove(rook, Position(7, 4)) shouldBe Success(_: BoardState) // moving along X axis up
+    rookBoard.isValidMove(rook, Position(0, 4)) shouldBe Success(_: BoardState) // moving along X axis down
   }
 
   "A rook" should "not make valid moves " in {
     val rookBoard = getBoard(rook)
-    rookBoard.isValidMove(rook, Position(2, 3)) shouldBe false
-    rookBoard.isValidMove(rook, Position(3, 5)) shouldBe false
-    rookBoard.isValidMove(rook, Position(7, 7)) shouldBe false
-    rookBoard.isValidMove(rook, Position(0, 0)) shouldBe false
+    rookBoard.isValidMove(rook, Position(2, 3)) shouldBe Failure(_: Option[String], _: BoardState)
+    rookBoard.isValidMove(rook, Position(3, 5)) shouldBe Failure(_: Option[String], _: BoardState)
+    rookBoard.isValidMove(rook, Position(7, 7)) shouldBe Failure(_: Option[String], _: BoardState)
+    rookBoard.isValidMove(rook, Position(0, 0)) shouldBe Failure(_: Option[String], _: BoardState)
   }
 
   "A queen " should " make valid moves " in {
     val queenBoard = getBoard(queen)
 
     //rook moves
-    queenBoard.isValidMove(queen, Position(4, 7)) shouldBe true // moving along Y axis up
-    queenBoard.isValidMove(queen, Position(4, 0)) shouldBe true // moving along Y axis down
-    queenBoard.isValidMove(queen, Position(7, 4)) shouldBe true // moving along X axis up
-    queenBoard.isValidMove(queen, Position(0, 4)) shouldBe true // moving along X axis down
+    queenBoard.isValidMove(queen, Position(4, 7)) shouldBe Success(_: BoardState) // moving along Y axis up
+    queenBoard.isValidMove(queen, Position(4, 0)) shouldBe Success(_: BoardState) // moving along Y axis down
+    queenBoard.isValidMove(queen, Position(7, 4)) shouldBe Success(_: BoardState) // moving along X axis up
+    queenBoard.isValidMove(queen, Position(0, 4)) shouldBe Success(_: BoardState) // moving along X axis down
 
 
     //bishop moves
-    queenBoard.isValidMove(queen, Position(7, 7)) shouldBe true // right up
-    queenBoard.isValidMove(queen, Position(7, 1)) shouldBe true // right down
-    queenBoard.isValidMove(queen, Position(1, 7)) shouldBe true // left up
-    queenBoard.isValidMove(queen, Position(0, 0)) shouldBe true // left down
+    queenBoard.isValidMove(queen, Position(7, 7)) shouldBe Success(_: BoardState) // right up
+    queenBoard.isValidMove(queen, Position(7, 1)) shouldBe Success(_: BoardState) // right down
+    queenBoard.isValidMove(queen, Position(1, 7)) shouldBe Success(_: BoardState) // left up
+    queenBoard.isValidMove(queen, Position(0, 0)) shouldBe Success(_: BoardState) // left down
   }
 
   "A queen" should "not make valid moves " in {
@@ -73,45 +75,45 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
 
   "A bishop " should " make valid moves " in {
     val bishopBoard = getBoard(bishop)
-    bishopBoard.isValidMove(bishop, Position(7, 7)) shouldBe true // right up
-    bishopBoard.isValidMove(bishop, Position(7, 1)) shouldBe true // right down
-    bishopBoard.isValidMove(bishop, Position(1, 7)) shouldBe true // left up
-    bishopBoard.isValidMove(bishop, Position(0, 0)) shouldBe true // left down
+    bishopBoard.isValidMove(bishop, Position(7, 7)) shouldBe Success(_: BoardState) // right up
+    bishopBoard.isValidMove(bishop, Position(7, 1)) shouldBe Success(_: BoardState) // right down
+    bishopBoard.isValidMove(bishop, Position(1, 7)) shouldBe Success(_: BoardState) // left up
+    bishopBoard.isValidMove(bishop, Position(0, 0)) shouldBe Success(_: BoardState) // left down
   }
 
 
   "A bishop" should "not make valid moves " in {
     val bishopBoard = getBoard(bishop)
-    bishopBoard.isValidMove(bishop, Position(4, 7)) shouldBe false // straight up
-    bishopBoard.isValidMove(bishop, Position(3, 7)) shouldBe false // random
-    bishopBoard.isValidMove(bishop, Position(4, 0)) shouldBe false // straight down
-    bishopBoard.isValidMove(bishop, Position(4, 5)) shouldBe false // pawn move
+    bishopBoard.isValidMove(bishop, Position(4, 7)) shouldBe Failure(_: Option[String], _: BoardState) // straight up
+    bishopBoard.isValidMove(bishop, Position(3, 7)) shouldBe Failure(_: Option[String], _: BoardState) // random
+    bishopBoard.isValidMove(bishop, Position(4, 0)) shouldBe Failure(_: Option[String], _: BoardState) // straight down
+    bishopBoard.isValidMove(bishop, Position(4, 5)) shouldBe Failure(_: Option[String], _: BoardState) // pawn move
   }
 
   "A king " should " make valid moves " in {
     val kingBoard = getBoard(king)
-    kingBoard.isValidMove(king, Position(4, 5)) shouldBe true //
-    kingBoard.isValidMove(king, Position(4, 3)) shouldBe true //
-    kingBoard.isValidMove(king, Position(5, 4)) shouldBe true //
-    kingBoard.isValidMove(king, Position(5, 5)) shouldBe true //
-    kingBoard.isValidMove(king, Position(3, 3)) shouldBe true //
-    kingBoard.isValidMove(king, Position(3, 4)) shouldBe true //
-    kingBoard.isValidMove(king, Position(5, 3)) shouldBe true //
-    kingBoard.isValidMove(king, Position(3, 5)) shouldBe true //
+    kingBoard.isValidMove(king, Position(4, 5)) shouldBe Success(_: BoardState) //
+    kingBoard.isValidMove(king, Position(4, 3)) shouldBe Success(_: BoardState) //
+    kingBoard.isValidMove(king, Position(5, 4)) shouldBe Success(_: BoardState) //
+    kingBoard.isValidMove(king, Position(5, 5)) shouldBe Success(_: BoardState) //
+    kingBoard.isValidMove(king, Position(3, 3)) shouldBe Success(_: BoardState) //
+    kingBoard.isValidMove(king, Position(3, 4)) shouldBe Success(_: BoardState) //
+    kingBoard.isValidMove(king, Position(5, 3)) shouldBe Success(_: BoardState) //
+    kingBoard.isValidMove(king, Position(3, 5)) shouldBe Success(_: BoardState) //
   }
 
   "A king " should "be able to castle " in {
     val kingBoard = getBoard(kingDefaultPosition, List(rookDefaultPositionLeft, rookDefaultPositionRight))
 
-    kingBoard.isValidMove(kingDefaultPosition, Position(0, 0)) shouldBe true
-    kingBoard.isValidMove(kingDefaultPosition, Position(7, 0)) shouldBe true
+    kingBoard.isValidMove(kingDefaultPosition, Position(0, 0)) shouldBe Success(_: BoardState)
+    kingBoard.isValidMove(kingDefaultPosition, Position(7, 0)) shouldBe Success(_: BoardState)
   }
 
   "A king " should "not be able to castle using enemy rooks" in {
     val kingBoard = getBoard(kingDefaultPosition, List(rookDefaultPositionLeftEnemy, rookDefaultPositionRightEnemy))
 
-    kingBoard.isValidMove(kingDefaultPosition, Position(0, 0)) shouldBe false
-    kingBoard.isValidMove(kingDefaultPosition, Position(7, 0)) shouldBe false
+    kingBoard.isValidMove(kingDefaultPosition, Position(0, 0)) shouldBe Failure(_: Option[String], _: BoardState)
+    kingBoard.isValidMove(kingDefaultPosition, Position(7, 0)) shouldBe Failure(_: Option[String], _: BoardState)
   }
 
 
@@ -121,9 +123,9 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
 
   "A pawn " should " make valid moves " in {
     val pawnBoard = getBoard(pawn)
-    pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe true //
-    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe false // en passant left => this should be true
-    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe false // en passant right => this should be true
+    pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe Success(_: BoardState) //
+    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe Failure(_: Option[String], _: BoardState) // en passant left => this should be true
+    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe Failure(_: Option[String], _: BoardState) // en passant right => this should be true
   }
 
   "A pawn" should "not make valid moves " in {
@@ -133,24 +135,24 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "A pawn" should "not be able to walk straight if position is occupied" in {
     val pawnBoard = getBoard(pawn, List(Pawn(genericEnemyPlayer, Position(4, 5))))
 
-    pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe false
+    pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe Failure(_: Option[String], _: BoardState)
   }
 
   "A knight " should " make valid moves " in {
     val knightBoard = getBoard(knight)
 
-    knightBoard.isValidMove(knight, Position(5, 6)) shouldBe true
-    knightBoard.isValidMove(knight, Position(5, 2)) shouldBe true
-    knightBoard.isValidMove(knight, Position(3, 2)) shouldBe true
-    knightBoard.isValidMove(knight, Position(3, 6)) shouldBe true
+    knightBoard.isValidMove(knight, Position(5, 6)) shouldBe Success(_: BoardState)
+    knightBoard.isValidMove(knight, Position(5, 2)) shouldBe Success(_: BoardState)
+    knightBoard.isValidMove(knight, Position(3, 2)) shouldBe Success(_: BoardState)
+    knightBoard.isValidMove(knight, Position(3, 6)) shouldBe Success(_: BoardState)
   }
 
   "A knight" should "not make valid moves " in {
     val knightBoard = getBoard(knight)
 
-    knightBoard.isValidMove(knight, Position(5, 7)) shouldBe false
-    knightBoard.isValidMove(knight, Position(4, 5)) shouldBe false
-    knightBoard.isValidMove(knight, Position(3, 4)) shouldBe false
-    knightBoard.isValidMove(knight, Position(3, 7)) shouldBe false
+    knightBoard.isValidMove(knight, Position(5, 7)) shouldBe Failure(_: Option[String], _: BoardState)
+    knightBoard.isValidMove(knight, Position(4, 5)) shouldBe Failure(_: Option[String], _: BoardState)
+    knightBoard.isValidMove(knight, Position(3, 4)) shouldBe Failure(_: Option[String], _: BoardState)
+    knightBoard.isValidMove(knight, Position(3, 7)) shouldBe Failure(_: Option[String], _: BoardState)
   }
 }

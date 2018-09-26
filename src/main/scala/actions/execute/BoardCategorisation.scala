@@ -48,4 +48,10 @@ object BoardCategorisation {
 
     possibleMoves.isEmpty
   }
+
+  def invertBoard(pieces: List[List[Piece]]): List[List[Piece]] = {
+    pieces.reverse.map{row =>
+      row.map{piece => piece(piece.reverse)}
+    }
+  }
 }
