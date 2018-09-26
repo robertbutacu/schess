@@ -11,6 +11,8 @@ trait Validator {
 
   def andThen(f: => Validator): Validator
 
+  def orElse(f: => Validator): Validator
+
   def toBoolean: Boolean
 }
 

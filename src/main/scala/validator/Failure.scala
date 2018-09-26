@@ -8,6 +8,8 @@ case class Failure(message: Option[String], board: BoardState) extends Validator
     board
   }
 
+  override def orElse(f: => Validator): Validator = f
+
   override def andThen(f: => Validator): Validator = this
 
   override def toBoolean: Boolean = false

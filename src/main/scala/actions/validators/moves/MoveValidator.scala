@@ -101,7 +101,7 @@ object MoveValidator {
         def isNotOwnPiece: Validator =
           Validator.toValidate(board.getPiece(to.X, to.Y).owner != piece.owner, "own piece cannot be eaten\n", board)
 
-        isDiagonalMove andThen isNotOwnPiece
+        isDiagonalMove orElse isNotOwnPiece
       }
 
 
@@ -111,7 +111,7 @@ object MoveValidator {
           (verticalMove == 1) && (horizontalMove == 0 || board.isEnPassantMove(piece, to)),
           "Is not straight move for pawn\n", board)
 
-      isEatingPiece andThen isStraightMove
+      isEatingPiece orElse isStraightMove
     }
 
     override protected def canOccupyPosition(board: BoardState, piece: Pawn, to: Position): Validator = {
@@ -120,7 +120,7 @@ object MoveValidator {
         else Failure(Some("isEmptySpaceForVerticalMove\n"), board)
       }
 
-      isEmptySpaceForVerticalMove andThen board.isNotOwnPiece(to, piece.player)
+      isEmptySpaceForVerticalMove orElse board.isNotOwnPiece(to, piece.player)
     }
   }
 

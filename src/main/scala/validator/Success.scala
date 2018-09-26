@@ -11,6 +11,8 @@ case class Success(board: BoardState, message: Option[String] = None) extends Va
 
   override def andThen(f: => Validator): Validator = f
 
+  override def orElse(f: => Validator): Validator = this
+
   override def toBoolean: Boolean = true
 
   private   def categorise(board: BoardState, from: Position, to: Position): BoardState = {

@@ -72,8 +72,8 @@ object BoardQueries {
 
     def isNotKing(to: Position): Validator = {
       board.getPiece(to.X, to.Y) match {
-        case king: King => Success(board)
-        case _          => Failure(Some("The position is occupied by a king!"), board)
+        case king: King => Failure(Some("The position is occupied by a king!"), board)
+        case _          => Success(board)
       }
     }
 
