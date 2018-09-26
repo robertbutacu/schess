@@ -1,6 +1,8 @@
 package actions
 
 import actions.validators.board.BoardQueries
+import elements.boards.states.BoardState
+import validator.Validator
 
 import scala.util.{Failure, Success, Try}
 
@@ -13,7 +15,8 @@ case class Position(X: Int, Y: Int) {
 
   def apply(increment: (Int, Int) => (Int, Int)) = Position(increment(X, Y))
 
-  def isRookDefaultPosition: Boolean = Y == 0 && (X == 0 || X == 7)
+  def isRookDefaultPosition(board: BoardState): Validator =
+    Validator.toValidate(Y == 0 && (X == 0 || X == 7), "Rook in not default position", board)
 }
 
 object Position {

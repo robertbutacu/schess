@@ -6,7 +6,7 @@ import elements.boards.states.BoardState
 import elements.pieces.{King, Pawn}
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 
-case class Success(message: Option[String] = None, board: BoardState) extends Validator {
+case class Success(board: BoardState, message: Option[String] = None) extends Validator {
   override def next: BoardState = ???
 
   override def andThen(f: => Validator): Validator = f

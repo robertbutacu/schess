@@ -6,6 +6,7 @@ import actions.validators.moves.MoveValidator._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import elements.pieces.{EmptyPosition, King, Pawn, Piece}
 import players.models.Player
+import validator.{Failure, Success, Validator}
 
 object BoardQueries {
   val letterMapping = Map('A' -> 0, 'B' -> 1, 'C' -> 2, 'D' -> 3, 'E' -> 4, 'F' -> 5, 'G' -> 6, 'H' -> 7)
@@ -25,10 +26,11 @@ object BoardQueries {
       else checkForRightEnPassant
     }
 
-    def isStraightMove(from: Position, to: Position): Boolean = from.X == to.X || from.Y == to.Y
+    def isStraightMove(from: Position, to: Position): Validator =
+      Validator.toValidate(from.X == to.X || from.Y == to.Y, "Is not straight move!", board)
 
-    def isDiagonalMove(from: Position, to: Position): Boolean =
-      Math.abs(from.X - to.X) == Math.abs(from.Y - to.Y)
+    def isDiagonalMove(from: Position, to: Position): Validator =
+      Validator.toValidate(Math.abs(from.X - to.X) == Math.abs(from.Y - to.Y), "Is not diagonal move!", board)
 
     def isStall(board: BoardState, playerToPlay: Player): Boolean = ???
 
@@ -46,8 +48,6 @@ object BoardQueries {
         } yield piece
       }
 
-
-
       val playerKing = board.players.getPlayerTurn.index.getKingPosition(board.kingsPositions)
 
       val possibleDangers = filterOppositePlayerPieces()
@@ -62,26 +62,28 @@ object BoardQueries {
       case _                => false
     }
 
-    def isCastling(piece: King, to: Position): Boolean =
-      piece.isDefaultPosition && to.isRookDefaultPosition && board.isOwningRook(to, piece.player)
+    def isCastling(piece: King, to: Position): Validator =
+      piece.isDefaultPosition andThen to.isRookDefaultPosition andThen board.isOwningRook(to, piece.player)
 
-    def isNotOwnPiece(to: Position, player: Player): Boolean =
-      !board.getPiece(to.X, to.Y).owner.contains(player)
+    def isNotOwnPiece(to: Position, player: Player): Validator =
+      if(board.getPiece(to.X, to.Y).owner.contains(player))
+        Failure(Some("The end position is an own piece!"), board)
+      else Success(board)
 
-    def isNotKing(to: Position): Boolean = {
+    def isNotKing(to: Position): Validator = {
       board.getPiece(to.X, to.Y) match {
-        case king: King => false
-        case _          => true
+        case king: King => Success(board)
+        case _          => Failure(Some("The position is occupied by a king!"), board)
       }
     }
 
     def isClearPath(from: Position, to: Position,
-                    incrementFunction: (Int, Int) => (Int, Int)): Boolean = {
-      def verify(currentPosition: Position): Boolean = {
+                    incrementFunction: (Int, Int) => (Int, Int)): Validator = {
+      def verify(currentPosition: Position): Validator = {
         val next = currentPosition(incrementFunction)
 
-        if (next == to) true
-        else board.isPositionFree(next) && verify(next)
+        if (next == to) Success(board)
+        else board.isPositionFree(next) andThen verify(next)
       }
 
       verify(from)
