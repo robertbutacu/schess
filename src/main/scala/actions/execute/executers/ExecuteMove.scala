@@ -26,6 +26,6 @@ trait ExecuteMove {
     val updatedMove = patchBoard(removedInitial, board(from.Y)(from.X)(to))
     //the coordonates of the pieces are being updated above here directly
 
-    BoardCategorisation.invertBoard(updatedMove)
+    updatedMove
   }
 }

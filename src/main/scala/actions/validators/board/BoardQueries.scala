@@ -62,8 +62,11 @@ object BoardQueries {
       case _                => false
     }
 
-    def isCastling(piece: King, to: Position): Validator =
+    def isCastling(piece: King, to: Position): Validator = {
+      //println(piece.isDefaultPosition(board))
       piece.isDefaultPosition(board) andThen to.isRookDefaultPosition(board) andThen board.isOwningRook(to, piece.player)
+
+    }
 
     def isNotOwnPiece(to: Position, player: Player): Validator =
       if(board.getPiece(to.X, to.Y).owner.contains(player))

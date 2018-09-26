@@ -1,6 +1,7 @@
 package actions.execute.executers
 
 import actions.Position
+import actions.execute.BoardCategorisation
 import elements.boards.states.{BoardState, NormalState}
 
 
@@ -17,6 +18,6 @@ case class KingCastleMove(board: BoardState, from: Position, to: Position) exten
     val kingCastledPieces = updatePiece(board.pieces, from, kingMove)
     val rookAdjustedPieces = updatePiece(kingCastledPieces, rookFrom, rookTo)
 
-    NormalState(rookAdjustedPieces, board.players.switchTurns)
+    NormalState(BoardCategorisation.invertBoard(rookAdjustedPieces), board.players.switchTurns)
   }
 }
