@@ -60,6 +60,6 @@ trait BoardSetup {
     val pieces = boardState.pieces
     val updatedPieces = BoardCategorisation.invertBoard(pieces)
 
-    NormalState(pieces, boardState.players)
+    NormalState(updatedPieces, boardState.players)
   }
 }

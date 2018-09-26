@@ -12,9 +12,9 @@ class MoveCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
     lazy val updatedRookPosition = Rook(genericPlayer, toPositon)
     val state = MoveCategorisation.categorise(rookBoard, rook.position, toPositon)
 
-    val updatedBoard = getBoard(updatedRookPosition)
+    val updatedBoard = invertBoard(getBoard(updatedRookPosition))
 
-    state shouldBe updatedBoard
+    state.pieces shouldBe updatedBoard.pieces
   }
 
   "Castling the king" should "correctly return the board with the king castled left side" in {
@@ -24,7 +24,7 @@ class MoveCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
 
     val actual = MoveCategorisation.categorise(kingBoard, Position(4, 0), Position(0 ,0))
 
-    actual shouldBe expected
+    actual.pieces shouldBe expected.pieces
   }
 
   "Castling the king" should "correctly return the board with the king castled right side" in {
@@ -34,6 +34,6 @@ class MoveCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
 
     val actual = MoveCategorisation.categorise(kingBoard, Position(4, 0), Position(7 ,0))
 
-    actual shouldBe expected
+    actual.pieces shouldBe expected.pieces
   }
 }
