@@ -1,6 +1,7 @@
 package actions.execute
 
 import actions.Position
+import actions.execute.executers.{EnPassantMove, KingCastleMove, NormalMove}
 import elements.boards.states.BoardState
 import elements.pieces.{King, Pawn}
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
