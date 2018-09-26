@@ -6,7 +6,6 @@ import actions.validators.moves.MoveValidator.ops._
 import actions.validators.moves.MoveValidator._
 import actions.validators.board.BoardCheckers._
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
-import players.Players
 import validator.ValidatorConverterImplicits.toBoolean
 
 object BoardCategorisation {
@@ -31,10 +30,11 @@ object BoardCategorisation {
             .exists { row => row.exists { p => isEnemyPlayer(p) && board.isValidMove(p, pm) } }
       }
     }
-    isThereNoOtherAvailableMove(board) || areAllPossiblePositionsBlocked
+
+    areThereOtherMovesAvailable(board) || areAllPossiblePositionsBlocked
   }
 
-  def isThereNoOtherAvailableMove(board: BoardState): Boolean = {
+  def areThereOtherMovesAvailable(board: BoardState): Boolean = {
     val playerTurnIndex = board.players.getPlayerTurn.index
 
     (for {
