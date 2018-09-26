@@ -31,7 +31,14 @@ object BoardCategorisation {
       }
     }
 
-    areThereOtherMovesAvailable(board) || areAllPossiblePositionsBlocked
+    if(isCheck(board))
+      areAllPossiblePositionsBlocked
+    else {false
+      //if(areThereOtherMovesAvailable())
+    }
+
+
+    !areThereOtherMovesAvailable(board) || areAllPossiblePositionsBlocked
   }
 
   def areThereOtherMovesAvailable(board: BoardState): Boolean = {
@@ -45,7 +52,7 @@ object BoardCategorisation {
       if piece != otherPiece
       if piece.owner.forall(player => player.index == playerTurnIndex)
       if board.isValidMove(piece, otherPiece.position) && !piece.isInstanceOf[King]
-    } yield piece).isEmpty
+    } yield piece).nonEmpty
   }
 
   def isCheck(board: BoardState): Boolean = {
