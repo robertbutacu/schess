@@ -5,6 +5,7 @@ import elements.pieces.{King, Piece}
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import players.Players
+import validator.ValidatorConverterImplicits.toBoolean
 
 case class CheckState(pieces: List[List[Piece]],
                       players: Players) extends BoardState {

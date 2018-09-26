@@ -7,6 +7,7 @@ import actions.validators.moves.MoveValidator._
 import actions.validators.board.BoardCheckers._
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import players.Players
+import validator.ValidatorConverterImplicits.toBoolean
 
 object BoardCategorisation {
   def isCheckmate(board: BoardState, players: Players): Boolean = {

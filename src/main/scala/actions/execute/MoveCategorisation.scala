@@ -5,6 +5,7 @@ import actions.execute.executers.{EnPassantMove, KingCastleMove, NormalMove}
 import elements.boards.states.BoardState
 import elements.pieces.{King, Pawn}
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
+import validator.ValidatorConverterImplicits.toBoolean
 
 object MoveCategorisation {
   def categorise(board: BoardState, from: Position, to: Position): BoardState = {

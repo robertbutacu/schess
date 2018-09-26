@@ -31,8 +31,8 @@ object MoveValidator {
         board.getPiece(position.X, position.Y) match {
           case p: Rook =>
             if(p.owner.forall(p => p == owner)) Success(board)
-            else Failure(Some("The rook is not owned by you!"), board)
-          case _       => Failure(Some("The piece is not a rook!"), board)
+            else Failure(Some("The rook is not owned by you!\n"), board)
+          case _       => Failure(Some("The piece is not a rook!\n"), board)
         }
     }
   }
@@ -90,16 +90,16 @@ object MoveValidator {
   implicit val pawnValidator: MoveValidator[Pawn] = new MoveValidator[Pawn] {
     override protected def isValidPath(board: BoardState, piece: Pawn, to: Position): Validator = {
       def isFirstPawnMove: Validator =
-        Validator.toValidate(piece.position.Y == 1 && to.Y == 3, "Is not first pawn move", board)
+        Validator.toValidate(piece.position.Y == 1 && to.Y == 3, "Is not first pawn move\n", board)
 
       val horizontalMove = to.X - piece.position.X
       val verticalMove = to.Y - piece.position.Y
 
       def isEatingPiece: Validator = {
         def isDiagonalMove: Validator =
-          Validator.toValidate(Math.abs(horizontalMove) == 1 && verticalMove == 1, "is not diagonal move for pawn", board)
+          Validator.toValidate(Math.abs(horizontalMove) == 1 && verticalMove == 1, "is not diagonal move for pawn\n", board)
         def isNotOwnPiece: Validator =
-          Validator.toValidate(board.getPiece(to.X, to.Y).owner != piece.owner, "own piece cannot be eaten", board)
+          Validator.toValidate(board.getPiece(to.X, to.Y).owner != piece.owner, "own piece cannot be eaten\n", board)
 
         isDiagonalMove andThen isNotOwnPiece
       }
@@ -109,7 +109,7 @@ object MoveValidator {
       // checking vertical move                   checking horizontal move
         isFirstPawnMove andThen Validator.toValidate(
           (verticalMove == 1) && (horizontalMove == 0 || board.isEnPassantMove(piece, to)),
-          "Is not straight move for pawn", board)
+          "Is not straight move for pawn\n", board)
 
       isEatingPiece andThen isStraightMove
     }
@@ -117,7 +117,7 @@ object MoveValidator {
     override protected def canOccupyPosition(board: BoardState, piece: Pawn, to: Position): Validator = {
       def isEmptySpaceForVerticalMove: Validator = {
         if(piece.position.X == to.X && piece.position.Y + 1 == to.Y) board.isPositionFree(to)
-        else Failure(Some("isEmptySpaceForVerticalMove"), board)
+        else Failure(Some("isEmptySpaceForVerticalMove\n"), board)
       }
 
       isEmptySpaceForVerticalMove andThen board.isNotOwnPiece(to, piece.player)
@@ -133,7 +133,7 @@ object MoveValidator {
         case pawn: Pawn       => implicitly[MoveValidator[Pawn]].isValidPath(board, pawn, to)
         case bishop: Bishop   => implicitly[MoveValidator[Bishop]].isValidPath(board, bishop, to)
         case rook: Rook       => implicitly[MoveValidator[Rook]].isValidPath(board, rook, to)
-        case _: EmptyPosition => Failure(Some("The position is empty!"), board) // moving an empty piece is never valid
+        case _: EmptyPosition => Failure(Some("The position is empty!\n"), board) // moving an empty piece is never valid
       }
 
     override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Validator =
@@ -144,7 +144,7 @@ object MoveValidator {
         case pawn: Pawn       => implicitly[MoveValidator[Pawn]].canOccupyPosition(board, pawn, to)
         case bishop: Bishop   => implicitly[MoveValidator[Bishop]].canOccupyPosition(board, bishop, to)
         case rook: Rook       => implicitly[MoveValidator[Rook]].canOccupyPosition(board, rook, to)
-        case _: EmptyPosition => Failure(Some("The position is empty!"), board) // moving an empty piece is never valid
+        case _: EmptyPosition => Failure(Some("The position is empty!\n"), board) // moving an empty piece is never valid
       }
   }
 
@@ -158,7 +158,7 @@ object MoveValidator {
       }
     } match {
       case true => Success(board)
-      case false => Failure(Some("isAmongAllMoves"), board)
+      case false => Failure(Some("isAmongAllMoves\n"), board)
     }
   }
 }

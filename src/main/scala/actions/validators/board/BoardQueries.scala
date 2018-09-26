@@ -52,7 +52,7 @@ object BoardQueries {
 
       val possibleDangers = filterOppositePlayerPieces()
 
-      possibleDangers exists (p => board.isValidMove(p, playerKing))
+      possibleDangers exists (p => board.isValidMove(p, playerKing).toBoolean)
     }
 
     def isKingNotInCheck: Boolean = !isKingInCheck
@@ -63,7 +63,7 @@ object BoardQueries {
     }
 
     def isCastling(piece: King, to: Position): Validator =
-      piece.isDefaultPosition andThen to.isRookDefaultPosition andThen board.isOwningRook(to, piece.player)
+      piece.isDefaultPosition(board) andThen to.isRookDefaultPosition(board) andThen board.isOwningRook(to, piece.player)
 
     def isNotOwnPiece(to: Position, player: Player): Validator =
       if(board.getPiece(to.X, to.Y).owner.contains(player))

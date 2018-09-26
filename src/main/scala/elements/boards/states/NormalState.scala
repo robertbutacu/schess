@@ -5,6 +5,7 @@ import elements.pieces.Piece
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import players.Players
+import validator.ValidatorConverterImplicits.toBoolean
 
 case class NormalState(pieces: List[List[Piece]], players: Players) extends BoardState {
   override def next: Option[BoardState] = {
