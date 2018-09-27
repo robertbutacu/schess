@@ -17,5 +17,5 @@ trait Validator {
 object Validator {
   def toValidate(f: => Boolean, failureMessage: String, boardState: BoardState): Validator =
     if(f) Success(boardState)
-    else Failure(Some(failureMessage), boardState)
+    else Failure(failureMessage, boardState)
 }

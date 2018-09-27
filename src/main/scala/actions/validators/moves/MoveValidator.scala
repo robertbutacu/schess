@@ -2,6 +2,7 @@ package actions.validators.moves
 
 import actions.Position
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
+import config.Config
 import elements.boards.states.BoardState
 import elements.pieces._
 import players.models.Player
@@ -31,8 +32,8 @@ object MoveValidator {
         board.getPiece(position.X, position.Y) match {
           case p: Rook =>
             if(p.owner.forall(p => p == owner)) Success(board)
-            else Failure(Some("The rook is not owned by you!\n"), board)
-          case _       => Failure(Some("The piece is not a rook!\n"), board)
+            else Failure(Config.enemyRookMessage, board)
+          case _       => Failure(Config.notRookMessage, board)
         }
     }
   }
@@ -117,7 +118,7 @@ object MoveValidator {
     override protected def canOccupyPosition(board: BoardState, piece: Pawn, to: Position): Validator = {
       def isEmptySpaceForVerticalMove: Validator = {
         if(piece.position.X == to.X && piece.position.Y + 1 == to.Y) board.isPositionFree(to)
-        else Failure(Some("isEmptySpaceForVerticalMove\n"), board)
+        else Failure(Config.notVerticalMoveMessage, board)
       }
 
       isEmptySpaceForVerticalMove orElse board.isNotOwnPiece(to, piece.player)
@@ -133,7 +134,7 @@ object MoveValidator {
         case pawn: Pawn       => implicitly[MoveValidator[Pawn]].isValidPath(board, pawn, to)
         case bishop: Bishop   => implicitly[MoveValidator[Bishop]].isValidPath(board, bishop, to)
         case rook: Rook       => implicitly[MoveValidator[Rook]].isValidPath(board, rook, to)
-        case _: EmptyPosition => Failure(Some("The position is empty!\n"), board) // moving an empty piece is never valid
+        case _: EmptyPosition => Failure(Config.emptyPositionMessage, board) // moving an empty piece is never valid
       }
 
     override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Validator =
@@ -144,7 +145,7 @@ object MoveValidator {
         case pawn: Pawn       => implicitly[MoveValidator[Pawn]].canOccupyPosition(board, pawn, to)
         case bishop: Bishop   => implicitly[MoveValidator[Bishop]].canOccupyPosition(board, bishop, to)
         case rook: Rook       => implicitly[MoveValidator[Rook]].canOccupyPosition(board, rook, to)
-        case _: EmptyPosition => Failure(Some("The position is empty!\n"), board) // moving an empty piece is never valid
+        case _: EmptyPosition => Failure(Config.emptyPositionMessage, board) // moving an empty piece is never valid
       }
   }
 
@@ -158,7 +159,7 @@ object MoveValidator {
       }
     } match {
       case true => Success(board)
-      case false => Failure(Some("isAmongAllMoves\n"), board)
+      case false => Failure(Config.amongAllMovesMessage, board)
     }
   }
 }

@@ -17,7 +17,7 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "isOwningRook" should "return false when a player is not owning the piece which should be a rook" in {
     lazy val pawnBoard = getBoard(pawn)
 
-    pawnBoard.isOwningRook(pawn.position, pawn.player) shouldBe Failure(_: Option[String], _: BoardState)
+    pawnBoard.isOwningRook(pawn.position, pawn.player) shouldBe Failure(_: String, _: BoardState)
   }
 
   "Initialization with bad position" should "fail " in {
@@ -46,10 +46,10 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
 
   "A rook" should "not make valid moves " in {
     val rookBoard = getBoard(rook)
-    rookBoard.isValidMove(rook, Position(2, 3)) shouldBe Failure(_: Option[String], _: BoardState)
-    rookBoard.isValidMove(rook, Position(3, 5)) shouldBe Failure(_: Option[String], _: BoardState)
-    rookBoard.isValidMove(rook, Position(7, 7)) shouldBe Failure(_: Option[String], _: BoardState)
-    rookBoard.isValidMove(rook, Position(0, 0)) shouldBe Failure(_: Option[String], _: BoardState)
+    rookBoard.isValidMove(rook, Position(2, 3)) shouldBe Failure(_: String, _: BoardState)
+    rookBoard.isValidMove(rook, Position(3, 5)) shouldBe Failure(_: String, _: BoardState)
+    rookBoard.isValidMove(rook, Position(7, 7)) shouldBe Failure(_: String, _: BoardState)
+    rookBoard.isValidMove(rook, Position(0, 0)) shouldBe Failure(_: String, _: BoardState)
   }
 
   "A queen " should " make valid moves " in {
@@ -84,10 +84,10 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
 
   "A bishop" should "not make valid moves " in {
     val bishopBoard = getBoard(bishop)
-    bishopBoard.isValidMove(bishop, Position(4, 7)) shouldBe Failure(_: Option[String], _: BoardState) // straight up
-    bishopBoard.isValidMove(bishop, Position(3, 7)) shouldBe Failure(_: Option[String], _: BoardState) // random
-    bishopBoard.isValidMove(bishop, Position(4, 0)) shouldBe Failure(_: Option[String], _: BoardState) // straight down
-    bishopBoard.isValidMove(bishop, Position(4, 5)) shouldBe Failure(_: Option[String], _: BoardState) // pawn move
+    bishopBoard.isValidMove(bishop, Position(4, 7)) shouldBe Failure(_: String, _: BoardState) // straight up
+    bishopBoard.isValidMove(bishop, Position(3, 7)) shouldBe Failure(_: String, _: BoardState) // random
+    bishopBoard.isValidMove(bishop, Position(4, 0)) shouldBe Failure(_: String, _: BoardState) // straight down
+    bishopBoard.isValidMove(bishop, Position(4, 5)) shouldBe Failure(_: String, _: BoardState) // pawn move
   }
 
   "A king " should " make valid moves " in {
@@ -112,8 +112,8 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "A king " should "not be able to castle using enemy rooks" in {
     val kingBoard = getBoard(kingDefaultPosition, List(rookDefaultPositionLeftEnemy, rookDefaultPositionRightEnemy))
 
-    kingBoard.isValidMove(kingDefaultPosition, Position(0, 0)) shouldBe Failure(_: Option[String], _: BoardState)
-    kingBoard.isValidMove(kingDefaultPosition, Position(7, 0)) shouldBe Failure(_: Option[String], _: BoardState)
+    kingBoard.isValidMove(kingDefaultPosition, Position(0, 0)) shouldBe Failure(_: String, _: BoardState)
+    kingBoard.isValidMove(kingDefaultPosition, Position(7, 0)) shouldBe Failure(_: String, _: BoardState)
   }
 
 
@@ -124,8 +124,8 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "A pawn " should " make valid moves " in {
     val pawnBoard = getBoard(pawn)
     pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe Success(_: BoardState) //
-    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe Failure(_: Option[String], _: BoardState) // en passant left => this should be true
-    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe Failure(_: Option[String], _: BoardState) // en passant right => this should be true
+    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe Failure(_: String, _: BoardState) // en passant left => this should be true
+    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe Failure(_: String, _: BoardState) // en passant right => this should be true
   }
 
   "A pawn" should "not make valid moves " in {
@@ -135,7 +135,7 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "A pawn" should "not be able to walk straight if position is occupied" in {
     val pawnBoard = getBoard(pawn, List(Pawn(genericEnemyPlayer, Position(4, 5))))
 
-    pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe Failure(_: Option[String], _: BoardState)
+    pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe Failure(_: String, _: BoardState)
   }
 
   "A knight " should " make valid moves " in {
@@ -150,9 +150,9 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   "A knight" should "not make valid moves " in {
     val knightBoard = getBoard(knight)
 
-    knightBoard.isValidMove(knight, Position(5, 7)) shouldBe Failure(_: Option[String], _: BoardState)
-    knightBoard.isValidMove(knight, Position(4, 5)) shouldBe Failure(_: Option[String], _: BoardState)
-    knightBoard.isValidMove(knight, Position(3, 4)) shouldBe Failure(_: Option[String], _: BoardState)
-    knightBoard.isValidMove(knight, Position(3, 7)) shouldBe Failure(_: Option[String], _: BoardState)
+    knightBoard.isValidMove(knight, Position(5, 7)) shouldBe Failure(_: String, _: BoardState)
+    knightBoard.isValidMove(knight, Position(4, 5)) shouldBe Failure(_: String, _: BoardState)
+    knightBoard.isValidMove(knight, Position(3, 4)) shouldBe Failure(_: String, _: BoardState)
+    knightBoard.isValidMove(knight, Position(3, 7)) shouldBe Failure(_: String, _: BoardState)
   }
 }

@@ -4,6 +4,7 @@ import actions.Position
 import elements.boards.states.BoardState
 import actions.validators.moves.MoveValidator._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
+import config.Config
 import elements.pieces.{EmptyPosition, King, Pawn, Piece}
 import players.models.Player
 import validator.{Failure, Success, Validator}
@@ -70,12 +71,12 @@ object BoardQueries {
 
     def isNotOwnPiece(to: Position, player: Player): Validator =
       if(board.getPiece(to.X, to.Y).owner.contains(player))
-        Failure(Some("The end position is an own piece!"), board)
+        Failure(Config.endPositionOwnPieceMessage, board)
       else Success(board)
 
     def isNotKing(to: Position): Validator = {
       board.getPiece(to.X, to.Y) match {
-        case king: King => Failure(Some("The position is occupied by a king!"), board)
+        case king: King => Failure(Config.kingPositionMessage, board)
         case _          => Success(board)
       }
     }

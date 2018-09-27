@@ -2,6 +2,7 @@ package elements.boards.states
 
 import actions.Position
 import actions.validators.board.BoardQueries
+import config.Config
 import elements.boards.PreviousMove
 import elements.boards.information.KingsPositions
 import elements.pieces.{EmptyPosition, King, Piece}
@@ -40,7 +41,7 @@ trait BoardState {
   def isPositionFree(position: Position): Validator = {
     getPiece(position.X, position.Y) match {
       case _: EmptyPosition => Success(this)
-      case _ => Failure(Some("isPositionFree"), this)
+      case _ => Failure(Config.positionNotFreeMessage, this)
     }
   }
 
