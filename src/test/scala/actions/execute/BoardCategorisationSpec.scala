@@ -6,7 +6,8 @@ import org.scalatest.{FlatSpec, Matchers}
 import players.Players
 
 class BoardCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
-  "When the king is in checkmate, the function" should "respond positive" in {
+  //"When the king is in checkmate, the function"
+  ignore should "respond positive" in {
     val king = King(genericPlayer, Position(0, 0))
     val enemyBishop = Bishop(genericEnemyPlayer, Position(0, 2))//threatening 11
     val enemyBishop2 = Bishop(genericEnemyPlayer, Position(1, 2))//threatening 01
