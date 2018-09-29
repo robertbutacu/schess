@@ -1,6 +1,6 @@
 The next steps for the project would be:
     1. finish validating all the moves and make sure the game is running smoothly
-    2. config files for returning the errors
+    2. config files for returning the errors => DONE
     3. implement the bot
     4. add a server on top of it
         Endpoints for this would be:

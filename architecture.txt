@@ -1,0 +1,26 @@
+    This is a presentation of the architecture of the project - the overall flow of the program, without focusing too much
+on the actual details of the implementation.
+
+    The most representative word for the flow is "layers". The project is filled with layers on top of layers of
+abstraction. The main reason why I chose this is to offer an intuitive and clean implementation of the game -
+without actually using too many nested if's - overall, trying to keep it in a cycle which automatically adjusts itself
+after every turn.
+
+    The main struggle was coming up with an abstraction which would facilitate the immense number of checks a chess game
+require. In order for this to go smoothly and also have representative messages in case a move or a state is illegal,
+there was a need for a data structure which would encapsulate this behaviour.
+
+    Since throwing errors is a no-no, the idea of an ADT which would encapsulate a failure, but also record a success
+and pass on to the next phase arose.
+    The Validator ADT does exactly that. It contains 2 states:
+        1. Success => everything is fine and the next phase can be reached
+        2. Failure => something went wrong, and there is a representative message for this
+
+    Since there are so many checks, a pipeline operator was needed so chaining between checks is possible. The
+Validator's andThen() does exactly that - it receives a function returning a Validator and it pipelines the result
+to that - or not, such as the case of Failure, since the first failure is wanted.
+    Also, since there are multiple possible
+paths which might arise, there was the need for another pipeline operator - and so orElse() was born. It gives
+the possibility of choosing a Success between a range of possible Validators, disregarding any failures if there are any.
+
+    The Validator ADT sits at the core of the program and is what pipelines through different states of the game.
