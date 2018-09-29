@@ -28,6 +28,9 @@ trait BoardSetup {
   lazy val rookDefaultPositionRight = Rook(genericPlayer, Position(7, 0))
   lazy val rookDefaultPositionRightEnemy = Rook(genericEnemyPlayer, Position(7, 0))
   lazy val kingDefaultPosition = King(genericPlayer, Position(4, 0))
+  lazy val enemyKingDefaultPosition = King(genericEnemyPlayer, Position(7, 3))
+
+  lazy val kings = List(kingDefaultPosition, enemyKingDefaultPosition)
 
   def toEmptyRow(rowIndex: Int): List[Piece] = emptyRow.map(p => EmptyPosition(Position(p.position.X, rowIndex)))
 
