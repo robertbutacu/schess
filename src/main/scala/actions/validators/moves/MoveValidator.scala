@@ -8,7 +8,7 @@ import elements.pieces._
 import players.models.Player
 import validator.{Failure, Success, Validator}
 
-trait MoveValidator[P] {
+sealed trait MoveValidator[P] {
   def isValidMove(board: BoardState, piece: P, to: Position): Validator = {
     isValidPath(board, piece, to) andThen canOccupyPosition(board, piece, to) andThen board.isNotKing(to)
   }

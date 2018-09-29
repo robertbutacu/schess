@@ -14,7 +14,8 @@ there was a need for a data structure which would encapsulate this behaviour.
 and pass on to the next phase arose.
     The Validator ADT does exactly that. It contains 2 states:
         1. Success => everything is fine and the next phase can be reached
-        2. Failure => something went wrong, and there is a representative message for this
+        2. Failure => something went wrong, and there is a representative message for this, not letting the next phase
+                      be reached
 
     Since there are so many checks, a pipeline operator was needed so chaining between checks is possible. The
 Validator's andThen() does exactly that - it receives a function returning a Validator and it pipelines the result
@@ -24,3 +25,27 @@ paths which might arise, there was the need for another pipeline operator - and 
 the possibility of choosing a Success between a range of possible Validators, disregarding any failures if there are any.
 
     The Validator ADT sits at the core of the program and is what pipelines through different states of the game.
+
+    As far as the layering goes, the need for grainy and unique layers is needed - they need not interact with the job
+of any other layer. They need to only use the below layers or the layers found on the same level.
+    Starting from lowest to highest, the layers are:
+    1. MoveValidator - it is the basic layer which handles the validation of a move, making sure that there aren't any
+                        illegal moves. The only way to reach this layer is through a board - which makes total sense
+                        since the board is the one that should validate and make a move.
+
+    2. MoveCategorisation - more like an intermediary layer, it closes the bridge between a move and it's meaning.
+                        More about meaning in the next layer.
+
+    3. ExecuteMove - this layer is responsible for executing the move - the meaning which was mentioned earlier makes
+                        sense in this layer. Not all moves are created equal - one can castle the king or have an
+                        en-passant move - which are recorded and executed in this layer.
+
+    4. Validator - this layer is responsible for actually categorising the state of the board
+                   in the next phase and executing it. More about that in the next layer.
+
+    5. BoardState - this is the highest layer which basically controls the game, and also possibly the next possible move.
+        It has multiple states:
+            a. NormalState - any move is possible
+            b. CheckState - the player can only try to move a king
+            c. StalemateState - the game has come to a halt and nobody won
+            d. CheckmateState - the current player lost the game
