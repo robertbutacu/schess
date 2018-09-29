@@ -60,11 +60,11 @@ object MoveValidator {
       val horizontalMove = List(-1, 0, 1)
       val verticalMove = List(-1, 0, 1)
 
-      isAmongAllMoves(board, piece, to, verticalMove, horizontalMove) andThen board.isCastling(piece, to)
+      isAmongAllMoves(board, piece, to, verticalMove, horizontalMove) orElse board.isCastling(piece, to)
     }
 
     override protected def canOccupyPosition(board: BoardState, piece: King, to: Position): Validator = {
-      board.isCastling(piece, to) andThen board.isNotOwnPiece(to, piece.player)
+      board.isCastling(piece, to) orElse board.isNotOwnPiece(to, piece.player)
     }
   }
 

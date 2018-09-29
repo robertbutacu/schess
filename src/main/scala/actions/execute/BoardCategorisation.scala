@@ -9,6 +9,7 @@ import elements.pieces.{King, Piece}
 import validator.ValidatorConverterImplicits.toBoolean
 
 object BoardCategorisation {
+  //TODO account for situations where the king can be protected by other pieces
   def isCheckmate(board: BoardState): Boolean = {
     val playerTurnIndex = board.players.getPlayerTurn.index
 

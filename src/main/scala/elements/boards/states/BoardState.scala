@@ -8,6 +8,8 @@ import elements.boards.information.KingsPositions
 import elements.pieces.{EmptyPosition, King, Piece}
 import players.{PlayerOne, PlayerTwo, Players}
 import validator.{Failure, Success, Validator}
+import actions.validators.board.BoardQueries.BoardQueriesImplicit
+import validator.ValidatorConverterImplicits.toBoolean
 
 trait BoardState {
   def players: Players
@@ -62,7 +64,14 @@ trait BoardState {
 
 object BoardState {
   def nextPhase(pieces: List[List[Piece]], players: Players): BoardState = {
-    ///Validator.toBoardState()
-    ???
+    val dummyBoard = DummyBoard(pieces, players)
+
+    //TODO improve this
+    Validator.toBoardState(dummyBoard.isStall, pieces, players, StalemateState) orElse
+    Validator.toBoardState(dummyBoard.isEndGame, pieces, players, CheckmateState) orElse
+    Validator.toBoardState(dummyBoard.isKingInCheck, pieces, players, CheckState) orElse
+    Some(NormalState(pieces, players)) match {
+      case Some(board) => board
+    }
   }
 }
