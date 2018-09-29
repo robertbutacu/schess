@@ -2,6 +2,8 @@ package validator
 
 import actions.Move
 import elements.boards.states.BoardState
+import elements.pieces.Piece
+import players.Players
 
 trait Validator {
   def board: BoardState
@@ -28,8 +30,11 @@ object Validator {
     else Failure(failures, board)
   }
 
-  def toBoardState(f: => Boolean, board: BoardState): Option[BoardState] = {
-    if(f) Some(board)
+  def toBoardState(f: => Boolean,
+                   pieces: List[List[Piece]],
+                   players: Players,
+                   board: (List[List[Piece]], Players) => BoardState): Option[BoardState] = {
+    if(f) Some(board(pieces, players))
     else None
   }
 }
