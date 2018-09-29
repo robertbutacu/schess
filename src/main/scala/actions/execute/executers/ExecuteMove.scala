@@ -1,7 +1,6 @@
 package actions.execute.executers
 
 import actions.Position
-import actions.execute.BoardCategorisation
 import elements.boards.states.BoardState
 import elements.pieces.{EmptyPosition, Piece}
 
