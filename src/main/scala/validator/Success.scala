@@ -11,7 +11,7 @@ case class Success(board: BoardState) extends Validator {
   override def next(move: Move): BoardState = {
     val possibleBoardUpdated = MoveCategorisation.categorise(board, move.from, move.to)
 
-    board
+    possibleBoardUpdated
   }
 
   override def andThen(f: => Validator): Validator = f

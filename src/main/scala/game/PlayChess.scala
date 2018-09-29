@@ -62,7 +62,7 @@ object PlayChess {
 
     val players = Players(p1, p2, 1)
 
-    NormalState(initialBoardState(p1, p2), players)
+    NormalState(initialBoardState(p1, p2), players, isFirstMove = true)
   }
 
   def initialBoardState(player1: Player, player2: Player): List[List[Piece]] = {

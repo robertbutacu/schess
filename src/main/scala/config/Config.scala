@@ -15,4 +15,5 @@ object Config {
   lazy val kingPositionMessage: String = configFactory.getString("board.errors.king-position")
   lazy val notOwnPiece: String = configFactory.getString("board.errors.not-own-piece")
   lazy val kingInCheck: String = configFactory.getString("board.errors.king-in-check")
+  lazy val notAKing: String = configFactory.getString("board.errors.not-king-piece")
 }

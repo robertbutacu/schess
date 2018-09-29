@@ -19,4 +19,12 @@ object Validator {
   def toValidate(f: => Boolean, failureMessage: String, boardState: BoardState): Validator =
     if(f) Success(boardState)
     else Failure(failureMessage, boardState)
+
+  def toValidate(list: List[Validator], board: BoardState): Validator = {
+    val failures = list.collect{ case failure: Failure => failure}.foldLeft(""){ case (acc, curr) =>
+    acc + curr.message}
+
+    if(failures.isEmpty) Success(board)
+    else Failure(failures, board)
+  }
 }

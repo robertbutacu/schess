@@ -7,7 +7,6 @@ import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import config.Config
 import players.Players
 import validator.{Success, Validator}
-import validator.ValidatorConverterImplicits.toBoolean
 
 case class NormalState(initialPieces: List[List[Piece]],
                        players: Players,
@@ -24,7 +23,7 @@ case class NormalState(initialPieces: List[List[Piece]],
     def isValidMove: Validator =
       this.isValidMove(pieceToBeMoved, nextMove.to) andThen
         Validator.toValidate(pieceToBeMoved.owner.contains(players.getPlayerTurn), Config.notOwnPiece, this) andThen
-        Validator.toValidate(this.isKingInCheck, Config.kingInCheck, this)
+        this.isKingInCheck
 
     Some(isValidMove.next(nextMove))
   }

@@ -8,6 +8,7 @@ import config.Config
 import elements.pieces.{EmptyPosition, King, Pawn, Piece}
 import players.models.Player
 import validator.{Failure, Success, Validator}
+import validator.ValidatorConverterImplicits.toBoolean
 
 object BoardQueries {
   val letterMapping = Map('A' -> 0, 'B' -> 1, 'C' -> 2, 'D' -> 3, 'E' -> 4, 'F' -> 5, 'G' -> 6, 'H' -> 7)
@@ -37,7 +38,7 @@ object BoardQueries {
 
     def isEndGame(playerToPlay: Player): Boolean = ???
 
-    def isKingInCheck: Boolean = {
+    def isKingInCheck: Validator = {
       def filterOppositePlayerPieces(): List[Piece] = {
         val otherPlayerTurn = board.players.getPlayerTurn.index.otherPlayerTurn
 
@@ -53,7 +54,9 @@ object BoardQueries {
 
       val possibleDangers = filterOppositePlayerPieces()
 
-      possibleDangers exists (p => board.isValidMove(p, playerKing).toBoolean)
+      println(possibleDangers)
+
+      Validator.toValidate(possibleDangers map (p => board.isValidMove(p, playerKing)), board)
     }
 
     def isKingNotInCheck: Boolean = !isKingInCheck
