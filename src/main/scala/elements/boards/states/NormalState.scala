@@ -19,11 +19,12 @@ case class NormalState(initialPieces: List[List[Piece]],
     val nextMove = players.getPlayerTurn.askForMove
 
     val pieceToBeMoved = getPiece(nextMove.from.X, nextMove.from.Y)
+    val doesPlayerOwnPiece = pieceToBeMoved.owner.contains(players.getPlayerTurn)
 
     def isValidMove: Validator =
       this.isValidMove(pieceToBeMoved, nextMove.to) andThen
-        Validator.toValidate(pieceToBeMoved.owner.contains(players.getPlayerTurn), Config.notOwnPiece, this) andThen
-        this.isKingInCheck
+        Validator.toValidate(doesPlayerOwnPiece, Config.notOwnPieceMessage, this) andThen
+        this.isKingNotInCheck
 
     Some(isValidMove.next(nextMove))
   }

@@ -54,12 +54,12 @@ object BoardQueries {
 
       val possibleDangers = filterOppositePlayerPieces()
 
-      println(possibleDangers)
-
-      Validator.toValidate(possibleDangers map (p => board.isValidMove(p, playerKing)), board)
+      Validator.toValidate(possibleDangers exists {p => board.isValidMove(p, playerKing)},
+        Config.kingNotInCheckMessage,
+        board)
     }
 
-    def isKingNotInCheck: Boolean = !isKingInCheck
+    def isKingNotInCheck: Validator = Validator.toValidate(!isKingInCheck, Config.kingInCheckMessage, board)
 
     private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.getPiece(X, Y) match {
       case _: EmptyPosition => true

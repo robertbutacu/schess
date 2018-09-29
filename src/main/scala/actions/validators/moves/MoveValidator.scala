@@ -9,8 +9,9 @@ import players.models.Player
 import validator.{Failure, Success, Validator}
 
 trait MoveValidator[P] {
-  def isValidMove(board: BoardState, piece: P, to: Position): Validator =
+  def isValidMove(board: BoardState, piece: P, to: Position): Validator = {
     isValidPath(board, piece, to) andThen canOccupyPosition(board, piece, to) andThen board.isNotKing(to)
+  }
 
   protected def isValidPath(board: BoardState, piece: P, to: Position): Validator
 

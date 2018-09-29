@@ -22,9 +22,9 @@ case class CheckState(initialPieces: List[List[Piece]],
       Validator.toValidate(pieceToBeMoved.owner.contains(players.getPlayerTurn) && (pieceToBeMoved match {
         case _: King => true
         case _       => false
-      }), Config.notAKing, this)
+      }), Config.notAKingMessage, this)
 
-    def isValidMove: Boolean = isMovingKing andThen this.isValidMove(pieceToBeMoved, nextMove.to) andThen this.isKingInCheck
+    def isValidMove: Boolean = isMovingKing andThen this.isValidMove(pieceToBeMoved, nextMove.to) andThen this.isKingNotInCheck
 
     val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
 
