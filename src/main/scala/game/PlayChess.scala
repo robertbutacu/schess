@@ -3,8 +3,8 @@ package game
 import actions.Position
 import elements.boards.states.{BoardState, NormalState}
 import elements.pieces._
-import players.{PlayerIndex, PlayerOne, PlayerTwo, Players}
 import players.models.{AIPlayer, HumanPlayer, Player}
+import players.{PlayerIndex, PlayerOne, PlayerTwo, Players}
 
 import scala.annotation.tailrec
 import scala.io.StdIn.readLine

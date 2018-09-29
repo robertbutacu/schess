@@ -1,10 +1,10 @@
 package elements.boards.states
 
 import actions.execute.{BoardCategorisation, MoveCategorisation}
-import elements.pieces.{King, Piece}
-import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
+import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import config.Config
+import elements.pieces.{King, Piece}
 import players.Players
 import validator.Validator
 import validator.ValidatorConverterImplicits.toBoolean

@@ -1,14 +1,14 @@
 package actions.validators.board
 
 import actions.Position
-import elements.boards.states.BoardState
 import actions.validators.moves.MoveValidator._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import config.Config
+import elements.boards.states.BoardState
 import elements.pieces.{EmptyPosition, King, Pawn, Piece}
 import players.models.Player
-import validator.{Failure, Success, Validator}
 import validator.ValidatorConverterImplicits.toBoolean
+import validator.{Failure, Success, Validator}
 
 object BoardQueries {
   val letterMapping = Map('A' -> 0, 'B' -> 1, 'C' -> 2, 'D' -> 3, 'E' -> 4, 'F' -> 5, 'G' -> 6, 'H' -> 7)

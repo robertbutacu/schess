@@ -1,11 +1,11 @@
 package validator
 
-import actions.{Move, Position}
 import actions.execute.MoveCategorisation
 import actions.execute.executers.{EnPassantMove, KingCastleMove, NormalMove}
+import actions.validators.board.BoardQueries.BoardQueriesImplicit
+import actions.{Move, Position}
 import elements.boards.states.BoardState
 import elements.pieces.{King, Pawn}
-import actions.validators.board.BoardQueries.BoardQueriesImplicit
 
 case class Success(board: BoardState) extends Validator {
   override def next(move: Move): BoardState = {

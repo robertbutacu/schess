@@ -1,12 +1,12 @@
 package elements.boards.states
 
-import actions.execute.{BoardCategorisation, MoveCategorisation}
-import elements.pieces.Piece
-import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
+import actions.execute.BoardCategorisation
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
+import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import config.Config
+import elements.pieces.Piece
 import players.Players
-import validator.{Success, Validator}
+import validator.Validator
 
 case class NormalState(initialPieces: List[List[Piece]],
                        players: Players,
