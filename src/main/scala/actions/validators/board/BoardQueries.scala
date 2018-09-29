@@ -34,9 +34,10 @@ object BoardQueries {
     def isDiagonalMove(from: Position, to: Position): Validator =
       Validator.toValidate(Math.abs(from.X - to.X) == Math.abs(from.Y - to.Y), "Is not diagonal move!", board)
 
-    def isStall(board: BoardState, playerToPlay: Player): Boolean = ???
+    //TODO implement this
+    def isStall(board: BoardState, playerToPlay: Player): Boolean = false
 
-    def isEndGame(playerToPlay: Player): Boolean = ???
+    def isEndGame(playerToPlay: Player): Boolean = false
 
     def isKingInCheck: Validator = {
       def filterOppositePlayerPieces(): List[Piece] = {

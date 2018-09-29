@@ -27,4 +27,9 @@ object Validator {
     if(failures.isEmpty) Success(board)
     else Failure(failures, board)
   }
+
+  def toBoardState(f: => Boolean, board: BoardState): Option[BoardState] = {
+    if(f) Some(board)
+    else None
+  }
 }

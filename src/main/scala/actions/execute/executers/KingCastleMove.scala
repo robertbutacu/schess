@@ -17,6 +17,6 @@ case class KingCastleMove(board: BoardState, from: Position, to: Position) exten
     val kingCastledPieces = updatePiece(board.pieces, from, kingMove)
     val rookAdjustedPieces = updatePiece(kingCastledPieces, rookFrom, rookTo)
 
-    NormalState(rookAdjustedPieces, board.players.switchTurns)
+    BoardState.nextPhase(rookAdjustedPieces, board.players.switchTurns)
   }
 }

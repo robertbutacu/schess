@@ -59,3 +59,10 @@ trait BoardState {
     finalBoard.mkString("\n")//.replace(" ", "-")
   }
 }
+
+object BoardState {
+  def nextPhase(pieces: List[List[Piece]], players: Players): BoardState = {
+    ///Validator.toBoardState()
+    ???
+  }
+}
