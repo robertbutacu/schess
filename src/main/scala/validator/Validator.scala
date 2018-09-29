@@ -1,11 +1,12 @@
 package validator
 
+import actions.Move
 import elements.boards.states.BoardState
 
 trait Validator {
   def board: BoardState
 
-  def next: BoardState
+  def next(move: Move): BoardState
 
   def andThen(f: => Validator): Validator
 

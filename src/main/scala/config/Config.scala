@@ -13,4 +13,6 @@ object Config {
   lazy val positionNotFreeMessage: String = configFactory.getString("board.errors.position-not-free")
   lazy val endPositionOwnPieceMessage: String = configFactory.getString("board.errors.end-position-own-piece")
   lazy val kingPositionMessage: String = configFactory.getString("board.errors.king-position")
+  lazy val notOwnPiece: String = configFactory.getString("board.errors.not-own-piece")
+  lazy val kingInCheck: String = configFactory.getString("board.errors.king-in-check")
 }

@@ -4,7 +4,9 @@ import actions.execute.{BoardCategorisation, MoveCategorisation}
 import elements.pieces.Piece
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
+import config.Config
 import players.Players
+import validator.{Success, Validator}
 import validator.ValidatorConverterImplicits.toBoolean
 
 case class NormalState(initialPieces: List[List[Piece]],
@@ -19,20 +21,11 @@ case class NormalState(initialPieces: List[List[Piece]],
 
     val pieceToBeMoved = getPiece(nextMove.from.X, nextMove.from.Y)
 
-    def isValidMove: Boolean =
-      pieceToBeMoved.owner.contains(players.getPlayerTurn) && this.isValidMove(pieceToBeMoved, nextMove.to)
+    def isValidMove: Validator =
+      this.isValidMove(pieceToBeMoved, nextMove.to) andThen
+        Validator.toValidate(pieceToBeMoved.owner.contains(players.getPlayerTurn), Config.notOwnPiece, this) andThen
+        Validator.toValidate(this.isKingInCheck, Config.kingInCheck, this)
 
-    val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
-
-    if (isValidMove) {
-      if (this.isKingInCheck) {
-        println("\n The king would be in check! Please choose another move!")
-        this.next
-      }
-      else Some(possibleBoardUpdated)
-    } else {
-      println("Please choose one of your pieces!")
-      this.next
-    }
+    Some(isValidMove.next(nextMove))
   }
 }

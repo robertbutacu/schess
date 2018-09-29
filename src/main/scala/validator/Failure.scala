@@ -1,8 +1,9 @@
 package validator
+import actions.Move
 import elements.boards.states.BoardState
 
 case class Failure(message: String, board: BoardState) extends Validator {
-  override def next: BoardState = {
+  override def next(move: Move): BoardState = {
     println(message)
 
     board
