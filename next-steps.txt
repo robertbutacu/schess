@@ -25,3 +25,7 @@ The next steps for the project would be:
                 response:
                     initial board
     5. develop a frontend which uses the server correctly
+    
+    6. Change Validator so where it accepts a function which returns a BoardState
+        This way, change all the logic so it pipelines through the whole flow without the need of any intermediate layers.
+        
