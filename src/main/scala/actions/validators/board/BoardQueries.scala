@@ -55,6 +55,8 @@ object BoardQueries {
 
       val possibleDangers = filterOppositePlayerPieces()
 
+      //TODO maybe renaming ?
+      //TODO add the cases when an own piece can stop the attack
       Validator.toValidate(possibleDangers exists {p => board.isValidMove(p, playerKing)},
         Config.kingNotInCheckMessage,
         board)
