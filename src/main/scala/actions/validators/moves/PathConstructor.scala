@@ -11,7 +11,7 @@ object PathConstructor {
     @tailrec
     def go(current: (Int, Int), result: List[(Int, Int)]): List[(Int, Int)] = {
       if(boardState.isPositionFree(Position(current)).toBoolean && finalStep != current)
-        go(f(current), result :+ current)
+        go(f(current._1, current._2), result :+ current)
       else result
     }
 

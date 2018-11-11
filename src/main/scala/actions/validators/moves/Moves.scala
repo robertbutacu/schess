@@ -4,19 +4,12 @@ import actions.Position
 
 object Moves {
   def diagonalLeftUp: (Int, Int) => (Int, Int)    = (X: Int, Y: Int) => (X - 1, Y + 1)
-
   def diagonalRightUp: (Int, Int) => (Int, Int)   = (X: Int, Y: Int) => (X + 1, Y + 1)
-
   def diagonalLeftDown: (Int, Int) => (Int, Int)  = (X: Int, Y: Int) => (X - 1, Y - 1)
-
   def diagonalRightDown: (Int, Int) => (Int, Int) = (X: Int, Y: Int) => (X + 1, Y - 1)
-
   def straightUp: (Int, Int) => (Int, Int)        = (X: Int, Y: Int) => (X, Y + 1)
-
   def straightDown: (Int, Int) => (Int, Int)      = (X: Int, Y: Int) => (X, Y - 1)
-
   def straightLeft: (Int, Int) => (Int, Int)      = (X: Int, Y: Int) => (X - 1, Y)
-
   def straightRight: (Int, Int) => (Int, Int)     = (X: Int, Y: Int) => (X + 1, Y)
 
 

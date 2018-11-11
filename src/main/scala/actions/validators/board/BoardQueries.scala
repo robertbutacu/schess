@@ -71,9 +71,8 @@ object BoardQueries {
     }
 
     def isNotOwnPiece(to: Position, player: Player): Validator =
-      if(board.getPiece(to.X, to.Y).owner.contains(player))
-        Failure(Config.endPositionOwnPieceMessage, board)
-      else Success(board)
+      if(board.getPiece(to.X, to.Y).owner.contains(player)) Failure(Config.endPositionOwnPieceMessage, board)
+      else                                                  Success(board)
 
     def isNotKing(to: Position): Validator = {
       board.getPiece(to.X, to.Y) match {
@@ -92,11 +91,6 @@ object BoardQueries {
       }
 
       verify(from)
-    }
-
-    private def isEmptyPosition(board: BoardState, X: Int, Y: Int) = board.getPiece(X, Y) match {
-      case _: EmptyPosition => true
-      case _                => false
     }
   }
 }

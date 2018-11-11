@@ -18,16 +18,18 @@ trait Validator {
 }
 
 object Validator {
-  def toValidate(f: => Boolean, failureMessage: String, boardState: BoardState): Validator =
+  def toValidate(f: => Boolean,
+                 failureMessage: String,
+                 boardState: BoardState): Validator =
     if(f) Success(boardState)
-    else Failure(failureMessage, boardState)
+    else  Failure(failureMessage, boardState)
 
   def toValidate(list: List[Validator], board: BoardState): Validator = {
     val failures = list.collect{ case failure: Failure => failure}.foldLeft(""){ case (acc, curr) =>
     acc + curr.message}
 
     if(failures.isEmpty) Success(board)
-    else Failure(failures, board)
+    else                 Failure(failures, board)
   }
 
   def toBoardState(f: => Boolean,
@@ -35,6 +37,6 @@ object Validator {
                    players: Players,
                    board: (List[List[Piece]], Players) => BoardState): Option[BoardState] = {
     if(f) Some(board(pieces, players))
-    else None
+    else  None
   }
 }

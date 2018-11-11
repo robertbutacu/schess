@@ -14,9 +14,11 @@ object MoveCategorisation {
         val result = board.isCastling(king, to)
         if (board.isCastling(king, to)) KingCastleMove(board, from, to).go()
         else NormalMove(board, from, to).go()
+
       case pawn: Pawn =>
         if (board.isEnPassantMove(pawn, to)) EnPassantMove(board, from, to).go()
         else NormalMove(board, from, to).go()
+
       case _          => NormalMove(board, from, to).go()
     }
   }

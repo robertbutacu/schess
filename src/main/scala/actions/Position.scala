@@ -7,16 +7,16 @@ import validator.Validator
 import scala.util.{Failure, Success, Try}
 
 case class Position(X: Int, Y: Int) {
-  def reverse: Position = this.copy(Y = 7 - this.Y)
-
   require(isInBounds(X) && isInBounds(Y))
 
-  private def isInBounds(i: Int) = i >= 0 && i <= 7
+  def reverse: Position = this.copy(Y = 7 - this.Y)
 
   def apply(increment: (Int, Int) => (Int, Int)) = Position(increment(X, Y))
 
   def isRookDefaultPosition(board: BoardState): Validator =
     Validator.toValidate(Y == 0 && (X == 0 || X == 7), "Rook in not default position", board)
+
+  private def isInBounds(i: Int) = i >= 0 && i <= 7
 }
 
 object Position {
