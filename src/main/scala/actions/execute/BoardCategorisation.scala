@@ -46,9 +46,9 @@ object BoardCategorisation {
     val playerTurnIndex = board.players.getPlayerTurn.index
 
     (for {
-      row <- board.pieces
-      piece <- row
-      toRow <- board.pieces
+      row        <- board.pieces
+      piece      <- row
+      toRow      <- board.pieces
       otherPiece <- toRow
       if piece != otherPiece
       if piece.owner.forall(player => player.index == playerTurnIndex)
@@ -61,7 +61,7 @@ object BoardCategorisation {
     val kingPosition = board.getKingPositionForCurrentPlayer
 
     val threateningPieces = for {
-      row <- board.pieces
+      row   <- board.pieces
       piece <- row
       if piece.owner.forall(p => p.index == enemyPlayerIndex)
       if board.isValidMove(piece, kingPosition)
