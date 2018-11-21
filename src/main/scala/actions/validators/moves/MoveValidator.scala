@@ -140,8 +140,8 @@ object MoveValidator {
   }
 
   implicit val pieceValidator: MoveValidator[Piece] = new MoveValidator[Piece] {
-    override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Validator =
-      piece match {
+    override protected def isValidPath(board: BoardState, piece: Piece, to: Position): Validator ={
+      def go(): Validator = piece match {
         case king: King       => implicitly[MoveValidator[King]].isValidPath(board, king, to)
         case queen: Queen     => implicitly[MoveValidator[Queen]].isValidPath(board, queen, to)
         case knight: Knight   => implicitly[MoveValidator[Knight]].isValidPath(board, knight, to)
@@ -150,6 +150,12 @@ object MoveValidator {
         case rook: Rook       => implicitly[MoveValidator[Rook]].isValidPath(board, rook, to)
         case _: EmptyPosition => Failure(Config.emptyPositionMessage, board) // moving an empty piece is never valid
       }
+
+      def isPieceMoving(): Validator =
+        Validator.toValidate(piece.position != to, Config.pieceIsNotMoving, board)
+
+      isPieceMoving() andThen go()
+    }
 
     override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Validator =
       piece match {
@@ -167,16 +173,12 @@ object MoveValidator {
                               piece: Piece,
                               to: Position,
                               verticalMove: List[Int], horizontalMove: List[Int]): Validator = {
-    def isMoving: Validator =
-      Validator.toValidate(piece.position != to, Config.pieceIsNotMoving, board)
-
-
     horizontalMove.exists { x =>
       verticalMove.exists { y =>
         piece.position.X + x == to.X && piece.position.Y + y == to.Y
       }
     } match {
-      case true => isMoving andThen Success(board)
+      case true => Success(board)
       case false => Failure(Config.amongAllMovesMessage, board)
     }
   }
