@@ -7,7 +7,7 @@ import game.elements.pieces.{King, Pawn}
 import validator.ValidatorConverterImplicits.toBoolean
 import game.elements.boards.Position
 
-object MoveCategorisation {
+trait MoveCategorisation {
   def categorise(board: BoardState, from: Position, to: Position): BoardState = {
     board.getPiece(from.X,from.Y) match {
       case king: King =>

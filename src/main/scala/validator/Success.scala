@@ -1,15 +1,11 @@
 package validator
 
-import actions.execute.MoveCategorisation
-import actions.execute.executers.{EnPassantMove, KingCastleMove, NormalMove}
-import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import actions.Move
 import game.elements.boards.states.BoardState
-import game.elements.pieces.{King, Pawn}
 
 case class Success(board: BoardState) extends Validator {
   override def next(move: Move): BoardState = {
-    val possibleBoardUpdated = MoveCategorisation.categorise(board, move.from, move.to)
+    val possibleBoardUpdated = categorise(board, move.from, move.to)
 
     possibleBoardUpdated
   }

@@ -26,7 +26,7 @@ case class CheckState(initialPieces: List[List[Piece]],
 
     def isValidMove: Boolean = isMovingKing andThen this.isValidMove(pieceToBeMoved, nextMove.to) andThen this.isKingNotInCheck
 
-    val possibleBoardUpdated = MoveCategorisation.categorise(this, nextMove.from, nextMove.to)
+    val possibleBoardUpdated = categorise(this, nextMove.from, nextMove.to)
 
 
 

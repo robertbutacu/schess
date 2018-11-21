@@ -8,7 +8,6 @@ import validator.ValidatorConverterImplicits.toBoolean
 import game.elements.boards.Position
 
 object BoardCheckers {
-
   implicit class Board(board: BoardState) {
     def getPossiblePositionForKing(piece: King, to: Position): Position = {
       def adjustCastlingMoves: Position =

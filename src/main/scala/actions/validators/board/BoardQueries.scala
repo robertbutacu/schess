@@ -1,6 +1,5 @@
 package actions.validators.board
 
-import actions.execute.MoveCategorisation
 import actions.validators.board.BoardCheckers.Board
 import actions.validators.moves.MoveValidator._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator

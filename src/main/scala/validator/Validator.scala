@@ -1,11 +1,12 @@
 package validator
 
 import actions.Move
+import actions.execute.MoveCategorisation
 import game.elements.boards.states.BoardState
 import game.elements.pieces.Piece
 import game.players.Players
 
-trait Validator {
+trait Validator extends MoveCategorisation {
   def board: BoardState
 
   def next(move: Move): BoardState

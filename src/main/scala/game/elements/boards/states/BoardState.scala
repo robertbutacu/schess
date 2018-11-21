@@ -1,5 +1,6 @@
 package game.elements.boards.states
 
+import actions.execute.MoveCategorisation
 import actions.validators.board.BoardQueries
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import config.Config
@@ -8,7 +9,7 @@ import game.elements.boards.{Position, PreviousMove}
 import game.elements.pieces.{EmptyPosition, King, Piece}
 import game.players.{PlayerOne, PlayerTwo, Players}
 import validator.{Failure, Success, Validator}
-trait BoardState {
+trait BoardState extends MoveCategorisation {
   def players: Players
 
   def previousMove: PreviousMove = ???
