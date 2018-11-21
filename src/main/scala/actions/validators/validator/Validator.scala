@@ -1,9 +1,9 @@
-package validator
+package actions.validators.validator
 
 import actions.Move
-import elements.boards.states.BoardState
-import elements.pieces.Piece
-import players.Players
+import game.elements.boards.states.BoardState
+import game.elements.pieces.Piece
+import game.players.Players
 
 trait Validator {
   def board: BoardState

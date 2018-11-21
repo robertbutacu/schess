@@ -1,8 +1,8 @@
 package game
 
-import actions.Position
 import elements.boards.states.{BoardState, NormalState}
 import elements.pieces._
+import game.elements.boards.Position
 import players.models.{AIPlayer, HumanPlayer, Player}
 import players.{PlayerIndex, PlayerOne, PlayerTwo, Players}
 

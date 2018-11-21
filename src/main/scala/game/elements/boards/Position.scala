@@ -1,8 +1,8 @@
-package actions
+package game.elements.boards
 
 import actions.validators.board.BoardQueries
-import elements.boards.states.BoardState
-import validator.Validator
+import actions.validators.validator.Validator
+import game.elements.boards.states.BoardState
 
 import scala.util.{Failure, Success, Try}
 

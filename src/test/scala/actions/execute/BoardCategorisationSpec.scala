@@ -1,9 +1,9 @@
 package actions.execute
 
-import actions.Position
-import elements.pieces.{Bishop, BoardSetup, King, Rook}
+import game.elements.boards.Position
+import game.elements.pieces.{Bishop, BoardSetup, King, Rook}
 import org.scalatest.{FlatSpec, Matchers}
-import players.Players
+import game.players.Players
 
 class BoardCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
   //"When the king is in checkmate, the function"

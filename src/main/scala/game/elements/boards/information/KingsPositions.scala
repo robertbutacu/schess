@@ -1,8 +1,8 @@
-package elements.boards.information
+package game.elements.boards.information
 
-import actions.Position
-import elements.pieces.{King, Piece}
-import players.{PlayerOne, PlayerTwo}
+import game.elements.boards.Position
+import game.elements.pieces.{King, Piece}
+import game.players.{PlayerOne, PlayerTwo}
 
 case class KingsPositions(firstKingPosition: Position, secondKingPosition: Position) {
   def apply(kingPosition: King) = {

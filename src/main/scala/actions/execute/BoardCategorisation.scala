@@ -4,9 +4,9 @@ import actions.validators.board.BoardCheckers._
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import actions.validators.moves.MoveValidator._
 import actions.validators.moves.MoveValidator.ops._
-import elements.boards.states.BoardState
-import elements.pieces.{King, Piece}
-import validator.ValidatorConverterImplicits.toBoolean
+import game.elements.boards.states.BoardState
+import game.elements.pieces.{King, Piece}
+import actions.validators.validator.ValidatorConverterImplicits.toBoolean
 
 object BoardCategorisation {
   //TODO account for situations where the king can be protected by other pieces

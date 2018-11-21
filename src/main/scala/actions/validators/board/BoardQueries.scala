@@ -1,18 +1,18 @@
 package actions.validators.board
 
-import actions.Position
 import actions.validators.moves.MoveValidator._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import config.Config
-import elements.boards.states.BoardState
-import elements.pieces.{EmptyPosition, King, Pawn, Piece}
-import players.models.Player
-import validator.ValidatorConverterImplicits.toBoolean
-import validator.{Failure, Success, Validator}
+import game.elements.boards.states.BoardState
+import game.elements.pieces.{EmptyPosition, King, Pawn, Piece}
+import game.players.models.Player
+import actions.validators.validator.ValidatorConverterImplicits.toBoolean
+import actions.validators.validator.{Failure, Success, Validator}
+import game.elements.boards.Position
 
 object BoardQueries {
   val letterMapping = Map('A' -> 0, 'B' -> 1, 'C' -> 2, 'D' -> 3, 'E' -> 4, 'F' -> 5, 'G' -> 6, 'H' -> 7)
-  val numberMapping = Map(0 -> 'A', 1 -> 'B', 2 -> 'C', 3 -> 'D', 4 -> 'E', 5 -> 'F', 6 -> 'G', 7 -> 'H')
+  val numberMapping = letterMapping.map(_.swap)
 
   implicit class BoardQueriesImplicit(board: BoardState) {
     def isEnPassantMove(piece: Pawn, to: Position): Boolean = {
@@ -64,11 +64,8 @@ object BoardQueries {
 
     def isKingNotInCheck: Validator = Validator.toValidate(!isKingInCheck, Config.kingInCheckMessage, board)
 
-    def isCastling(piece: King, to: Position): Validator = {
-      //println(piece.isDefaultPosition(board))
+    def isCastling(piece: King, to: Position): Validator =
       piece.isDefaultPosition(board) andThen to.isRookDefaultPosition(board) andThen board.isOwningRook(to, piece.player)
-
-    }
 
     def isNotOwnPiece(to: Position, player: Player): Validator =
       if(board.getPiece(to.X, to.Y).owner.contains(player)) Failure(Config.endPositionOwnPieceMessage, board)

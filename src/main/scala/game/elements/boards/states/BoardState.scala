@@ -1,15 +1,14 @@
-package elements.boards.states
+package game.elements.boards.states
 
-import actions.Position
 import actions.validators.board.BoardQueries
 import config.Config
-import elements.boards.PreviousMove
-import elements.boards.information.KingsPositions
-import elements.pieces.{EmptyPosition, King, Piece}
-import players.{PlayerOne, PlayerTwo, Players}
-import validator.{Failure, Success, Validator}
+import game.elements.boards.{Position, PreviousMove}
+import game.elements.boards.information.KingsPositions
+import game.elements.pieces.{EmptyPosition, King, Piece}
+import game.players.{PlayerOne, PlayerTwo, Players}
+import actions.validators.validator.{Failure, Success, Validator}
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
-import validator.ValidatorConverterImplicits.toBoolean
+import actions.validators.validator.ValidatorConverterImplicits.toBoolean
 
 trait BoardState {
   def players: Players

@@ -1,8 +1,8 @@
 package actions.validators.moves
 
-import actions.Position
-import elements.boards.states.BoardState
-import elements.pieces.Piece
+import game.elements.boards.Position
+import game.elements.boards.states.BoardState
+import game.elements.pieces.Piece
 
 import scala.annotation.tailrec
 

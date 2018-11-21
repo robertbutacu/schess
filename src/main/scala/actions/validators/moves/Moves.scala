@@ -1,6 +1,6 @@
 package actions.validators.moves
 
-import actions.Position
+import game.elements.boards.Position
 
 object Moves {
   def diagonalLeftUp: (Int, Int) => (Int, Int)    = (X: Int, Y: Int) => (X - 1, Y + 1)

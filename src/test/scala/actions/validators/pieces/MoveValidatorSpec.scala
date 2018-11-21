@@ -1,14 +1,14 @@
 package actions.validators.pieces
 
-import actions.Position
-import elements.pieces._
+import game.elements.pieces._
 import org.scalatest._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
-import elements.boards.states.BoardState
-import validator.{Failure, Success}
+import game.elements.boards.states.BoardState
+import actions.validators.validator.{Failure, Success}
+import game.elements.boards.Position
 
 class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
-  "IsPieceOwner " should "return true on pieces of specific kind belonging to specific players" in {
+  "IsPieceOwner " should "return true on pieces of specific kind belonging to specific game.players" in {
     lazy val rookBoard = getBoard(rook)
 
     rookBoard.isOwningRook(rook.position, rook.player) shouldBe Success(_: BoardState)

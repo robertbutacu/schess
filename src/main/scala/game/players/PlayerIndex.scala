@@ -1,7 +1,7 @@
-package players
+package game.players
 
-import actions.Position
-import elements.boards.information.KingsPositions
+import game.elements.boards.Position
+import game.elements.boards.information.KingsPositions
 
 sealed trait PlayerIndex {
   def otherPlayerTurn: PlayerIndex

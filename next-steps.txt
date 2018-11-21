@@ -21,7 +21,7 @@ The next steps for the project would be:
 
             POST /schess/board
                 payload:
-                    players
+                    game.players
                 response:
                     initial board
     5. develop a frontend which uses the server correctly

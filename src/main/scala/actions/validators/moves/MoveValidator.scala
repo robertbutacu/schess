@@ -1,12 +1,12 @@
 package actions.validators.moves
 
-import actions.Position
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import config.Config
-import elements.boards.states.BoardState
-import elements.pieces._
-import players.models.Player
-import validator.{Failure, Success, Validator}
+import game.elements.boards.states.BoardState
+import game.elements.pieces._
+import game.players.models.Player
+import actions.validators.validator.{Failure, Success, Validator}
+import game.elements.boards.Position
 
 sealed trait MoveValidator[P] {
   def isValidMove(board: BoardState, piece: P, to: Position): Validator = {

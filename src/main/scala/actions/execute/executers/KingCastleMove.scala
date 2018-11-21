@@ -1,7 +1,7 @@
 package actions.execute.executers
 
-import actions.Position
-import elements.boards.states.{BoardState, NormalState}
+import game.elements.boards.Position
+import game.elements.boards.states.{BoardState, NormalState}
 
 
 case class KingCastleMove(board: BoardState, from: Position, to: Position) extends ExecuteMove {

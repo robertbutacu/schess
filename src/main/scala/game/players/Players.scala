@@ -1,6 +1,6 @@
-package players
+package game.players
 
-import players.models.Player
+import game.players.models.Player
 
 case class Players(player1: Player, player2: Player, playerTurn: Int) {
   def getPlayerTurn: Player = if (playerTurn == 1) player1 else player2

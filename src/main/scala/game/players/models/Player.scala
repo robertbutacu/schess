@@ -1,7 +1,7 @@
-package players.models
+package game.players.models
 
 import actions.Move
-import players.PlayerIndex
+import game.players.PlayerIndex
 
 trait Player {
   def index: PlayerIndex

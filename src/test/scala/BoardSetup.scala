@@ -1,10 +1,10 @@
-package elements.pieces
+package game.elements.pieces
 
-import actions.Position
 import actions.execute.BoardCategorisation
-import elements.boards.states.{BoardState, NormalState}
-import players.models.AIPlayer
-import players.{Players, _}
+import game.elements.boards.Position
+import game.elements.boards.states.{BoardState, NormalState}
+import game.players.models.AIPlayer
+import game.players.{Players, _}
 
 import scala.language.postfixOps
 

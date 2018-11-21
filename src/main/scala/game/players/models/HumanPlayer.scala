@@ -1,7 +1,8 @@
-package players.models
+package game.players.models
 
-import actions.{Move, Position}
-import players.PlayerIndex
+import actions.Move
+import game.elements.boards.Position
+import game.players.PlayerIndex
 
 import scala.io.StdIn.readLine
 import scala.util.{Failure, Success, Try}

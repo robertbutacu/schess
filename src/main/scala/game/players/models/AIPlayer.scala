@@ -1,7 +1,7 @@
-package players.models
+package game.players.models
 
 import actions.Move
-import players.PlayerIndex
+import game.players.PlayerIndex
 
 case class AIPlayer(name: String, index: PlayerIndex) extends Player {
   override def askForMove: Move = ???
