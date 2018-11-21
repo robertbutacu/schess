@@ -4,18 +4,19 @@ import actions.validators.board.BoardCheckers._
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import actions.validators.moves.MoveValidator._
 import actions.validators.moves.MoveValidator.ops._
+import actions.validators.moves.{Moves, PathConstructor}
+import game.elements.boards.Position
 import game.elements.boards.states.BoardState
-import game.elements.pieces.{King, Piece}
+import game.elements.pieces.{King, Knight, Piece}
 import validator.ValidatorConverterImplicits.toBoolean
 
 object BoardCategorisation {
-  //TODO account for situations where the king can be protected by other pieces
   def isCheckmate(board: BoardState): Boolean = {
     val playerTurnIndex = board.players.getPlayerTurn.index
 
     def isEnemyPlayer(p: Piece) = p.owner.forall(player => player.index != playerTurnIndex)
 
-    def areAllPossiblePositionsBlocked: Boolean = {
+    def isKingBlocked: Boolean = {
       val playerKing = board.getKingForCurrentPlayer
 
       val possibleMoves = for {
@@ -32,14 +33,30 @@ object BoardCategorisation {
       }
     }
 
-    if(isCheck(board))
-      areAllPossiblePositionsBlocked
-    else {false
-      //if(areThereOtherMovesAvailable())
+    def canKingBeCovered: Boolean = {
+      val playerKing = board.getKingForCurrentPlayer
+
+      def isNotKnight(piece: Piece): Boolean = piece match {
+        case _: Knight => true
+        case _         => false
+      }
+
+      val pieces = for {
+        row   <- board.pieces
+        enemyPiece <- row
+        if board.isValidMove(enemyPiece, playerKing.position)
+        if isNotKnight(enemyPiece)
+        trajectory = PathConstructor.construct(board, enemyPiece, playerKing.position, Moves.moveType(enemyPiece.position, playerKing.position))
+        allyPiece  <- row
+        if allyPiece.owner.contains(board.players.getPlayerTurn)
+        if trajectory.exists{case (x, y) => board.isValidMove(allyPiece, Position(x, y))}
+      } yield allyPiece
+
+      pieces.nonEmpty
     }
 
-
-    !areThereOtherMovesAvailable(board) || areAllPossiblePositionsBlocked
+    if(isCheck(board)) isKingBlocked || canKingBeCovered
+    else               areThereOtherMovesAvailable(board)
   }
 
   def areThereOtherMovesAvailable(board: BoardState): Boolean = {

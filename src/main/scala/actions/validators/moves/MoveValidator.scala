@@ -70,7 +70,7 @@ object MoveValidator {
 
   implicit val queenValidator: MoveValidator[Queen] = new MoveValidator[Queen] {
     override protected def isValidPath(board: BoardState, piece: Queen, to: Position): Validator =
-      (board.isStraightMove(piece.position, to) andThen board.isDiagonalMove(piece.position, to)) andThen
+      (board.isStraightMove(piece.position, to) orElse board.isDiagonalMove(piece.position, to)) andThen
         board.isClearPath(piece.position, to, Moves.moveType(piece.position, to))
 
     override protected def canOccupyPosition(board: BoardState, piece: Queen, to: Position): Validator =
