@@ -18,7 +18,7 @@ object PathConstructor {
       else                result
     }
 
-    go(f(piece.position), List.empty)
+    go(f(piece.position.X, piece.position.Y), List.empty)
   }
 
   private implicit def positionToTuple(p: Position): (Int, Int) = (p.X, p.Y)

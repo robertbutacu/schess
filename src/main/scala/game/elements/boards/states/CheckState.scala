@@ -31,7 +31,7 @@ case class CheckState(initialPieces: List[List[Piece]],
 
 
     if (isValidMove) {
-      if (this.isKingInCheck) {
+      if (this.isCheck) {
         println("\n The king would still be in check! Please choose another one!")
         this.next
       }
