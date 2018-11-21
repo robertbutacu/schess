@@ -64,7 +64,20 @@ object MoveValidator {
     }
 
     override protected def canOccupyPosition(board: BoardState, piece: King, to: Position): Validator = {
-      board.isCastling(piece, to) orElse board.isNotOwnPiece(to, piece.player)
+      import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
+      import validator.ValidatorConverterImplicits._
+      def isPositionUnthreatened: Validator = {
+        val threateningPieces = for {
+          row <- board.pieces
+          piece <- row
+          if !piece.owner.contains(board.players.getPlayerTurn)
+          if board.isValidMove(piece, to)
+        } yield piece
+
+        Validator.toValidate(threateningPieces.isEmpty, Config.kingInCheckMessage, board)
+      }
+
+      isPositionUnthreatened andThen (board.isCastling(piece, to) orElse board.isNotOwnPiece(to, piece.player))
     }
   }
 
@@ -154,12 +167,16 @@ object MoveValidator {
                               piece: Piece,
                               to: Position,
                               verticalMove: List[Int], horizontalMove: List[Int]): Validator = {
+    def isMoving: Validator =
+      Validator.toValidate(piece.position != to, Config.pieceIsNotMoving, board)
+
+
     horizontalMove.exists { x =>
       verticalMove.exists { y =>
         piece.position.X + x == to.X && piece.position.Y + y == to.Y
       }
     } match {
-      case true => Success(board)
+      case true => isMoving andThen Success(board)
       case false => Failure(Config.amongAllMovesMessage, board)
     }
   }

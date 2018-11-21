@@ -25,7 +25,7 @@ class BoardCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
     // a move without going into check.
     val king = King(genericPlayer, Position(0,0))
     val enemyKing = King(genericEnemyPlayer, Position(7,7))
-    val enemyRook = Rook(genericEnemyPlayer, Position(3, 1)) //threatening 11, 01
+    val enemyRook = Rook(genericEnemyPlayer, Position(1, 3)) //threatening 11, 01
     val enemyRook2 = Rook(genericEnemyPlayer, Position(5, 1)) //threatening 11, 10
 
     val kingBoard = getBoard(king, List(enemyRook, enemyRook2, enemyKing))

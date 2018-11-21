@@ -6,6 +6,7 @@ object Config {
   private lazy val configFactory = ConfigFactory.load("messages.conf")
 
   lazy val emptyPositionMessage: String = configFactory.getString("board.errors.empty-position")
+  lazy val pieceIsNotMoving: String = configFactory.getString("board.errors.piece-not-moving")
   lazy val enemyRookMessage: String = configFactory.getString("board.errors.enemy-rook")
   lazy val notRookMessage: String = configFactory.getString("board.errors.not-rook")
   lazy val notVerticalMoveMessage: String = configFactory.getString("board.errors.not-vertical-move")
