@@ -6,9 +6,9 @@ import game.elements.boards.{Position, PreviousMove}
 import game.elements.boards.information.KingsPositions
 import game.elements.pieces.{EmptyPosition, King, Piece}
 import game.players.{PlayerOne, PlayerTwo, Players}
-import actions.validators.validator.{Failure, Success, Validator}
+import validator.{Failure, Success, Validator}
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
-import actions.validators.validator.ValidatorConverterImplicits.toBoolean
+import validator.ValidatorConverterImplicits.toBoolean
 
 trait BoardState {
   def players: Players

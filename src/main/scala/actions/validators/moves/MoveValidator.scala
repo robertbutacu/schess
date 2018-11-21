@@ -5,7 +5,7 @@ import config.Config
 import game.elements.boards.states.BoardState
 import game.elements.pieces._
 import game.players.models.Player
-import actions.validators.validator.{Failure, Success, Validator}
+import validator.{Failure, Success, Validator}
 import game.elements.boards.Position
 
 sealed trait MoveValidator[P] {

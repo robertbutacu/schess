@@ -6,8 +6,8 @@ import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import config.Config
 import game.elements.pieces.{King, Piece}
 import game.players.Players
-import actions.validators.validator.Validator
-import actions.validators.validator.ValidatorConverterImplicits.toBoolean
+import validator.Validator
+import validator.ValidatorConverterImplicits.toBoolean
 
 case class CheckState(initialPieces: List[List[Piece]],
                       players: Players) extends BoardState {

@@ -1,4 +1,4 @@
-package actions.validators.validator
+package validator
 
 import actions.execute.MoveCategorisation
 import actions.execute.executers.{EnPassantMove, KingCastleMove, NormalMove}

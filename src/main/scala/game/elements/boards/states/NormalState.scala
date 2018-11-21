@@ -6,7 +6,7 @@ import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import config.Config
 import game.elements.pieces.Piece
 import game.players.Players
-import actions.validators.validator.Validator
+import validator.Validator
 
 case class NormalState(initialPieces: List[List[Piece]],
                        players: Players,

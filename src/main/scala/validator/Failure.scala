@@ -1,4 +1,4 @@
-package actions.validators.validator
+package validator
 import actions.Move
 import game.elements.boards.states.BoardState
 

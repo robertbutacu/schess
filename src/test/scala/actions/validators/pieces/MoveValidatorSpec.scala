@@ -4,7 +4,7 @@ import game.elements.pieces._
 import org.scalatest._
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import game.elements.boards.states.BoardState
-import actions.validators.validator.{Failure, Success}
+import validator.{Failure, Success}
 import game.elements.boards.Position
 
 class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {

@@ -4,7 +4,7 @@ import actions.execute.executers.{EnPassantMove, KingCastleMove, NormalMove}
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import game.elements.boards.states.BoardState
 import game.elements.pieces.{King, Pawn}
-import actions.validators.validator.ValidatorConverterImplicits.toBoolean
+import validator.ValidatorConverterImplicits.toBoolean
 import game.elements.boards.Position
 
 object MoveCategorisation {

@@ -4,7 +4,7 @@ import actions.validators.board.BoardQueries.BoardQueriesImplicit
 import actions.validators.moves.MoveValidator.ops.BoardMoveValidator
 import game.elements.boards.states.BoardState
 import game.elements.pieces.King
-import actions.validators.validator.ValidatorConverterImplicits.toBoolean
+import validator.ValidatorConverterImplicits.toBoolean
 import game.elements.boards.Position
 
 object BoardCheckers {

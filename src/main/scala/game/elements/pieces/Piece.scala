@@ -2,7 +2,7 @@ package game.elements.pieces
 
 import game.elements.boards.states.BoardState
 import game.players.models.Player
-import actions.validators.validator.Validator
+import validator.Validator
 import game.elements.boards.Position
 
 sealed trait Piece {
