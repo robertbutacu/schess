@@ -129,13 +129,31 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
   }
 
   "A pawn" should "not make valid moves " in {
+    val pawnBoard = getBoard(pawn, List.empty)
 
+    pawnBoard.isValidMove(pawn, Position(6, 5)) shouldBe Failure(_: String, _: BoardState)
+    pawnBoard.isValidMove(pawn, Position(3, 4)) shouldBe Failure(_: String, _: BoardState)
+    pawnBoard.isValidMove(pawn, Position(5, 4)) shouldBe Failure(_: String, _: BoardState)
+    pawnBoard.isValidMove(pawn, Position(4, 3)) shouldBe Failure(_: String, _: BoardState)
   }
 
   "A pawn" should "not be able to walk straight if position is occupied" in {
     val pawnBoard = getBoard(pawn, List(Pawn(genericEnemyPlayer, Position(4, 5))))
 
     pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe Failure(_: String, _: BoardState)
+  }
+
+  "A pawn" should "be able to walk straight if position is free " in {
+    val pawnBoard = getBoard(pawn, List(Pawn(genericEnemyPlayer, Position(4, 5))))
+
+    pawnBoard.isValidMove(pawn, Position(4, 5)) shouldBe Success(_: BoardState)
+  }
+
+  "A pawn " should "be able to eat a piece diagonally" in {
+    val pawnBoard = getBoard(pawn, List(Pawn(genericEnemyPlayer, Position(3, 5)), Pawn(genericEnemyPlayer, Position(5, 5))))
+
+    pawnBoard.isValidMove(pawn, Position(3, 5)) shouldBe Success(_: BoardState)
+    pawnBoard.isValidMove(pawn, Position(5, 5)) shouldBe Success(_: BoardState)
   }
 
   "A knight " should " make valid moves " in {
@@ -154,5 +172,11 @@ class MoveValidatorSpec extends FlatSpec with Matchers with BoardSetup {
     knightBoard.isValidMove(knight, Position(4, 5)) shouldBe Failure(_: String, _: BoardState)
     knightBoard.isValidMove(knight, Position(3, 4)) shouldBe Failure(_: String, _: BoardState)
     knightBoard.isValidMove(knight, Position(3, 7)) shouldBe Failure(_: String, _: BoardState)
+  }
+
+  "Trying to move an empty position" should "not be allowed" in {
+    val board = getBoard(knight, List.empty)
+
+    board.isValidMove(board.pieces(7)(7), Position(0, 0)) shouldBe Failure(_: String, _: BoardState)
   }
 }

@@ -65,12 +65,7 @@ object BoardQueries {
           if board.isValidMove(playerKing, piece.position)
         } yield board.getPossiblePositionForKing(playerKing, piece.position)
 
-        // there exists a move on the board which would threaten the king in his possible new position
-        possibleMoves.exists {
-          pm =>
-            board.pieces
-              .exists { row => row.exists { p => isEnemyPlayer(p) && board.isValidMove(p, pm) } }
-        }
+        possibleMoves.isEmpty
       }
 
       def isKingUncovered: Boolean = {
@@ -90,7 +85,7 @@ object BoardQueries {
         pieces.isEmpty
       }
 
-      if(isCheck) isKingUncovered || isKingBlocked
+      if(isCheck) isKingUncovered && isKingBlocked
       else        areThereOtherMovesAvailable()
     }
 

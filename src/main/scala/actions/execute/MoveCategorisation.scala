@@ -16,7 +16,7 @@ trait MoveCategorisation {
 
       case pawn: Pawn =>
         if (board.isEnPassantMove(pawn, to)) EnPassantMove(board, from, to).go()
-        else NormalMove(board, from, to).go()
+        else                                 NormalMove(board, from, to).go()
 
       case _          => NormalMove(board, from, to).go()
     }

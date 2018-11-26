@@ -68,9 +68,9 @@ object MoveValidator {
       import validator.ValidatorConverterImplicits._
       def isPositionUnthreatened: Validator = {
         val threateningPieces = for {
-          row <- board.pieces
+          row   <- board.pieces
           piece <- row
-          if !piece.owner.contains(board.players.getPlayerTurn)
+          if piece.owner.contains(board.players.getOtherPlayerTurn)
           if board.isValidMove(piece, to)
         } yield piece
 
