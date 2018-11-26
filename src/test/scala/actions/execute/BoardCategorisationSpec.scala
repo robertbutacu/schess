@@ -1,23 +1,22 @@
 package actions.execute
 
 import game.elements.boards.Position
-import game.elements.pieces.{Bishop, BoardSetup, King, Rook}
+import game.elements.pieces._
 import org.scalatest.{FlatSpec, Matchers}
 import actions.validators.board.BoardQueries.BoardQueriesImplicit
-import game.players.Players
 
 class BoardCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
-  "When the king is in checkmate, the function" should "respond positive" in {
+  "When the king is in not in checkmate, the function" should "respond accordingly" in {
     val king = King(genericPlayer, Position(0, 0))
-    val enemyBishop = Bishop(genericEnemyPlayer, Position(0, 2))//threatening 11
-    val enemyBishop2 = Bishop(genericEnemyPlayer, Position(1, 2))//threatening 01
-    val enemyRook = Rook(genericEnemyPlayer, Position(2, 2))//threatening 20
+    val enemyQueen = Queen(genericEnemyPlayer, Position(1, 2))//threatening 01, 10, 11
     val enemyKing = King(genericEnemyPlayer, Position(7,7))
     val randomPiece = Rook(genericPlayer, Position(0, 6))
 
-    val kingBoard = getBoard(king, List(randomPiece, enemyBishop, enemyBishop2, enemyRook, enemyKing))
+    val kingBoard = getBoard(king, List(randomPiece, enemyQueen, enemyKing))
 
-    kingBoard.isCheckmate shouldBe true
+    kingBoard.isStalemate shouldBe false
+    kingBoard.isCheckmate shouldBe false
+    kingBoard.isCheck     shouldBe false
   }
 
   "When there is a stalemate, the function" should "respond positive" in {

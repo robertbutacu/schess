@@ -9,6 +9,7 @@ import game.elements.boards.{Position, PreviousMove}
 import game.elements.pieces.{EmptyPosition, King, Piece}
 import game.players.{PlayerOne, PlayerTwo, Players}
 import validator.{Failure, Success, Validator}
+
 trait BoardState extends MoveCategorisation {
   def players: Players
 
@@ -41,7 +42,7 @@ trait BoardState extends MoveCategorisation {
   def isPositionFree(position: Position): Validator = {
     getPiece(position.X, position.Y) match {
       case _: EmptyPosition => Success(this)
-      case _ => Failure(Config.positionNotFreeMessage, this)
+      case _                => Failure(Config.positionNotFreeMessage, this)
     }
   }
 
@@ -56,7 +57,7 @@ trait BoardState extends MoveCategorisation {
 
     val finalBoard = rows :+ s" |  ${0 to 7 mkString "     "}"
 
-    finalBoard.mkString("\n")//.replace(" ", "-")
+    finalBoard.mkString("\n")
   }
 }
 
@@ -66,7 +67,7 @@ object BoardState {
 
     //TODO improve this
     Validator.toBoardState(dummyBoard.isStalemate, pieces, players, StalemateState) orElse
-    Validator.toBoardState(dummyBoard.isEndGame  , pieces, players, CheckmateState) orElse
+    Validator.toBoardState(dummyBoard.isCheckmate, pieces, players, CheckmateState) orElse
     Validator.toBoardState(dummyBoard.isCheck    , pieces, players, CheckState)     orElse
     Some(NormalState(pieces, players)) match {
       case Some(board) => board

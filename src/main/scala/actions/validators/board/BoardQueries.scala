@@ -49,12 +49,8 @@ object BoardQueries {
       possibleMoves.isEmpty
     }
 
-    def isEndGame: Boolean = false
-
     def isCheckmate: Boolean = {
       val playerTurnIndex = board.players.getPlayerTurn.index
-
-      def isEnemyPlayer(p: Piece) = p.owner.forall(player => player.index != playerTurnIndex)
 
       def isKingBlocked: Boolean = {
         val playerKing = board.getKingForCurrentPlayer
@@ -74,10 +70,15 @@ object BoardQueries {
         val pieces = for {
           row        <- board.pieces
           enemyPiece <- row
+
           if board.isValidMove(enemyPiece, playerKing.position)
-          trajectory = PathConstructor.construct(board, enemyPiece, playerKing.position, Moves.moveType(enemyPiece.position, playerKing.position))
+
+          incrementFunction = Moves.moveType(enemyPiece.position, playerKing.position)
+          trajectory        = PathConstructor.construct(board, enemyPiece, playerKing.position, incrementFunction)
+
           allyRow    <- board.pieces
           allyPiece  <- allyRow
+
           if allyPiece.owner.contains(board.players.getPlayerTurn)
           if trajectory.exists{case (x, y) => board.isValidMove(allyPiece, Position(x, y))}
         } yield allyPiece
@@ -85,8 +86,8 @@ object BoardQueries {
         pieces.isEmpty
       }
 
-      if(isCheck) isKingUncovered && isKingBlocked
-      else        areThereOtherMovesAvailable()
+      //in order for it to be checkmate, the king would have to be both uncovered by other pieces and blocked in his position
+      isCheck && isKingUncovered && isKingBlocked
     }
 
     def isNotCheck: Validator = Validator.toValidate(!isCheck, Config.kingInCheckMessage, board)
@@ -107,34 +108,18 @@ object BoardQueries {
 
 
     def isCheck: Boolean = {
-      val enemyPlayerIndex = board.players.getOtherPlayerTurn.index
+      val enemyPlayer = board.players.getOtherPlayerTurn
       val kingPosition = board.getKingPositionForCurrentPlayer
 
       val threateningPieces = for {
         row   <- board.pieces
         piece <- row
-        if piece.owner.exists(p => p.index == enemyPlayerIndex)
+        if piece.owner.contains(enemyPlayer)
         if board.isValidMove(piece, kingPosition)
       } yield piece
 
       threateningPieces.nonEmpty
     }
-
-    def areThereOtherMovesAvailable(): Boolean = {
-      val playerTurnIndex = board.players.getPlayerTurn.index
-
-      (for {
-        row        <- board.pieces
-        piece      <- row
-        toRow      <- board.pieces
-        otherPiece <- toRow
-        if piece != otherPiece
-        if piece.owner.forall(player => player.index == playerTurnIndex)
-        //if this.isNotCheck
-        if board.isValidMove(piece, otherPiece.position) && !piece.isInstanceOf[King]
-      } yield piece).nonEmpty
-    }
-
 
     def isClearPath(from: Position, to: Position,
                     incrementFunction: (Int, Int) => (Int, Int)): Validator = {

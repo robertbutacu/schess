@@ -7,14 +7,15 @@ import game.elements.pieces.{Knight, Piece}
 import scala.annotation.tailrec
 
 object PathConstructor {
-  def construct(boardState: BoardState, piece: Piece, finalStep: Position, f: (Int, Int) => (Int, Int)): List[(Int, Int)] = {
+  def construct(boardState: BoardState, piece: Piece,
+                finalStep: Position, incrementFunction: (Int, Int) => (Int, Int)): List[(Int, Int)] = {
     val finalPosition = (finalStep.X, finalStep.Y)
 
     @tailrec
     def go(current: (Int, Int), result: List[(Int, Int)]): List[(Int, Int)] = {
-      def canStillAdvance: Boolean = boardState.isPositionFree(Position(f(current._1, current._2))).toBoolean && finalPosition != current
+      def canStillAdvance: Boolean = boardState.isPositionFree(Position(incrementFunction(current._1, current._2))).toBoolean && finalPosition != current
 
-      if(canStillAdvance) go(f(current._1, current._2), result :+ current)
+      if(canStillAdvance) go(incrementFunction(current._1, current._2), result :+ current)
       else                result
     }
 
