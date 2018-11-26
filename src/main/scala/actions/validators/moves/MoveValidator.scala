@@ -10,7 +10,7 @@ import game.elements.boards.Position
 
 sealed trait MoveValidator[P] {
   def isValidMove(board: BoardState, piece: P, to: Position): Validator = {
-    isValidPath(board, piece, to) andThen canOccupyPosition(board, piece, to) andThen board.isNotKing(to)
+    isValidPath(board, piece, to) andThen canOccupyPosition(board, piece, to) //andThen board.isNotKing(to)
   }
 
   protected def isValidPath(board: BoardState, piece: P, to: Position): Validator
@@ -151,10 +151,10 @@ object MoveValidator {
         case _: EmptyPosition => Failure(Config.emptyPositionMessage, board) // moving an empty piece is never valid
       }
 
-      def isPieceMoving(): Validator =
+      def isPieceMoving: Validator =
         Validator.toValidate(piece.position != to, Config.pieceIsNotMoving, board)
 
-      isPieceMoving() andThen go()
+      isPieceMoving andThen go()
     }
 
     override protected def canOccupyPosition(board: BoardState, piece: Piece, to: Position): Validator =

@@ -24,7 +24,7 @@ case class NormalState(initialPieces: List[List[Piece]],
     def isValidMove: Validator =
       this.isValidMove(pieceToBeMoved, nextMove.to) andThen
         Validator.toValidate(doesPlayerOwnPiece, Config.notOwnPieceMessage, this) andThen
-        this.isKingNotInCheck
+        this.isNotCheck
 
     Some(isValidMove.next(nextMove))
   }

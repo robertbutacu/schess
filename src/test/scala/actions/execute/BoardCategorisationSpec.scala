@@ -31,6 +31,28 @@ class BoardCategorisationSpec extends FlatSpec with Matchers with BoardSetup {
     val kingBoard = getBoard(king, List(enemyRook, enemyRook2, enemyKing))
 
     kingBoard.isStalemate shouldBe true
+  }
 
+  "When the king is check, the function isCheck" should "respond positive" in {
+    val king       = King(genericPlayer, Position(0,0))
+    val enemyKing  = King(genericEnemyPlayer, Position(7,7))
+    val enemyRook  = Rook(genericEnemyPlayer, Position(0, 7)) //threatening 11, 01
+
+    val kingBoard = getBoard(king, List(enemyRook, enemyKing))
+
+    kingBoard.isCheck shouldBe true
+  }
+
+  "When there is another piece protecting the king from checkmate, the function isCheckmate" should "respond positive" in {
+    val king       = King(genericPlayer, Position(0,0))
+    val enemyKing  = King(genericEnemyPlayer, Position(7,7))
+    val enemyRook  = Rook(genericEnemyPlayer, Position(0, 7)) //threatening 11, 01
+    val enemyRook2 = Rook(genericEnemyPlayer, Position(1, 7)) //threatening 11, 10
+    val allyRook   = Rook(genericPlayer, Position(5, 5))
+
+    val kingBoard = getBoard(king, List(allyRook, enemyRook, enemyRook2, enemyKing))
+
+    //kingBoard.areThereOtherMovesAvailable() shouldBe true
+    kingBoard.isCheckmate shouldBe false
   }
 }
