@@ -3,14 +3,14 @@ package game.elements.pieces
 import actions.execute.BoardCategorisation
 import game.elements.boards.Position
 import game.elements.boards.states.{BoardState, NormalState}
-import game.players.models.AIPlayer
+import game.players.models.ai.{AIPlayer, Easy}
 import game.players.{Players, _}
 
 import scala.language.postfixOps
 
 trait BoardSetup {
-  val genericPlayer = AIPlayer("XXX", PlayerOne)
-  val genericEnemyPlayer = AIPlayer("YYY", PlayerTwo)
+  val genericPlayer = AIPlayer("XXX", PlayerOne, Easy())
+  val genericEnemyPlayer = AIPlayer("YYY", PlayerTwo, Easy())
   val genericPosition = Position(4, 4)
 
   lazy val emptyRow: List[Piece] = (0 to 7) map (i => EmptyPosition(Position(i, 0))) toList

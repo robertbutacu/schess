@@ -3,7 +3,8 @@ package game
 import elements.boards.states.{BoardState, NormalState}
 import elements.pieces._
 import game.elements.boards.Position
-import players.models.{AIPlayer, HumanPlayer, Player}
+import game.players.models.ai.{AIPlayer, Easy}
+import players.models.{HumanPlayer, Player}
 import players.{PlayerIndex, PlayerOne, PlayerTwo, Players}
 
 import scala.annotation.tailrec
@@ -29,7 +30,7 @@ object PlayChess {
   def initiateGame: BoardState = {
     def instantiatePlayer(name: String, playerIndex: PlayerIndex, isBot: String): Player = {
       isBot.toLowerCase match {
-        case "yes" => AIPlayer(name, playerIndex)
+        case "yes" => AIPlayer(name, playerIndex, Easy())
         case _ => HumanPlayer(name, playerIndex)
       }
     }
