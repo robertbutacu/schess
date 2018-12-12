@@ -8,9 +8,9 @@ sealed trait Difficulty
 object Difficulty {
   def executeMove(difficulty: Difficulty, board: Board): Move = {
     difficulty match {
-      case _: Easy   => AIMove[Easy].executeMove(board)
-      case _: Medium => AIMove[Medium].executeMove(board)
-      case _: Hard   => AIMove[Hard].executeMove(board)
+      case _: Easy   => ??? //AIMove[Easy].executeMove(board)
+      case _: Medium => ??? //AIMove[Medium].executeMove(board)
+      case _: Hard   => ??? //AIMove[Hard].executeMove(board)
     }
   }
 }
