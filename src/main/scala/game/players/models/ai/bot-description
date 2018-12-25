@@ -1,0 +1,11 @@
+There are several layers when it comes to the bot:
+    1. the difficulty layer       - depending on that ( easy, medium, hard ) - the AI generates X, Y or Z levels of the moves.
+        It is an important optimisation to also memorise the chosen path so it will not be computed again.
+    2. the state-generation layer - the layer where N levels of moves are generated
+    3. the scoring system layer   - where all the moves from the previous layer are scored based on some sensible factors
+        Ideally, the AI should be influenced by future moves as well in scoring a move:
+            For example, having the opponent in an unfortunate position or even the AI in a favorable one should up the score.
+    4. the min-max algorithm      - most likely what is going to be used, where a move is chosen from all the scores
+
+    Since complexity is of crucial importance, the 2nd and 3rd layers should be intertwined so they are computed at the same time.
+    Aka, in a Future[] - or maybe use Monix's Task or some other Future structure.
