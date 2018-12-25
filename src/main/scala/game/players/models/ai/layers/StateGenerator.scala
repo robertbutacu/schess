@@ -1,6 +1,7 @@
 package game.players.models.ai.layers
 
 import game.elements.boards.states.BoardState
+
 import scala.concurrent.Future
 
 case class Layer(currentState: BoardState, children: List[Layer])
@@ -15,6 +16,11 @@ object StateGenerator {
         ???
       }
     }
+   /**
+     * In order to do this,
+     * iterate through every piece and if it belongs to the current player,
+     * then try to choose all the possible board states
+    */
     ???
   }
 }
