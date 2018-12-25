@@ -3,7 +3,8 @@ package game
 import elements.boards.states.{BoardState, NormalState}
 import elements.pieces._
 import game.elements.boards.Position
-import game.players.models.ai.{AIPlayer, Easy}
+import game.players.models.ai.AIPlayer
+import game.players.models.ai.layers.Easy
 import players.models.{HumanPlayer, Player}
 import players.{PlayerIndex, PlayerOne, PlayerTwo, Players}
 

@@ -1,4 +1,4 @@
-package game.players.models.ai
+package game.players.models.ai.layers
 
 import actions.Move
 import actions.validators.board.BoardCheckers.Board

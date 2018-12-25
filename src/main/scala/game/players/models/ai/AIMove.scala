@@ -2,6 +2,7 @@ package game.players.models.ai
 
 import actions.Move
 import actions.validators.board.BoardCheckers.Board
+import game.players.models.ai.layers.{Easy, Hard, Medium}
 
 import scala.concurrent.Future
 

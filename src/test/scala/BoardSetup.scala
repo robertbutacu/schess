@@ -3,7 +3,8 @@ package game.elements.pieces
 import actions.execute.BoardCategorisation
 import game.elements.boards.Position
 import game.elements.boards.states.{BoardState, NormalState}
-import game.players.models.ai.{AIPlayer, Easy}
+import game.players.models.ai.AIPlayer
+import game.players.models.ai.layers.Easy
 import game.players.{Players, _}
 
 import scala.language.postfixOps
